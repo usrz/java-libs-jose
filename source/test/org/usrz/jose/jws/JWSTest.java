@@ -73,7 +73,7 @@ public class JWSTest extends AbstractTest {
     @Test
     public void testSection3_1_example_1()
     throws Exception {
-        final URL url = getResource("json/jws-section-3.1-example1.json");
+        final URL url = getResource("jws-section-3.1-example1.json");
         final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
         validateObject(url, object);
 
@@ -97,7 +97,7 @@ public class JWSTest extends AbstractTest {
     @Test
     public void testSection3_1_example_2()
     throws Exception {
-        final URL url = getResource("json/jws-section-3.1-example2.json");
+        final URL url = getResource("jws-section-3.1-example2.json");
         final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
         validateObject(url, object);
 
@@ -121,7 +121,7 @@ public class JWSTest extends AbstractTest {
     @Test
     public void testSection4_1_11_critical_header()
     throws Exception {
-        final URL url = getResource("json/jws-section-4.1.11-critical-header.json");
+        final URL url = getResource("jws-section-4.1.11-critical-header.json");
         final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
         validateObject(url, object);
 
@@ -146,7 +146,7 @@ public class JWSTest extends AbstractTest {
     @Test
     public void testFull()
     throws Exception {
-        final URL url = getResource("json/full.json");
+        final URL url = getResource("full.json");
         final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
 
         assertTrue(object instanceof JWSHeader);
