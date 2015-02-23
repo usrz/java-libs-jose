@@ -1,0 +1,2 @@
+{"alg":"PS512","kid":"the quick brown fox jumped over the lazy dog","x5u":"https://example.org/a-simple.pem","x5t":"ILlg-KAiODx9A_PWiU3G0x--k4c","x5t#S256":"DmC6_sC3dM_pPe6kUQ5roRO0tMyRhGOO-x7Xs6RNTGY","typ":"JWS","cty":"text/html","crit":["first","second"],"jku":"https://example.org/a-simple.jku","third":"The third header is not critical","first":"The first critical header","second":"The second critical header"}
+
