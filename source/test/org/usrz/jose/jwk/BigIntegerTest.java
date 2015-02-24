@@ -26,10 +26,6 @@ public class BigIntegerTest {
     final ObjectMapper mapper = new ObjectMapper();
 
 
-    private final void dump(String message, Object object) throws Exception {
-        System.err.println(message + "[" + object.getClass().getSimpleName() + "] : " + mapper.writeValueAsString(object));
-    }
-
     @Test
     public void deserializeEC()
     throws Exception {

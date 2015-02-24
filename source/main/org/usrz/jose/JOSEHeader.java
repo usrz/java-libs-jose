@@ -49,7 +49,7 @@ public interface JOSEHeader<ALGORITHM extends JOSEAlgorithm> extends JOSEObject<
      * key to which the JWE was encrypted
      */
     @JsonProperty(JSON_WEB_KEY)
-    public JWK getJsonWebKey();
+    public JWK<?> getJsonWebKey();
 
     /**
      * The "typ" (type) Header Parameter is used to declare the MIME Media

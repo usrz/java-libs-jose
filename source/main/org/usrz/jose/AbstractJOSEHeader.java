@@ -36,7 +36,7 @@ extends AbstractJOSEObject<ALGORITHM>
 implements JOSEHeader<ALGORITHM> {
 
     private final URI jsonWebKeySetUrl;
-    private final JWK jsonWebKey;
+    private final JWK<?> jsonWebKey;
     private final MediaType mediaType;
     private final MediaType contentMediaType;
     private final List<String> criticalExtensions;
@@ -49,7 +49,7 @@ implements JOSEHeader<ALGORITHM> {
                          final byte[] x509CertificateThumbprint,
                          final byte[] x509CertificateThumbprintSHA256,
                          final URI jwkSetURL,
-                         final JWK jwk,
+                         final JWK<?> jwk,
                          final MediaType type,
                          final MediaType contentType,
                          final List<String> criticalExtensions,
@@ -87,7 +87,7 @@ implements JOSEHeader<ALGORITHM> {
      */
     @Override
     @JsonProperty(JSON_WEB_KEY)
-    public JWK getJsonWebKey() {
+    public JWK<?> getJsonWebKey() {
         return this.jsonWebKey;
     }
 
@@ -139,7 +139,7 @@ implements JOSEHeader<ALGORITHM> {
     extends AbstractJOSEObject.Builder<ALGORITHM, HEADER, BUILDER> {
 
         protected URI jsonWebKeySetUrl;
-        protected JWK jsonWebKey;
+        protected JWK<?> jsonWebKey;
         protected MediaType mediaType;
         protected MediaType contentMediaType;
 
@@ -164,7 +164,7 @@ implements JOSEHeader<ALGORITHM> {
          * key to which the JWE was encrypted
          */
         @JsonProperty(JSON_WEB_KEY)
-        public BUILDER withJsonWebKey(JWK jsonWebKey) {
+        public BUILDER withJsonWebKey(JWK<?> jsonWebKey) {
             this.jsonWebKey = jsonWebKey;
             return builder;
         }

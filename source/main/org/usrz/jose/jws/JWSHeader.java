@@ -37,7 +37,7 @@ public class JWSHeader extends AbstractJOSEHeader<JWSAlgorithm> {
                         final byte[] x509CertificateThumbprint,
                         final byte[] x509CertificateThumbprintSHA256,
                         final URI jwkSetURL,
-                        final JWK jwk,
+                        final JWK<?> jwk,
                         final MediaType type,
                         final MediaType contentType,
                         final List<String> criticalExtensions,
