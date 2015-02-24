@@ -19,9 +19,11 @@ import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
+import javax.crypto.SecretKey;
+
 import org.usrz.jose.JOSEAlgorithm;
 
-public class OctetSequenceJWK extends AbstractJWK {
+public class OctetSequenceJWK extends AbstractJWK<SecretKey> {
 
     protected OctetSequenceJWK(JOSEAlgorithm algorithm,
                                String keyID,

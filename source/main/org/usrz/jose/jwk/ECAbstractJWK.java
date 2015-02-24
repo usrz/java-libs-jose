@@ -16,12 +16,15 @@
 package org.usrz.jose.jwk;
 
 import java.net.URI;
+import java.security.Key;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.ECKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 
-public abstract class ECAbstractJWK extends AbstractJWK {
+public abstract class ECAbstractJWK<KEY extends Key & ECKey>
+extends AbstractJWK<KEY> {
 
     protected ECAbstractJWK(JOSEAlgorithm algorithm,
                             String keyID,

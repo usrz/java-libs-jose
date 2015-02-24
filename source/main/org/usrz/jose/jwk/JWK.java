@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
+import java.security.Key;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
@@ -22,7 +23,7 @@ import org.usrz.jose.JOSEObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public interface JWK extends JOSEObject<JOSEAlgorithm> {
+public interface JWK<KEY extends Key> extends JOSEObject<JOSEAlgorithm> {
 
     public static final String KEY_OPERATIONS = "key_ops";
     public static final String KEY_TYPE = "kty";

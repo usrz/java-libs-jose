@@ -17,11 +17,14 @@ package org.usrz.jose.jwk;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.ECPublicKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 
-public class ECPublicJWK extends ECAbstractJWK implements PublicJWK {
+public class ECPublicJWK
+extends ECAbstractJWK<ECPublicKey>
+implements PublicJWK<ECPublicKey> {
 
     protected ECPublicJWK(JOSEAlgorithm algorithm,
                           String keyID,

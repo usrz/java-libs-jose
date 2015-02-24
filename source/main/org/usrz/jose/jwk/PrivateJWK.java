@@ -15,6 +15,8 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-public interface PrivateJWK extends JWK {
+import java.security.PrivateKey;
+
+public interface PrivateJWK<KEY extends PrivateKey> extends JWK<KEY> {
 
 }

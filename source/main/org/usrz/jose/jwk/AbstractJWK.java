@@ -16,6 +16,7 @@
 package org.usrz.jose.jwk;
 
 import java.net.URI;
+import java.security.Key;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,9 @@ import org.usrz.jose.JOSEAlgorithm;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class AbstractJWK extends AbstractJOSEObject<JOSEAlgorithm> implements JWK {
+public abstract class AbstractJWK<KEY extends Key>
+extends AbstractJOSEObject<JOSEAlgorithm>
+implements JWK<KEY> {
 
     private final JWKKeyType keyType;
     private final JWKPublicKeyUse publicKeyUse;
@@ -82,8 +85,9 @@ public abstract class AbstractJWK extends AbstractJOSEObject<JOSEAlgorithm> impl
         return keyOperations;
     }
 
-    public static abstract class Builder<JWKTYPE extends AbstractJWK,
-                                         BUILDER extends Builder<JWKTYPE, BUILDER>>
+    public static abstract class Builder<KEY extends Key,
+                                         JWKTYPE extends AbstractJWK<KEY>,
+                                         BUILDER extends Builder<KEY, JWKTYPE, BUILDER>>
     extends AbstractJOSEObject.Builder<JOSEAlgorithm, JWKTYPE, BUILDER> {
 
         protected JWKKeyType keyType;

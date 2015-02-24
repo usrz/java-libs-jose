@@ -16,12 +16,15 @@
 package org.usrz.jose.jwk;
 
 import java.net.URI;
+import java.security.Key;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 
-public abstract class RSAAbstractJWK extends AbstractJWK {
+public abstract class RSAAbstractJWK<KEY extends Key & RSAKey>
+extends AbstractJWK<KEY> {
 
     protected RSAAbstractJWK(JOSEAlgorithm algorithm,
                              String keyID,

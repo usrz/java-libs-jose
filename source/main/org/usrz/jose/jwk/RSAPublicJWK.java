@@ -17,11 +17,14 @@ package org.usrz.jose.jwk;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 
-public class RSAPublicJWK extends RSAAbstractJWK implements PublicJWK {
+public class RSAPublicJWK
+extends RSAAbstractJWK<RSAPublicKey>
+implements PublicJWK<RSAPublicKey> {
 
     protected RSAPublicJWK(JOSEAlgorithm algorithm,
                            String keyID,

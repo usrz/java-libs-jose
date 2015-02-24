@@ -22,6 +22,6 @@ public interface JWKSet {
     /**
      * The value of the "keys" member is an array of JWK values.
      */
-    public List<JWK> getKeys();
+    public List<JWK<?>> getKeys();
 
 }
