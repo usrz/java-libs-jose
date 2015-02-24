@@ -28,10 +28,10 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-public class JOSEObjectDeserializer extends JsonDeserializer<AbstractObject> {
+public class JOSEObjectDeserializer extends JsonDeserializer<AbstractObject<?>> {
 
     @Override
-    public AbstractObject deserialize(JsonParser parser, DeserializationContext context)
+    public AbstractObject<?> deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
 
         final JsonToken token = parser.getCurrentToken();

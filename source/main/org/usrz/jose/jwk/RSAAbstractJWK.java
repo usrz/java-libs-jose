@@ -23,14 +23,24 @@ import org.usrz.jose.JOSEAlgorithm;
 
 public abstract class RSAAbstractJWK extends AbstractJWK {
 
-    protected RSAAbstractJWK(JOSEAlgorithm algorithm, String keyID,
-            URI x509uri, List<X509Certificate> x509CertificateChain,
-            byte[] x509CertificateThumbprint,
-            byte[] x509CertificateThumbprintSHA256, JWKKeyType keyType,
-            JWKPublicKeyUse publicKeyUse, List<JWKKeyOperation> keyOperations) {
-        super(algorithm, keyID, x509uri, x509CertificateChain,
-                x509CertificateThumbprint, x509CertificateThumbprintSHA256, keyType,
-                publicKeyUse, keyOperations);
+    protected RSAAbstractJWK(JOSEAlgorithm algorithm,
+                             String keyID,
+                             URI x509uri,
+                             List<X509Certificate> x509CertificateChain,
+                             byte[] x509CertificateThumbprint,
+                             byte[] x509CertificateThumbprintSHA256,
+                             JWKKeyType keyType,
+                             JWKPublicKeyUse publicKeyUse,
+                             List<JWKKeyOperation> keyOperations) {
+        super(algorithm,
+              keyID,
+              x509uri,
+              x509CertificateChain,
+              x509CertificateThumbprint,
+              x509CertificateThumbprintSHA256,
+              keyType,
+              publicKeyUse,
+              keyOperations);
         // TODO Auto-generated constructor stub
     }
 

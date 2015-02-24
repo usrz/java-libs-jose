@@ -15,10 +15,6 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import static org.usrz.jose.jwk.AbstractJWK.KEY_OPERATIONS;
-import static org.usrz.jose.jwk.AbstractJWK.KEY_TYPE;
-import static org.usrz.jose.jwk.AbstractJWK.PUBLIC_KEY_USE;
-
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
@@ -27,6 +23,10 @@ import org.usrz.jose.JOSEObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public interface JWK extends JOSEObject<JOSEAlgorithm> {
+
+    public static final String KEY_OPERATIONS = "key_ops";
+    public static final String KEY_TYPE = "kty";
+    public static final String PUBLIC_KEY_USE = "use";
 
     /**
      * The "kty" (key type) member identifies the cryptographic algorithm
