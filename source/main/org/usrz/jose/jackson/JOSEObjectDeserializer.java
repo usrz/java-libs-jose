@@ -17,8 +17,8 @@ package org.usrz.jose.jackson;
 
 import java.io.IOException;
 
-import org.usrz.jose.JOSEObject;
-import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.AbstractObject;
+import org.usrz.jose.jwk.AbstractJWK;
 import org.usrz.jose.jws.JWSHeader;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -28,15 +28,15 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-public class JOSEObjectDeserializer extends JsonDeserializer<JOSEObject> {
+public class JOSEObjectDeserializer extends JsonDeserializer<AbstractObject> {
 
     @Override
-    public JOSEObject deserialize(JsonParser parser, DeserializationContext context)
+    public AbstractObject deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
 
         final JsonToken token = parser.getCurrentToken();
         if (token != JsonToken.START_OBJECT) {
-            throw context.mappingException(JOSEObject.class, token);
+            throw context.mappingException(AbstractObject.class, token);
         }
 
         final TreeNode node = parser.readValueAsTree();
@@ -45,7 +45,7 @@ public class JOSEObjectDeserializer extends JsonDeserializer<JOSEObject> {
 
         try {
             if (node.get("kty") != null) {
-                return context.readValue(json, JWK.class);
+                return context.readValue(json, AbstractJWK.class);
 //            } else if (node.get("enc") != null){
 //                return context.readValue(json, JWEHeader.class);
             } else if (node.get("alg") != null) {

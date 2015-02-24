@@ -15,38 +15,72 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import static org.usrz.jose.jwk.AbstractJWK.KEY_OPERATIONS;
-import static org.usrz.jose.jwk.AbstractJWK.KEY_TYPE;
-import static org.usrz.jose.jwk.AbstractJWK.PUBLIC_KEY_USE;
-
+import java.net.URI;
+import java.security.cert.X509Certificate;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.JOSEObject;
+import org.usrz.jose.AbstractObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public interface JWK extends JOSEObject<JOSEAlgorithm> {
+public abstract class AbstractJWK extends AbstractObject<JOSEAlgorithm> implements JWK {
+
+    public static final String KEY_TYPE = "kty";
+    public static final String PUBLIC_KEY_USE = "use";
+    public static final String KEY_OPERATIONS = "key_ops";
+
+    private final JWKKeyType keyType;
+    private final JWKPublicKeyUse publicKeyUse;
+    private final List<JWKKeyOperation> keyOperations;
+
+    protected AbstractJWK(final JOSEAlgorithm algorithm,
+                  final String keyID,
+                  final URI x509URI,
+                  final List<X509Certificate> x509CertificateChain,
+                  final byte[] x509CertificateThumbprint,
+                  final byte[] x509CertificateThumbprintSHA256,
+                  final JWKKeyType keyType,
+                  final JWKPublicKeyUse publicKeyUse,
+                  final List<JWKKeyOperation> keyOperations) {
+        super(algorithm,
+              keyID,
+              x509URI,
+              x509CertificateChain,
+              x509CertificateThumbprint,
+              x509CertificateThumbprintSHA256);
+        this.keyType = keyType;
+        this.publicKeyUse = publicKeyUse;
+        this.keyOperations = keyOperations;
+    }
 
     /**
      * The "kty" (key type) member identifies the cryptographic algorithm
      * family used with the key.
      */
+    @Override
     @JsonProperty(KEY_TYPE)
-    public JWKKeyType getKeyType();
+    public JWKKeyType getKeyType() {
+        return keyType;
+    }
 
     /**
      * The "use" (public key use) member identifies the intended use of the
      * public key.
      */
+    @Override
     @JsonProperty(PUBLIC_KEY_USE)
-    public JWKPublicKeyUse getPublicKeyUse();
+    public JWKPublicKeyUse getPublicKeyUse() {
+        return publicKeyUse;
+    }
 
     /**
      * The "key_ops" (key operations) member identifies the operation(s)
      * that the key is intended to be used for.
      */
+    @Override
     @JsonProperty(KEY_OPERATIONS)
-    public List<JWKKeyOperation> getKeyOperations();
-
+    public List<JWKKeyOperation> getKeyOperations() {
+        return keyOperations;
+    }
 }

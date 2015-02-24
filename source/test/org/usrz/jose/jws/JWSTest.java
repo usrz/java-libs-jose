@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.Test;
-import org.usrz.jose.JOSEObject;
+import org.usrz.jose.AbstractObject;
 import org.usrz.jose.jackson.JOSEObjectMapper;
 import org.usrz.libs.testing.AbstractTest;
 
@@ -74,7 +74,7 @@ public class JWSTest extends AbstractTest {
     public void testSection3_1_example_1()
     throws Exception {
         final URL url = getResource("jws-section-3.1-example1.json");
-        final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
+        final AbstractObject<?> object = mapper.readValue(url, AbstractObject.class);
         validateObject(url, object);
 
         assertTrue(object instanceof JWSHeader);
@@ -98,7 +98,7 @@ public class JWSTest extends AbstractTest {
     public void testSection3_1_example_2()
     throws Exception {
         final URL url = getResource("jws-section-3.1-example2.json");
-        final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
+        final AbstractObject<?> object = mapper.readValue(url, AbstractObject.class);
         validateObject(url, object);
 
         assertTrue(object instanceof JWSHeader);
@@ -122,7 +122,7 @@ public class JWSTest extends AbstractTest {
     public void testSection4_1_11_critical_header()
     throws Exception {
         final URL url = getResource("jws-section-4.1.11-critical-header.json");
-        final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
+        final AbstractObject<?> object = mapper.readValue(url, AbstractObject.class);
         validateObject(url, object);
 
         assertTrue(object instanceof JWSHeader);
@@ -147,7 +147,7 @@ public class JWSTest extends AbstractTest {
     public void testFull()
     throws Exception {
         final URL url = getResource("full.json");
-        final JOSEObject<?> object = mapper.readValue(url, JOSEObject.class);
+        final AbstractObject<?> object = mapper.readValue(url, AbstractObject.class);
 
         assertTrue(object instanceof JWSHeader);
         JWSHeader header = (JWSHeader) object;

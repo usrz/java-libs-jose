@@ -15,13 +15,6 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import java.util.List;
-
-public interface JWKSet {
-
-    /**
-     * The value of the "keys" member is an array of JWK values.
-     */
-    public List<AbstractJWK> getKeys();
+public interface PrivateJWK extends JWK {
 
 }

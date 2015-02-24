@@ -16,62 +16,23 @@
 package org.usrz.jose;
 
 import java.net.URI;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jwk.AbstractJWK;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class JOSEHeader<ALGORITHM extends JOSEAlgorithm>
-extends JOSEObject<ALGORITHM> {
+public interface JOSEHeader<ALGORITHM extends JOSEAlgorithm> extends JOSEObject<ALGORITHM> {
 
-    public static final String JSON_WEB_KEY_SET_URL = "jku";
-    public static final String JSON_WEB_KEY = "jwk";
-    public static final String MEDIA_TYPE = "typ";
     public static final String CONTENT_MEDIA_TYPE = "cty";
     public static final String CRITICAL_EXTENSIONS = "crit";
-
-    private final URI jsonWebKeySetUrl;
-    private final JWK jsonWebKey;
-    private final MediaType mediaType;
-    private final MediaType contentMediaType;
-    private final List<String> criticalExtensions;
-    private final Map<String, Object> additionalHeaders;
-
-    protected JOSEHeader(final ALGORITHM algorithm,
-                         final String keyID,
-                         final URI x509URI,
-                         final List<X509Certificate> x509CertificateChain,
-                         final byte[] x509CertificateThumbprint,
-                         final byte[] x509CertificateThumbprintSHA256,
-                         final URI jwkSetURL,
-                         final JWK jwk,
-                         final MediaType type,
-                         final MediaType contentType,
-                         final List<String> criticalExtensions,
-                         final Map<String, Object> additionalHeaders) {
-        super(algorithm,
-              keyID,
-              x509URI,
-              x509CertificateChain,
-              x509CertificateThumbprint,
-              x509CertificateThumbprintSHA256);
-        this.jsonWebKeySetUrl = jwkSetURL;
-        this.jsonWebKey = jwk;
-        this.mediaType = type;
-        this.contentMediaType = contentType;
-        this.criticalExtensions = criticalExtensions;
-        this.additionalHeaders = additionalHeaders;
-    }
+    public static final String JSON_WEB_KEY = "jwk";
+    public static final String JSON_WEB_KEY_SET_URL = "jku";
+    public static final String MEDIA_TYPE = "typ";
 
     /**
      * The "jku" (JWK Set URL) Header Parameter is a URI that
@@ -80,9 +41,7 @@ extends JOSEObject<ALGORITHM> {
      * the public key to which the JWE was encrypted
      */
     @JsonProperty(JSON_WEB_KEY_SET_URL)
-    public URI getJsonWebKeySetUrl() {
-        return this.jsonWebKeySetUrl;
-    }
+    public URI getJsonWebKeySetUrl();
 
     /**
      * The "jwk" (JSON Web Key) Header Parameter is the public key that
@@ -90,27 +49,21 @@ extends JOSEObject<ALGORITHM> {
      * key to which the JWE was encrypted
      */
     @JsonProperty(JSON_WEB_KEY)
-    public JWK getJsonWebKey() {
-        return this.jsonWebKey;
-    }
+    public AbstractJWK getJsonWebKey();
 
     /**
      * The "typ" (type) Header Parameter is used to declare the MIME Media
      * Type of this complete JWS or JWE.
      */
     @JsonProperty(MEDIA_TYPE)
-    public MediaType getMediaType() {
-        return this.mediaType;
-    }
+    public MediaType getMediaType();
 
     /**
      * The "cty" (content type) Header Parameter is used to declare the MIME
      * Media Type of the secured content (the payload).
      */
     @JsonProperty(CONTENT_MEDIA_TYPE)
-    public MediaType getContentMediaType() {
-        return this.contentMediaType;
-    }
+    public MediaType getContentMediaType();
 
     /**
      * The "crit" (critical) Header Parameter indicates that extensions to
@@ -118,114 +71,12 @@ extends JOSEObject<ALGORITHM> {
      * used that MUST be understood and processed.
      */
     @JsonProperty(CRITICAL_EXTENSIONS)
-    public final List<String> getCriticalExtensions() {
-        return this.criticalExtensions;
-    }
+    public List<String> getCriticalExtensions();
 
     /**
      * Return additional headers found in this JWS or JEW header.
      */
     @JsonAnyGetter
-    public Map<String, Object> getAdditionalHeaders() {
-        return this.additionalHeaders;
-    }
+    public Map<String, Object> getAdditionalHeaders();
 
-    /* ====================================================================== */
-
-    public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
-                                         HEADER extends JOSEHeader<ALGORITHM>,
-                                         BUILDER extends Builder<ALGORITHM, HEADER, BUILDER>>
-    extends JOSEObject.Builder<ALGORITHM, HEADER, BUILDER> {
-
-        protected URI jsonWebKeySetUrl;
-        protected JWK jsonWebKey;
-        protected MediaType mediaType;
-        protected MediaType contentMediaType;
-
-        protected List<String> criticalExtensions = new ArrayList<>();
-        protected Map<String, Object> additionalHeaders = new HashMap<>();
-
-        /**
-         * The "jku" (JWK Set URL) Header Parameter is a URI that
-         * refers to a resource for a set of JSON-encoded public keys, one of
-         * which corresponds to the key used to digitally sign the JWS, or
-         * the public key to which the JWE was encrypted
-         */
-        @JsonProperty(JSON_WEB_KEY_SET_URL)
-        public BUILDER withJsonWebKeySetUrl(URI jsonWebKeySetUrl) {
-            this.jsonWebKeySetUrl = jsonWebKeySetUrl;
-            return builder;
-        }
-
-        /**
-         * The "jwk" (JSON Web Key) Header Parameter is the public key that
-         * corresponds to the key used to digitally sign the JWS, or the public
-         * key to which the JWE was encrypted
-         */
-        @JsonProperty(JSON_WEB_KEY)
-        public BUILDER withJsonWebKey(JWK jsonWebKey) {
-            this.jsonWebKey = jsonWebKey;
-            return builder;
-        }
-
-        /**
-         * The "typ" (type) Header Parameter is used to declare the MIME Media
-         * Type of this complete JWS or JWE.
-         */
-        @JsonProperty(MEDIA_TYPE)
-        public BUILDER withMediaType(MediaType mediaType) {
-            this.mediaType = mediaType;
-            return builder;
-        }
-
-        /**
-         * The "cty" (content type) Header Parameter is used to declare the MIME
-         * Media Type of the secured content (the payload).
-         */
-        @JsonProperty(CONTENT_MEDIA_TYPE)
-        public BUILDER withContentMediaType(MediaType contentMediaType) {
-            this.contentMediaType = contentMediaType;
-            return builder;
-        }
-
-        /**
-         * The "crit" (critical) Header Parameter indicates that extensions to
-         * the initial RFC versions of the JWS or JWE specification are being
-         * used that MUST be understood and processed.
-         */
-        @JsonIgnore
-        public BUILDER withCriticalExtension(String criticalExtension) {
-            this.criticalExtensions.add(criticalExtension);
-            return builder;
-        }
-
-        /**
-         * The "crit" (critical) Header Parameter indicates that extensions to
-         * the initial RFC versions of the JWS or JWE specification are being
-         * used that MUST be understood and processed.
-         */
-        @JsonProperty(CRITICAL_EXTENSIONS)
-        public BUILDER withCriticalExtensions(List<String> criticalExtensions) {
-            this.criticalExtensions.addAll(criticalExtensions);
-            return builder;
-        }
-
-        /**
-         * Additional headers found in this JWS or JEW header.
-         */
-        @JsonAnySetter
-        public BUILDER withAdditionalHeaders(String name, Object value) {
-            this.additionalHeaders.put(name, value);
-            return builder;
-        }
-
-        /**
-         * Return additional headers found in this JWS or JEW header.
-         */
-        @JsonIgnore
-        public BUILDER withAdditionalHeaders(Map<String, Object> additionalHeaders) {
-            this.additionalHeaders.putAll(additionalHeaders);
-            return builder;
-        }
-    }
 }

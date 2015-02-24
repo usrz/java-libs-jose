@@ -15,13 +15,23 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
+import java.net.URI;
+import java.security.cert.X509Certificate;
 import java.util.List;
 
-public interface JWKSet {
+import org.usrz.jose.JOSEAlgorithm;
 
-    /**
-     * The value of the "keys" member is an array of JWK values.
-     */
-    public List<AbstractJWK> getKeys();
+public class RSAPrivateJWK extends RSAAbstractJWK implements PrivateJWK {
+
+    protected RSAPrivateJWK(JOSEAlgorithm algorithm, String keyID, URI x509uri,
+            List<X509Certificate> x509CertificateChain,
+            byte[] x509CertificateThumbprint,
+            byte[] x509CertificateThumbprintSHA256, JWKKeyType keyType,
+            JWKPublicKeyUse publicKeyUse, List<JWKKeyOperation> keyOperations) {
+        super(algorithm, keyID, x509uri, x509CertificateChain,
+                x509CertificateThumbprint, x509CertificateThumbprintSHA256, keyType,
+                publicKeyUse, keyOperations);
+        // TODO Auto-generated constructor stub
+    }
 
 }
