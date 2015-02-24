@@ -15,36 +15,42 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
+import static org.usrz.jose.jwk.JWKKeyType.EC;
+import static org.usrz.jose.jwk.JWKKeyType.OCT;
+import static org.usrz.jose.jwk.JWKKeyType.RSA;
+
 import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 
 public enum JWEAlgorithm implements JOSEAlgorithm {
 
-    RSA1_5                ("RSA1_5"),
-    RSA_OAEP              ("RSA-OAEP"),
-    RSA_OAEP_256          ("RSA-OAEP-256"),
-    A128KW                ("A128KW"),
-    A192KW                ("A192KW"),
-    A256KW                ("A256KW"),
-    DIR                   ("dir"),
-    ECDH_ES               ("ECDH-ES"),
-    ECDH_ESwithA128KW     ("ECDH-ES+A128KW"),
-    ECDH_ESwithA192KW     ("ECDH-ES+A192KW"),
-    ECDH_ESwithA256KW     ("ECDH-ES+A256KW"),
-    A128GCMKW             ("A128GCMKW"),
-    A192GCMKW             ("A192GCMKW"),
-    A256GCMKW             ("A256GCMKW"),
-    PBES2_HS256withA128KW ("PBES2-HS256+A128KW"),
-    PBES2_HS384withA192KW ("PBES2-HS384+A192KW"),
-    PBES2_HS512withA256KW ("PBES2-HS512+A256KW");
+    DIR                   ("dir", null),
+    RSA1_5                ("RSA1_5", RSA),
+    RSA_OAEP              ("RSA-OAEP", RSA),
+    RSA_OAEP_256          ("RSA-OAEP-256", RSA),
+    A128KW                ("A128KW", OCT),
+    A192KW                ("A192KW", OCT),
+    A256KW                ("A256KW", OCT),
+    ECDH_ES               ("ECDH-ES", EC),
+    ECDH_ESwithA128KW     ("ECDH-ES+A128KW", EC),
+    ECDH_ESwithA192KW     ("ECDH-ES+A192KW", EC),
+    ECDH_ESwithA256KW     ("ECDH-ES+A256KW", EC),
+    A128GCMKW             ("A128GCMKW", OCT),
+    A192GCMKW             ("A192GCMKW", OCT),
+    A256GCMKW             ("A256GCMKW", OCT),
+    PBES2_HS256withA128KW ("PBES2-HS256+A128KW", OCT),
+    PBES2_HS384withA192KW ("PBES2-HS384+A192KW", OCT),
+    PBES2_HS512withA256KW ("PBES2-HS512+A256KW", OCT);
 
     /* ====================================================================== */
 
     private final String identifier;
+    private final JWKKeyType keyType;
 
-    private JWEAlgorithm(String identifier) {
+    private JWEAlgorithm(String identifier, JWKKeyType keyType) {
         this.identifier = identifier;
+        this.keyType = keyType;
     }
 
     @Override
@@ -54,8 +60,7 @@ public enum JWEAlgorithm implements JOSEAlgorithm {
 
     @Override
     public JWKKeyType getKeyType() {
-        // TODO Auto-generated method stub
-        return null;
+        return keyType;
     }
 
     @Override
