@@ -24,42 +24,33 @@ import org.usrz.jose.JOSEIdentifier;
  *
  * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
  */
-public interface JWKKeyOperation extends JOSEIdentifier {
+public enum JWKKeyOperation implements JOSEIdentifier {
 
-    /**
-     * This enumeration is the set of "use" (public key use) parameter values
-     * that are defined for use in JWKs.
-     *
-     * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
-     */
-    public enum Type implements JWKKeyOperation {
+    /** Compute digital signature or MAC. */
+    SIGN("sign"),
+    /** Verify digital signature or MAC. */
+    VERIFY("verify"),
+    /** Encrypt content. */
+    ENCRYPT("encrypt"),
+    /** Decrypt content and validate decryption, if applicable. */
+    DECRYPT("decrypt"),
+    /** Encrypt key. */
+    WRAP_KEY("wrapKey"),
+    /** Decrypt key and validate decryption, if applicable. */
+    UNWRAP_KEY("unwrapKey"),
+    /** Derive key. */
+    DERIVE_KEY("deriveKey"),
+    /** Derive bits not to be used as a key. */
+    DERIVE_BITS("deriveBits");
 
-        /** Compute digital signature or MAC. */
-        SIGN("sign"),
-        /** Verify digital signature or MAC. */
-        VERIFY("verify"),
-        /** Encrypt content. */
-        ENCRYPT("encrypt"),
-        /** Decrypt content and validate decryption, if applicable. */
-        DECRYPT("decrypt"),
-        /** Encrypt key. */
-        WRAP_KEY("wrapKey"),
-        /** Decrypt key and validate decryption, if applicable. */
-        UNWRAP_KEY("unwrapKey"),
-        /** Derive key. */
-        DERIVE_KEY("deriveKey"),
-        /** Derive bits not to be used as a key. */
-        DERIVE_BITS("deriveBits");
+    private final String identifier;
 
-        private final String identifier;
+    private JWKKeyOperation(String identifier) {
+        this.identifier = identifier;
+    }
 
-        private Type(String identifier) {
-            this.identifier = identifier;
-        }
-
-        @Override
-        public String getIdentifier() {
-            return identifier;
-        }
+    @Override
+    public String getIdentifier() {
+        return identifier;
     }
 }

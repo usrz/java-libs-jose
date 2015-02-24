@@ -15,9 +15,9 @@
  * ========================================================================== */
 package org.usrz.jose.jws;
 
-import org.usrz.jose.JOSE;
+import org.usrz.jose.JOSEContainer;
 
-public interface JWS extends JOSE<JWSHeader> {
+public interface JWS extends JOSEContainer<JWSHeader> {
 
     public byte[] getPayload();
 

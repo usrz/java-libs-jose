@@ -15,25 +15,51 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
-public enum JWEEncryptionIdentifier implements JWEEncryption {
+import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
 
-    A128CBC_HS256("A128CBC-HS256"),
-    A192CBC_HS384("A192CBC-HS384"),
-    A256CBC_HS512("A256CBC-HS512"),
-    A128GCM      ("A128GCM"),
-    A192GCM      ("A192GCM"),
-    A256GCM      ("A256GCM");
+public enum JWEAlgorithm implements JOSEAlgorithm {
+
+    RSA1_5                ("RSA1_5"),
+    RSA_OAEP              ("RSA-OAEP"),
+    RSA_OAEP_256          ("RSA-OAEP-256"),
+    A128KW                ("A128KW"),
+    A192KW                ("A192KW"),
+    A256KW                ("A256KW"),
+    DIR                   ("dir"),
+    ECDH_ES               ("ECDH-ES"),
+    ECDH_ESwithA128KW     ("ECDH-ES+A128KW"),
+    ECDH_ESwithA192KW     ("ECDH-ES+A192KW"),
+    ECDH_ESwithA256KW     ("ECDH-ES+A256KW"),
+    A128GCMKW             ("A128GCMKW"),
+    A192GCMKW             ("A192GCMKW"),
+    A256GCMKW             ("A256GCMKW"),
+    PBES2_HS256withA128KW ("PBES2-HS256+A128KW"),
+    PBES2_HS384withA192KW ("PBES2-HS384+A192KW"),
+    PBES2_HS512withA256KW ("PBES2-HS512+A256KW");
 
     /* ====================================================================== */
 
     private final String identifier;
 
-    private JWEEncryptionIdentifier(String identifier) {
+    private JWEAlgorithm(String identifier) {
         this.identifier = identifier;
     }
 
     @Override
     public String getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public JWKKeyType getKeyType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JWKPublicKeyUse getPublicKeyUse() {
+        return JWKPublicKeyUse.ENC;
     }
 }

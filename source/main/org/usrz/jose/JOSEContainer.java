@@ -15,7 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose;
 
-public interface JOSE<HEADER extends JOSEHeader<?>> {
+public interface JOSEContainer<HEADER extends JOSEHeader<?>> {
 
     public HEADER getHeader();
 

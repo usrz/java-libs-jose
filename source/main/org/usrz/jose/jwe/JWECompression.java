@@ -15,16 +15,18 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
+import org.usrz.jose.JOSEIdentifier;
 
-public enum JWECompressionIdentifier implements JWECompression {
+public enum JWECompression implements JOSEIdentifier {
 
+    /** Deflate */
     DEF("DEF");
 
     /* ====================================================================== */
 
     private final String identifier;
 
-    private JWECompressionIdentifier(String identifier) {
+    private JWECompression(String identifier) {
         this.identifier = identifier;
     }
 

@@ -21,7 +21,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.jwk.AbstractJWK;
+import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -49,7 +49,7 @@ public interface JOSEHeader<ALGORITHM extends JOSEAlgorithm> extends JOSEObject<
      * key to which the JWE was encrypted
      */
     @JsonProperty(JSON_WEB_KEY)
-    public AbstractJWK getJsonWebKey();
+    public JWK getJsonWebKey();
 
     /**
      * The "typ" (type) Header Parameter is used to declare the MIME Media

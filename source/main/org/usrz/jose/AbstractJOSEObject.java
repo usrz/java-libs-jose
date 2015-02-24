@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using=JOSEObjectDeserializer.class)
-public abstract class AbstractObject<ALGORITHM extends JOSEAlgorithm>
+public abstract class AbstractJOSEObject<ALGORITHM extends JOSEAlgorithm>
 implements JOSEObject<ALGORITHM> {
 
     private final ALGORITHM algorithm;
@@ -35,7 +35,7 @@ implements JOSEObject<ALGORITHM> {
     private final byte[] x509CertificateThumbprint;
     private final byte[] x509CertificateThumbprintSHA256;
 
-    protected AbstractObject(final ALGORITHM algorithm,
+    protected AbstractJOSEObject(final ALGORITHM algorithm,
                          final String keyID,
                          final URI x509URI,
                          final List<X509Certificate> x509CertificateChain,
@@ -115,7 +115,7 @@ implements JOSEObject<ALGORITHM> {
     /* ====================================================================== */
 
     public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
-                                         OBJECT extends AbstractObject<ALGORITHM>,
+                                         OBJECT extends AbstractJOSEObject<ALGORITHM>,
                                          BUILDER extends Builder<ALGORITHM, OBJECT, BUILDER>> {
 
         @SuppressWarnings("unchecked")

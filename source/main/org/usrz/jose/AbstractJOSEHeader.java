@@ -24,32 +24,32 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.jwk.AbstractJWK;
+import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class AbstractHeader<ALGORITHM extends JOSEAlgorithm>
-extends AbstractObject<ALGORITHM>
+public abstract class AbstractJOSEHeader<ALGORITHM extends JOSEAlgorithm>
+extends AbstractJOSEObject<ALGORITHM>
 implements JOSEHeader<ALGORITHM> {
 
     private final URI jsonWebKeySetUrl;
-    private final AbstractJWK jsonWebKey;
+    private final JWK jsonWebKey;
     private final MediaType mediaType;
     private final MediaType contentMediaType;
     private final List<String> criticalExtensions;
     private final Map<String, Object> additionalHeaders;
 
-    protected AbstractHeader(final ALGORITHM algorithm,
+    protected AbstractJOSEHeader(final ALGORITHM algorithm,
                          final String keyID,
                          final URI x509URI,
                          final List<X509Certificate> x509CertificateChain,
                          final byte[] x509CertificateThumbprint,
                          final byte[] x509CertificateThumbprintSHA256,
                          final URI jwkSetURL,
-                         final AbstractJWK jwk,
+                         final JWK jwk,
                          final MediaType type,
                          final MediaType contentType,
                          final List<String> criticalExtensions,
@@ -87,7 +87,7 @@ implements JOSEHeader<ALGORITHM> {
      */
     @Override
     @JsonProperty(JSON_WEB_KEY)
-    public AbstractJWK getJsonWebKey() {
+    public JWK getJsonWebKey() {
         return this.jsonWebKey;
     }
 
@@ -134,12 +134,12 @@ implements JOSEHeader<ALGORITHM> {
     /* ====================================================================== */
 
     public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
-                                         HEADER extends AbstractHeader<ALGORITHM>,
+                                         HEADER extends AbstractJOSEHeader<ALGORITHM>,
                                          BUILDER extends Builder<ALGORITHM, HEADER, BUILDER>>
-    extends AbstractObject.Builder<ALGORITHM, HEADER, BUILDER> {
+    extends AbstractJOSEObject.Builder<ALGORITHM, HEADER, BUILDER> {
 
         protected URI jsonWebKeySetUrl;
-        protected AbstractJWK jsonWebKey;
+        protected JWK jsonWebKey;
         protected MediaType mediaType;
         protected MediaType contentMediaType;
 
@@ -164,7 +164,7 @@ implements JOSEHeader<ALGORITHM> {
          * key to which the JWE was encrypted
          */
         @JsonProperty(JSON_WEB_KEY)
-        public BUILDER withJsonWebKey(AbstractJWK jsonWebKey) {
+        public BUILDER withJsonWebKey(JWK jsonWebKey) {
             this.jsonWebKey = jsonWebKey;
             return builder;
         }

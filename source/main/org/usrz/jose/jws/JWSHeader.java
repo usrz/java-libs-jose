@@ -22,13 +22,13 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.AbstractHeader;
-import org.usrz.jose.jwk.AbstractJWK;
+import org.usrz.jose.AbstractJOSEHeader;
+import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(builder=JWSHeader.Builder.class)
-public class JWSHeader extends AbstractHeader<JWSAlgorithm> {
+public class JWSHeader extends AbstractJOSEHeader<JWSAlgorithm> {
 
     protected JWSHeader(final JWSAlgorithm algorithm,
                         final String keyID,
@@ -37,7 +37,7 @@ public class JWSHeader extends AbstractHeader<JWSAlgorithm> {
                         final byte[] x509CertificateThumbprint,
                         final byte[] x509CertificateThumbprintSHA256,
                         final URI jwkSetURL,
-                        final AbstractJWK jwk,
+                        final JWK jwk,
                         final MediaType type,
                         final MediaType contentType,
                         final List<String> criticalExtensions,
@@ -61,7 +61,7 @@ public class JWSHeader extends AbstractHeader<JWSAlgorithm> {
         });
     }
 
-    public static class Builder extends AbstractHeader.Builder<JWSAlgorithm, JWSHeader, Builder> {
+    public static class Builder extends AbstractJOSEHeader.Builder<JWSAlgorithm, JWSHeader, Builder> {
 
         @Override
         public JWSHeader build() {

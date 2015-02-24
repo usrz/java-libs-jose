@@ -15,16 +15,27 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
-import org.usrz.jose.JOSE;
+import org.usrz.jose.JOSEIdentifier;
 
-public interface JWE extends JOSE<JWEHeader> {
+public enum JWEEncryption implements JOSEIdentifier {
 
-    public byte[] getEncryptedKey();
+    A128CBC_HS256("A128CBC-HS256"),
+    A192CBC_HS384("A192CBC-HS384"),
+    A256CBC_HS512("A256CBC-HS512"),
+    A128GCM      ("A128GCM"),
+    A192GCM      ("A192GCM"),
+    A256GCM      ("A256GCM");
 
-    public byte[] getInitializationVector();
+    /* ====================================================================== */
 
-    public byte[] getCipherText();
+    private final String identifier;
 
-    public byte[] getAuthenticationTag();
+    private JWEEncryption(String identifier) {
+        this.identifier = identifier;
+    }
 
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
 }

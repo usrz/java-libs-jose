@@ -22,12 +22,12 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.JOSEHeader;
+import org.usrz.jose.AbstractJOSEHeader;
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class JWEHeader extends JOSEHeader<JWEAlgorithm> {
+public class JWEHeader extends AbstractJOSEHeader<JWEAlgorithm> {
 
     private final JWEEncryption encryption;
     private final JWECompression compression;
@@ -81,7 +81,7 @@ public class JWEHeader extends JOSEHeader<JWEAlgorithm> {
         return compression;
     }
 
-    public static class Builder extends JOSEHeader.Builder<JWEAlgorithm, JWEHeader, Builder> {
+    public static class Builder extends AbstractJOSEHeader.Builder<JWEAlgorithm, JWEHeader, Builder> {
 
         protected JWEEncryption encryption;
         protected JWECompression compression;

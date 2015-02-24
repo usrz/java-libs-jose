@@ -17,7 +17,6 @@ package org.usrz.jose;
 
 import javax.ws.rs.core.MediaType;
 
-
 public abstract class JOSEMediaTypes {
 
     public static final String APPLICATION_JOSE = "application/jose";
@@ -43,4 +42,8 @@ public abstract class JOSEMediaTypes {
     public static final MediaType APPLICATION_JWK_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWK_JSON);
     public static final MediaType APPLICATION_JWS_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWS_JSON);
     public static final MediaType APPLICATION_JWT_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWT_JSON);
+
+    private JOSEMediaTypes() {
+        throw new IllegalStateException("Do not construct");
+    }
 }

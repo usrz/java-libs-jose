@@ -24,14 +24,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class JOSEIdentifierSerializer //<I extends Enum<I> & JOSEIdentifier>
+public class JOSEIdentifierSerializer
 extends JsonSerializer<JOSEIdentifier> {
-
-//    private final Class<I> type;
-//
-//    protected JOSEIdentifierSerializer(Class<I> type) {
-//        this.type = type;
-//    }
 
     @Override
     public void serialize(JOSEIdentifier value,
@@ -44,6 +38,5 @@ extends JsonSerializer<JOSEIdentifier> {
     @Override
     public Class<JOSEIdentifier> handledType() {
         return JOSEIdentifier.class;
-        //return type;
     }
 }
