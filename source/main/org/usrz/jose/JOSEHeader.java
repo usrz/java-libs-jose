@@ -31,16 +31,23 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> {
+public abstract class JOSEHeader<ALGORITHM extends JOSEAlgorithm>
+extends JOSEObject<ALGORITHM> {
 
-    private final URI jwkSetURL;
-    private final JWK jwk;
-    private final MediaType type;
-    private final MediaType contentType;
+    public static final String JSON_WEB_KEY_SET_URL = "jku";
+    public static final String JSON_WEB_KEY = "jwk";
+    public static final String MEDIA_TYPE = "typ";
+    public static final String CONTENT_MEDIA_TYPE = "cty";
+    public static final String CRITICAL_EXTENSIONS = "crit";
+
+    private final URI jsonWebKeySetUrl;
+    private final JWK jsonWebKey;
+    private final MediaType mediaType;
+    private final MediaType contentMediaType;
     private final List<String> criticalExtensions;
     private final Map<String, Object> additionalHeaders;
 
-    protected JOSEHeader(final A algorithm,
+    protected JOSEHeader(final ALGORITHM algorithm,
                          final String keyID,
                          final URI x509URI,
                          final List<X509Certificate> x509CertificateChain,
@@ -58,10 +65,10 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
               x509CertificateChain,
               x509CertificateThumbprint,
               x509CertificateThumbprintSHA256);
-        this.jwkSetURL = jwkSetURL;
-        this.jwk = jwk;
-        this.type = type;
-        this.contentType = contentType;
+        this.jsonWebKeySetUrl = jwkSetURL;
+        this.jsonWebKey = jwk;
+        this.mediaType = type;
+        this.contentMediaType = contentType;
         this.criticalExtensions = criticalExtensions;
         this.additionalHeaders = additionalHeaders;
     }
@@ -72,9 +79,9 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
      * which corresponds to the key used to digitally sign the JWS, or
      * the public key to which the JWE was encrypted
      */
-    @JsonProperty("jku")
-    public URI getJWKSetURL() {
-        return this.jwkSetURL;
+    @JsonProperty(JSON_WEB_KEY_SET_URL)
+    public URI getJsonWebKeySetUrl() {
+        return this.jsonWebKeySetUrl;
     }
 
     /**
@@ -82,27 +89,27 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
      * corresponds to the key used to digitally sign the JWS, or the public
      * key to which the JWE was encrypted
      */
-    @JsonProperty("jwk")
-    public JWK getJWK() {
-        return this.jwk;
+    @JsonProperty(JSON_WEB_KEY)
+    public JWK getJsonWebKey() {
+        return this.jsonWebKey;
     }
 
     /**
      * The "typ" (type) Header Parameter is used to declare the MIME Media
      * Type of this complete JWS or JWE.
      */
-    @JsonProperty("typ")
-    public MediaType getType() {
-        return this.type;
+    @JsonProperty(MEDIA_TYPE)
+    public MediaType getMediaType() {
+        return this.mediaType;
     }
 
     /**
      * The "cty" (content type) Header Parameter is used to declare the MIME
      * Media Type of the secured content (the payload).
      */
-    @JsonProperty("cty")
-    public MediaType getContentType() {
-        return this.contentType;
+    @JsonProperty(CONTENT_MEDIA_TYPE)
+    public MediaType getContentMediaType() {
+        return this.contentMediaType;
     }
 
     /**
@@ -110,7 +117,7 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
      * the initial RFC versions of the JWS or JWE specification are being
      * used that MUST be understood and processed.
      */
-    @JsonProperty("crit")
+    @JsonProperty(CRITICAL_EXTENSIONS)
     public final List<String> getCriticalExtensions() {
         return this.criticalExtensions;
     }
@@ -125,15 +132,15 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
 
     /* ====================================================================== */
 
-    public static abstract class Builder<A extends JOSEAlgorithm,
-                                         H extends JOSEHeader<A>,
-                                         B extends Builder<A, H, B>>
-    extends JOSEObject.Builder<A, H, B> {
+    public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
+                                         HEADER extends JOSEHeader<ALGORITHM>,
+                                         BUILDER extends Builder<ALGORITHM, HEADER, BUILDER>>
+    extends JOSEObject.Builder<ALGORITHM, HEADER, BUILDER> {
 
-        protected URI jwkSetURL;
-        protected JWK jwk;
-        protected MediaType type;
-        protected MediaType contentType;
+        protected URI jsonWebKeySetUrl;
+        protected JWK jsonWebKey;
+        protected MediaType mediaType;
+        protected MediaType contentMediaType;
 
         protected List<String> criticalExtensions = new ArrayList<>();
         protected Map<String, Object> additionalHeaders = new HashMap<>();
@@ -144,9 +151,9 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * which corresponds to the key used to digitally sign the JWS, or
          * the public key to which the JWE was encrypted
          */
-        @JsonProperty("jku")
-        public B withJWKSetURL(URI jwkSetURL) {
-            this.jwkSetURL = jwkSetURL;
+        @JsonProperty(JSON_WEB_KEY_SET_URL)
+        public BUILDER withJsonWebKeySetUrl(URI jsonWebKeySetUrl) {
+            this.jsonWebKeySetUrl = jsonWebKeySetUrl;
             return builder;
         }
 
@@ -155,9 +162,9 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * corresponds to the key used to digitally sign the JWS, or the public
          * key to which the JWE was encrypted
          */
-        @JsonProperty("jwk")
-        public B withJWK(JWK jwk) {
-            this.jwk = jwk;
+        @JsonProperty(JSON_WEB_KEY)
+        public BUILDER withJsonWebKey(JWK jsonWebKey) {
+            this.jsonWebKey = jsonWebKey;
             return builder;
         }
 
@@ -165,9 +172,9 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * The "typ" (type) Header Parameter is used to declare the MIME Media
          * Type of this complete JWS or JWE.
          */
-        @JsonProperty("typ")
-        public B withType(MediaType type) {
-            this.type = type;
+        @JsonProperty(MEDIA_TYPE)
+        public BUILDER withMediaType(MediaType mediaType) {
+            this.mediaType = mediaType;
             return builder;
         }
 
@@ -175,9 +182,9 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * The "cty" (content type) Header Parameter is used to declare the MIME
          * Media Type of the secured content (the payload).
          */
-        @JsonProperty("cty")
-        public B withContentType(MediaType contentType) {
-            this.contentType = contentType;
+        @JsonProperty(CONTENT_MEDIA_TYPE)
+        public BUILDER withContentMediaType(MediaType contentMediaType) {
+            this.contentMediaType = contentMediaType;
             return builder;
         }
 
@@ -187,7 +194,7 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * used that MUST be understood and processed.
          */
         @JsonIgnore
-        public B withCriticalExtension(String criticalExtension) {
+        public BUILDER withCriticalExtension(String criticalExtension) {
             this.criticalExtensions.add(criticalExtension);
             return builder;
         }
@@ -197,8 +204,8 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * the initial RFC versions of the JWS or JWE specification are being
          * used that MUST be understood and processed.
          */
-        @JsonProperty("crit")
-        public B withCriticalExtensions(List<String> criticalExtensions) {
+        @JsonProperty(CRITICAL_EXTENSIONS)
+        public BUILDER withCriticalExtensions(List<String> criticalExtensions) {
             this.criticalExtensions.addAll(criticalExtensions);
             return builder;
         }
@@ -207,7 +214,7 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * Additional headers found in this JWS or JEW header.
          */
         @JsonAnySetter
-        public B withAdditionalHeaders(String name, Object value) {
+        public BUILDER withAdditionalHeaders(String name, Object value) {
             this.additionalHeaders.put(name, value);
             return builder;
         }
@@ -216,7 +223,7 @@ public abstract class JOSEHeader<A extends JOSEAlgorithm> extends JOSEObject<A> 
          * Return additional headers found in this JWS or JEW header.
          */
         @JsonIgnore
-        public B withAdditionalHeaders(Map<String, Object> additionalHeaders) {
+        public BUILDER withAdditionalHeaders(Map<String, Object> additionalHeaders) {
             this.additionalHeaders.putAll(additionalHeaders);
             return builder;
         }

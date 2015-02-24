@@ -66,15 +66,15 @@ public class JWSHeader extends JOSEHeader<JWSAlgorithm> {
         @Override
         public JWSHeader build() {
             return new JWSHeader(algorithm,
-                                 keyID,
-                                 x509URI,
+                                 keyId,
+                                 x509Url,
                                  x509CertificateChain,
                                  x509CertificateThumbprint,
                                  x509CertificateThumbprintSHA256,
-                                 jwkSetURL,
-                                 jwk,
-                                 type,
-                                 contentType,
+                                 jsonWebKeySetUrl,
+                                 jsonWebKey,
+                                 mediaType,
+                                 contentMediaType,
                                  criticalExtensions,
                                  additionalHeaders);
         }

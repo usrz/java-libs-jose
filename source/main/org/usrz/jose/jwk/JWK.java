@@ -19,11 +19,8 @@ import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
-import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.JOSEIdentifier;
 import org.usrz.jose.JOSEObject;
-import org.usrz.jose.backup.JWKKeyOperation;
-import org.usrz.jose.backup.JWKKeyType;
-import org.usrz.jose.backup.JWKPublicKeyUse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -33,7 +30,7 @@ public abstract class JWK extends JOSEObject {
     private final JWKPublicKeyUse publicKeyUse;
     private final List<JWKKeyOperation> keyOperations;
 
-    protected JWK(final JOSEAlgorithm algorithm,
+    protected JWK(final JOSEIdentifier algorithm,
                   final String keyID,
                   final URI x509URI,
                   final List<X509Certificate> x509CertificateChain,
@@ -79,6 +76,4 @@ public abstract class JWK extends JOSEObject {
     public List<JWKKeyOperation> getKeyOperations() {
         return keyOperations;
     }
-
-
 }

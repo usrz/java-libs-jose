@@ -13,30 +13,35 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.utils;
+package org.usrz.jose.jwk;
 
 import org.usrz.jose.JOSEIdentifier;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.fasterxml.jackson.databind.util.StdConverter;
+/**
+ * The "kty" (key type) member identifies the cryptographic algorithm
+ * family used with the key, such as "RSA" or "EC".
+ *
+ * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
+ */
+public enum JWKKeyType implements JOSEIdentifier {
 
-public abstract class IdentifierConverter<I extends JOSEIdentifier>//,
-                                 //E extends Enum<E> & JOSEIdentifier>
-extends StdConverter<String, I> {
+    /** Elliptic Curve */
+    EC("EC"),
+    /** RSA */
+    RSA("RSA"),
+    /** Octet sequence (used to represent symmetric keys) */
+    OCT("oct");
 
-    public IdentifierConverter() {
-        final TypeFactory factory = TypeFactory.defaultInstance();
-        final JavaType[] types = factory.findTypeParameters(IdentifierConverter.class, this.getClass());
-        System.err.println("OUT[0] -> " + types[0]);
-        System.err.println("OUT[0] -> " + types[1]);
+    /* ====================================================================== */
+
+    private final String identifier;
+
+    private JWKKeyType(String identifier) {
+        this.identifier = identifier;
     }
 
-//    @Override
-//    public I convert(String value) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-
-
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
 }

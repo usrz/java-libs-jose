@@ -13,42 +13,39 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.backup;
-
-import org.usrz.jose.JOSEIdentifier;
+package org.usrz.jose.jwe;
 
 
-/**
- * The "use" (public key use) member identifies the intended use of the
- * public key.
- *
- * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
- */
-public interface JWKPublicKeyUse extends JOSEIdentifier {
+public enum JWEAlgorithmIdentifier implements JWEAlgorithm {
 
-    /**
-     * This enumeration is the set of "use" (public key use) parameter values
-     * that are defined for use in JWKs.
-     *
-     * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
-     */
-    public enum Type implements JWKPublicKeyUse {
-        /** Signature */
-        SIG("sig"),
-        /** Encryption */
-        ENC("enc");
+    RSA1_5                ("RSA1_5"),
+    RSA_OAEP              ("RSA-OAEP"),
+    RSA_OAEP_256          ("RSA-OAEP-256"),
+    A128KW                ("A128KW"),
+    A192KW                ("A192KW"),
+    A256KW                ("A256KW"),
+    DIR                   ("dir"),
+    ECDH_ES               ("ECDH-ES"),
+    ECDH_ESwithA128KW     ("ECDH-ES+A128KW"),
+    ECDH_ESwithA192KW     ("ECDH-ES+A192KW"),
+    ECDH_ESwithA256KW     ("ECDH-ES+A256KW"),
+    A128GCMKW             ("A128GCMKW"),
+    A192GCMKW             ("A192GCMKW"),
+    A256GCMKW             ("A256GCMKW"),
+    PBES2_HS256withA128KW ("PBES2-HS256+A128KW"),
+    PBES2_HS384withA192KW ("PBES2-HS384+A192KW"),
+    PBES2_HS512withA256KW ("PBES2-HS512+A256KW");
 
-        private final String identifier;
+    /* ====================================================================== */
 
-        private Type(String identifier) {
-            this.identifier = identifier;
-        }
+    private final String identifier;
 
-        @Override
-        public String getIdentifier() {
-            return identifier;
-        }
+    private JWEAlgorithmIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
-
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
 }

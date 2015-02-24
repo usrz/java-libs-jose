@@ -15,30 +15,30 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import java.math.BigInteger;
+import org.usrz.jose.JOSEIdentifier;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+/**
+ * The "use" (public key use) member identifies the intended use of the
+ * public key.
+ *
+ * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
+ */
+public enum JWKPublicKeyUse implements JOSEIdentifier {
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+    /** Signature */
+    SIG("sig"),
+    /** Encryption */
+    ENC("enc");
 
-@RequiredArgsConstructor
-public class RSAPublicJWK extends JWK {
+    private final String identifier;
 
-    /**
-     * The "n" (modulus) member contains the modulus value for the RSA
-     * public key.
-     */
-    //@JsonProperty("n")
-    @Getter(onMethod=@__({@JsonProperty("n")}))
-    private BigInteger modulus;
+    private JWKPublicKeyUse(String identifier) {
+        this.identifier = identifier;
+    }
 
-    /**
-     * The "e" (exponent) member contains the exponent value for the RSA
-     * public key.
-     */
-    //@JsonProperty("e")
-    @Getter(onMethod=@__({@JsonProperty("e")}))
-    private BigInteger publicExponent;
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
 
 }

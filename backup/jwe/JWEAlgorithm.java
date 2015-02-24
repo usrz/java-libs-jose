@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.backup;
+package org.usrz.jose.jwe;
 
 import org.usrz.jose.JOSEIdentifier;
 
 
-public interface JWEEncryption extends JOSEIdentifier {
+public interface JWEAlgorithm extends JOSEIdentifier {
 
 }

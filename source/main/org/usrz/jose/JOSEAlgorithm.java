@@ -15,6 +15,13 @@
  * ========================================================================== */
 package org.usrz.jose;
 
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+
 public interface JOSEAlgorithm extends JOSEIdentifier {
+
+    public JWKKeyType getKeyType();
+
+    public JWKPublicKeyUse getPublicKeyUse();
 
 }

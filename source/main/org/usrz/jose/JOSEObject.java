@@ -25,24 +25,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using=JOSEObjectDeserializer.class)
-public abstract class JOSEObject<A extends JOSEAlgorithm> {
+public abstract class JOSEObject<ALGORITHM extends JOSEIdentifier>
+implements OBJ<ALGORITHM> {
 
-    private final A algorithm;
-    private final String keyID;
-    private final URI x509URI;
+    public static final String ALGORITHM = "alg";
+    public static final String KEY_ID = "kid";
+    public static final String X509_URL = "x5u";
+    public static final String X509_CERTIFICATE_CHAIN = "x5c";
+    public static final String X509_CERTIFICATE_THUMBPRINT = "x5t";
+    public static final String X509_CERTIFICATE_THUMBPRINT_SHA256 = "x5t#S256";
+
+    private final ALGORITHM algorithm;
+    private final String keyId;
+    private final URI x509Url;
     private final List<X509Certificate> x509CertificateChain;
     private final byte[] x509CertificateThumbprint;
     private final byte[] x509CertificateThumbprintSHA256;
 
-    protected JOSEObject(final A algorithm,
+    protected JOSEObject(final ALGORITHM algorithm,
                          final String keyID,
                          final URI x509URI,
                          final List<X509Certificate> x509CertificateChain,
                          final byte[] x509CertificateThumbprint,
                          final byte[] x509CertificateThumbprintSHA256) {
         this.algorithm = algorithm;
-        this.keyID = keyID;
-        this.x509URI = x509URI;
+        this.keyId = keyID;
+        this.x509Url = x509URI;
         this.x509CertificateChain = x509CertificateChain;
         this.x509CertificateThumbprint = x509CertificateThumbprint;
         this.x509CertificateThumbprintSHA256 = x509CertificateThumbprintSHA256;
@@ -52,17 +60,19 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
      * The "alg" (algorithm) member identifies the algorithm intended for
      * use with the JOSE object.
      */
-    @JsonProperty("alg")
-    public A getAlgorithm() {
+    @Override
+    @JsonProperty(ALGORITHM)
+    public ALGORITHM getAlgorithm() {
         return algorithm;
     }
 
     /**
      * The "kid" (key ID) member is used to match a specific key.
      */
-    @JsonProperty("kid")
-    public String getKeyID() {
-        return keyID;
+    @Override
+    @JsonProperty(KEY_ID)
+    public String getKeyId() {
+        return keyId;
     }
 
     /**
@@ -72,16 +82,18 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
      * The identified resource MUST provide a representation of the certificate
      * or certificate chain that conforms to RFC 5280 in PEM encoded form.
      */
-    @JsonProperty("x5u")
-    public URI getX509URI() {
-        return x509URI;
+    @Override
+    @JsonProperty(X509_URL)
+    public URI getX509Url() {
+        return x509Url;
     }
 
     /**
      * The "x5c" (X.509 Certificate Chain) member contains a chain of one or
      * more PKIX certificates.
      */
-    @JsonProperty("x5c")
+    @Override
+    @JsonProperty(X509_CERTIFICATE_CHAIN)
     public List<X509Certificate> getX509CertificateChain() {
         return x509CertificateChain;
     }
@@ -90,7 +102,8 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
      * The "x5t" (X.509 Certificate SHA-1 Thumbprint) member is the SHA-1
      * thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate.
      */
-    @JsonProperty("x5t")
+    @Override
+    @JsonProperty(X509_CERTIFICATE_THUMBPRINT)
     public byte[] getX509CertificateThumbprint() {
         return x509CertificateThumbprint;
     }
@@ -100,35 +113,36 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
      * SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509
      * certificate.
      */
-    @JsonProperty("x5t#S256")
+    @Override
+    @JsonProperty(X509_CERTIFICATE_THUMBPRINT_SHA256)
     public byte[] getX509CertificateThumbprintSHA256() {
         return x509CertificateThumbprintSHA256;
     }
 
     /* ====================================================================== */
 
-    public static abstract class Builder<A extends JOSEAlgorithm,
-                                         O extends JOSEObject<A>,
-                                         B extends Builder<A, O, B>> {
+    public static abstract class Builder<ALGORITHM extends JOSEIdentifier,
+                                         OBJECT extends JOSEObject<ALGORITHM>,
+                                         BUILDER extends Builder<ALGORITHM, OBJECT, BUILDER>> {
 
         @SuppressWarnings("unchecked")
-        protected final B builder = (B) this;
+        protected final BUILDER builder = (BUILDER) this;
 
-        protected A algorithm;
-        protected String keyID;
-        protected URI x509URI;
+        protected ALGORITHM algorithm;
+        protected String keyId;
+        protected URI x509Url;
         protected List<X509Certificate> x509CertificateChain;
         protected byte[] x509CertificateThumbprint;
         protected byte[] x509CertificateThumbprintSHA256;
 
-        public abstract O build();
+        public abstract OBJECT build();
 
         /**
          * The "alg" (algorithm) member identifies the algorithm intended for
          * use with the JOSE object.
          */
-        @JsonProperty("alg")
-        public B withAlgorithm(A algorithm) {
+        @JsonProperty(ALGORITHM)
+        public BUILDER withAlgorithm(ALGORITHM algorithm) {
             this.algorithm = algorithm;
             return builder;
         }
@@ -136,9 +150,9 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
         /**
          * The "kid" (key ID) member is used to match a specific key.
          */
-        @JsonProperty("kid")
-        public B withKeyID(String keyID) {
-            this.keyID = keyID;
+        @JsonProperty(KEY_ID)
+        public BUILDER withKeyId(String keyID) {
+            this.keyId = keyID;
             return builder;
         }
 
@@ -149,9 +163,9 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
          * The identified resource MUST provide a representation of the certificate
          * or certificate chain that conforms to RFC 5280 in PEM encoded form.
          */
-        @JsonProperty("x5u")
-        public B withX509URI(URI x509URI) {
-            this.x509URI = x509URI;
+        @JsonProperty(X509_URL)
+        public BUILDER withX509Url(URI x509Url) {
+            this.x509Url = x509Url;
             return builder;
         }
 
@@ -159,8 +173,8 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
          * The "x5c" (X.509 Certificate Chain) member contains a chain of one or
          * more PKIX certificates.
          */
-        @JsonProperty("x5c")
-        public B withX509CertificateChain(List<X509Certificate> x509CertificateChain) {
+        @JsonProperty(X509_CERTIFICATE_CHAIN)
+        public BUILDER withX509CertificateChain(List<X509Certificate> x509CertificateChain) {
             this.x509CertificateChain = x509CertificateChain;
             return builder;
         }
@@ -169,8 +183,8 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
          * The "x5t" (X.509 Certificate SHA-1 Thumbprint) member is the SHA-1
          * thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate.
          */
-        @JsonProperty("x5t")
-        public B withX509CertificateThumbprint(byte[] x509CertificateThumbprint) {
+        @JsonProperty(X509_CERTIFICATE_THUMBPRINT)
+        public BUILDER withX509CertificateThumbprint(byte[] x509CertificateThumbprint) {
             this.x509CertificateThumbprint = x509CertificateThumbprint;
             return builder;
         }
@@ -180,8 +194,8 @@ public abstract class JOSEObject<A extends JOSEAlgorithm> {
          * SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509
          * certificate.
          */
-        @JsonProperty("x5t#S256")
-        public B withX509CertificateThumbprintSHA256(byte[] x509CertificateThumbprintSHA256) {
+        @JsonProperty(X509_CERTIFICATE_THUMBPRINT_SHA256)
+        public BUILDER withX509CertificateThumbprintSHA256(byte[] x509CertificateThumbprintSHA256) {
             this.x509CertificateThumbprintSHA256 = x509CertificateThumbprintSHA256;
             return builder;
         }

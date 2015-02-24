@@ -18,7 +18,6 @@ package org.usrz.jose.jackson;
 import java.io.IOException;
 
 import org.usrz.jose.JOSEObject;
-import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jws.JWSHeader;
 
@@ -47,8 +46,8 @@ public class JOSEObjectDeserializer extends JsonDeserializer<JOSEObject> {
         try {
             if (node.get("kty") != null) {
                 return context.readValue(json, JWK.class);
-            } else if (node.get("enc") != null){
-                return context.readValue(json, JWEHeader.class);
+//            } else if (node.get("enc") != null){
+//                return context.readValue(json, JWEHeader.class);
             } else if (node.get("alg") != null) {
                 return context.readValue(json, JWSHeader.class);
             } else {

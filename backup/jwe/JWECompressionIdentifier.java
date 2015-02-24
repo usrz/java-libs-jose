@@ -13,11 +13,23 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.backup;
-
-import org.usrz.jose.JOSEAlgorithm;
+package org.usrz.jose.jwe;
 
 
-public interface JWEAlgorithm extends JOSEAlgorithm {
+public enum JWECompressionIdentifier implements JWECompression {
 
+    DEF("DEF");
+
+    /* ====================================================================== */
+
+    private final String identifier;
+
+    private JWECompressionIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
 }

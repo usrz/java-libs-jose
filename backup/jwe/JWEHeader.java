@@ -23,9 +23,6 @@ import java.util.Map;
 import javax.ws.rs.core.MediaType;
 
 import org.usrz.jose.JOSEHeader;
-import org.usrz.jose.backup.JWEAlgorithm;
-import org.usrz.jose.backup.JWECompression;
-import org.usrz.jose.backup.JWEEncryption;
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -92,15 +89,15 @@ public class JWEHeader extends JOSEHeader<JWEAlgorithm> {
         @Override
         public JWEHeader build() {
             return new JWEHeader(algorithm,
-                                 keyID,
-                                 x509URI,
+                                 keyId,
+                                 x509Url,
                                  x509CertificateChain,
                                  x509CertificateThumbprint,
                                  x509CertificateThumbprintSHA256,
-                                 jwkSetURL,
-                                 jwk,
-                                 type,
-                                 contentType,
+                                 jsonWebKeySetUrl,
+                                 jsonWebKey,
+                                 mediaType,
+                                 contentMediaType,
                                  criticalExtensions,
                                  additionalHeaders,
                                  encryption,
