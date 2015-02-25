@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.ECPrivateKey;
@@ -22,27 +23,84 @@ import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ECPrivateJWK
 extends ECAbstractJWK<ECPrivateKey>
 implements PrivateJWK<ECPrivateKey> {
 
+    public static final String ECC_PRIVATE_KEY = "d";
+
+    private final BigInteger d;
+
     protected ECPrivateJWK(JOSEAlgorithm algorithm,
                            String keyID,
-                           URI x509uri,
+                           URI x509url,
                            List<X509Certificate> x509CertificateChain,
                            byte[] x509CertificateThumbprint,
                            byte[] x509CertificateThumbprintSHA256,
                            JWKKeyType keyType,
                            JWKPublicKeyUse publicKeyUse,
-                           List<JWKKeyOperation> keyOperations) {
+                           List<JWKKeyOperation> keyOperations,
+                           ECCurve curve,
+                           BigInteger x,
+                           BigInteger y,
+                           BigInteger d) {
         super(algorithm,
               keyID,
-              x509uri,
+              x509url,
               x509CertificateChain,
               x509CertificateThumbprint,
               x509CertificateThumbprintSHA256,
               keyType,
-              publicKeyUse, keyOperations);
-        // TODO Auto-generated constructor stub
+              publicKeyUse,
+              keyOperations,
+              curve,
+              x,
+              y);
+        this.d = d;
+    }
+
+    /**
+     * The "d" (ECC private key) member contains the Elliptic Curve private
+     * key value.
+     */
+    @JsonProperty(ECC_PRIVATE_KEY)
+    public BigInteger getECCPrivateKey() {
+        return d;
+    }
+
+
+    public static class Builder
+    extends ECAbstractJWK.Builder<ECPrivateKey, ECPrivateJWK, ECPrivateJWK.Builder> {
+
+        private BigInteger d;
+
+        @Override
+        public ECPrivateJWK build() {
+            return new ECPrivateJWK(algorithm,
+                                    keyId,
+                                    x509Url,
+                                    x509CertificateChain,
+                                    x509CertificateThumbprint,
+                                    x509CertificateThumbprintSHA256,
+                                    keyType,
+                                    publicKeyUse,
+                                    keyOperations,
+                                    curve,
+                                    x,
+                                    y,
+                                    d);
+        }
+
+        /**
+         * The "d" (ECC private key) member contains the Elliptic Curve private
+         * key value.
+         */
+        @JsonProperty(ECC_PRIVATE_KEY)
+        public Builder getECCPrivateKey(BigInteger d) {
+            this.d = d;
+            return builder;
+        }
     }
 }

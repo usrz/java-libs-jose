@@ -36,8 +36,8 @@ implements JWK<KEY> {
     private final List<JWKKeyOperation> keyOperations;
 
     protected AbstractJWK(final JOSEAlgorithm algorithm,
-                          final String keyID,
-                          final URI x509URI,
+                          final String keyId,
+                          final URI x509Url,
                           final List<X509Certificate> x509CertificateChain,
                           final byte[] x509CertificateThumbprint,
                           final byte[] x509CertificateThumbprintSHA256,
@@ -45,8 +45,8 @@ implements JWK<KEY> {
                           final JWKPublicKeyUse publicKeyUse,
                           final List<JWKKeyOperation> keyOperations) {
         super(algorithm,
-              keyID,
-              x509URI,
+              keyId,
+              x509Url,
               x509CertificateChain,
               x509CertificateThumbprint,
               x509CertificateThumbprintSHA256);

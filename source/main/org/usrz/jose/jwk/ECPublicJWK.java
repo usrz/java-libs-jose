@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.ECPublicKey;
@@ -28,22 +29,47 @@ implements PublicJWK<ECPublicKey> {
 
     protected ECPublicJWK(JOSEAlgorithm algorithm,
                           String keyID,
-                          URI x509uri,
+                          URI x509url,
                           List<X509Certificate> x509CertificateChain,
                           byte[] x509CertificateThumbprint,
                           byte[] x509CertificateThumbprintSHA256,
                           JWKKeyType keyType,
                           JWKPublicKeyUse publicKeyUse,
-                          List<JWKKeyOperation> keyOperations) {
+                          List<JWKKeyOperation> keyOperations,
+                          ECCurve curve,
+                          BigInteger x,
+                          BigInteger y) {
         super(algorithm,
               keyID,
-              x509uri,
+              x509url,
               x509CertificateChain,
               x509CertificateThumbprint,
               x509CertificateThumbprintSHA256,
               keyType,
               publicKeyUse,
-              keyOperations);
-        // TODO Auto-generated constructor stub
+              keyOperations,
+              curve,
+              x,
+              y);
+    }
+
+    public static class Builder
+    extends ECAbstractJWK.Builder<ECPublicKey, ECPublicJWK, ECPublicJWK.Builder> {
+
+        @Override
+        public ECPublicJWK build() {
+            return new ECPublicJWK(algorithm,
+                                   keyId,
+                                   x509Url,
+                                   x509CertificateChain,
+                                   x509CertificateThumbprint,
+                                   x509CertificateThumbprintSHA256,
+                                   keyType,
+                                   publicKeyUse,
+                                   keyOperations,
+                                   curve,
+                                   x,
+                                   y);
+        }
     }
 }

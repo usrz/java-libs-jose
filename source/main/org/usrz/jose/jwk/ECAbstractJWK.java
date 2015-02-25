@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.security.Key;
 import java.security.cert.X509Certificate;
@@ -23,27 +24,110 @@ import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public abstract class ECAbstractJWK<KEY extends Key & ECKey>
 extends AbstractJWK<KEY> {
 
+    public static final String CURVE = "crv";
+    public static final String X_COORDINATE = "x";
+    public static final String Y_COORDINATE = "y";
+
+    private final ECCurve curve;
+    private final BigInteger x;
+    private final BigInteger y;
+
     protected ECAbstractJWK(JOSEAlgorithm algorithm,
-                            String keyID,
-                            URI x509uri,
+                            String keyId,
+                            URI x509url,
                             List<X509Certificate> x509CertificateChain,
                             byte[] x509CertificateThumbprint,
                             byte[] x509CertificateThumbprintSHA256,
                             JWKKeyType keyType,
                             JWKPublicKeyUse publicKeyUse,
-                            List<JWKKeyOperation> keyOperations) {
+                            List<JWKKeyOperation> keyOperations,
+                            ECCurve curve,
+                            BigInteger x,
+                            BigInteger y) {
         super(algorithm,
-              keyID,
-              x509uri,
+              keyId,
+              x509url,
               x509CertificateChain,
               x509CertificateThumbprint,
               x509CertificateThumbprintSHA256,
               keyType,
               publicKeyUse, keyOperations);
-        // TODO Auto-generated constructor stub
+        this.curve = curve;
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * The "crv" (curve) member identifies the cryptographic curve used with
+     * the key.
+     */
+    @JsonProperty(CURVE)
+    public ECCurve getCurve() {
+        return curve;
+    }
+
+    /**
+     * The "x" (x coordinate) member contains the x coordinate for the
+     * elliptic curve point.
+     */
+    @JsonProperty(X_COORDINATE)
+    public BigInteger getXCoordinate() {
+        return x;
+    }
+
+    /**
+     * The "y" (y coordinate) member contains the y coordinate for the
+     * elliptic curve point.
+     */
+    @JsonProperty(Y_COORDINATE)
+    public BigInteger getYCoordinate() {
+        return y;
+    }
+
+    public static abstract class Builder<KEY extends Key & ECKey,
+                                         JWKTYPE extends ECAbstractJWK<KEY>,
+                                         BUILDER extends Builder<KEY, JWKTYPE, BUILDER>>
+    extends AbstractJWK.Builder<KEY, JWKTYPE, BUILDER> {
+
+        protected ECCurve curve;
+        protected BigInteger x;
+        protected BigInteger y;
+
+        /**
+         * The "crv" (curve) member identifies the cryptographic curve used with
+         * the key.
+         */
+        @JsonProperty(CURVE)
+        public BUILDER getCurve(ECCurve curve) {
+            this.curve = curve;
+            return builder;
+        }
+
+        /**
+         * The "x" (x coordinate) member contains the x coordinate for the
+         * elliptic curve point.
+         */
+        @JsonProperty(X_COORDINATE)
+        public BUILDER getXCoordinate(BigInteger x) {
+            this.x = x;
+            return builder;
+        }
+
+        /**
+         * The "y" (y coordinate) member contains the y coordinate for the
+         * elliptic curve point.
+         */
+        @JsonProperty(Y_COORDINATE)
+        public BUILDER getYCoordinate(BigInteger y) {
+            this.y = y;
+            return builder;
+        }
+
     }
 
 }
