@@ -41,14 +41,14 @@ implements JOSEObject<ALGORITHM> {
     private final byte[] x509CertificateThumbprintSHA256;
 
     protected AbstractJOSEObject(final ALGORITHM algorithm,
-                         final String keyID,
-                         final URI x509URI,
+                         final String keyId,
+                         final URI x509Url,
                          final List<X509Certificate> x509CertificateChain,
                          final byte[] x509CertificateThumbprint,
                          final byte[] x509CertificateThumbprintSHA256) {
         this.algorithm = algorithm;
-        this.keyId = keyID;
-        this.x509Url = x509URI;
+        this.keyId = keyId;
+        this.x509Url = x509Url;
         this.x509CertificateChain = x509CertificateChain;
         this.x509CertificateThumbprint = x509CertificateThumbprint;
         this.x509CertificateThumbprintSHA256 = x509CertificateThumbprintSHA256;
