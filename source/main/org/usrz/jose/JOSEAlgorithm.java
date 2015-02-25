@@ -15,13 +15,30 @@
  * ========================================================================== */
 package org.usrz.jose;
 
+import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jws.JWSHeader;
 
+/**
+ * An interface abstracting a <i>JOSE</i> algorithm, normally used in
+ * {@link JWSHeader} or {@link JWEHeader} structures.
+ */
 public interface JOSEAlgorithm extends JOSEIdentifier {
 
+    /**
+     * The key type ({@linkplain JWKKeyType#EC Elliptic Curve},
+     * {@linkplain JWKKeyType#RSA RSA}, &hellip;) associated with this
+     * algorithm .
+     */
     public JWKKeyType getKeyType();
 
+    /**
+     * The crypto operation ({@linkplain JWKPublicKeyUse#SIG signature
+     * generation and verification}, {@linkplain JWKPublicKeyUse#ENC encryption
+     * and decryption}, &hellip;) associated with this algorithm.
+     */
+    // TODO: Is this the correct value to return???
     public JWKPublicKeyUse getPublicKeyUse();
 
 }

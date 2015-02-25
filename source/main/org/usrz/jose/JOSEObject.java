@@ -19,8 +19,22 @@ import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
+import org.usrz.jose.jwe.JWE;
+import org.usrz.jose.jwe.JWEAlgorithm;
+import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jws.JWS;
+import org.usrz.jose.jws.JWSAlgorithm;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The {@link JOSEObject} interface defines an abstract object defining all
+ * the properties common to <i>JOSE</i> objects, such as {@link JWS}s,
+ * {@link JWE}s and {@link JWK}s.
+ *
+ * @param <ALGORITHM> The type of the algorithm for this object, either a
+ *                    {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
+ */
 public interface JOSEObject<ALGORITHM extends JOSEAlgorithm> {
 
     public static final String ALGORITHM = "alg";

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose;
+package org.usrz.jose.impl;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
@@ -24,6 +24,8 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
+import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.JOSEHeader;
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -31,6 +33,9 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * An abstract implementation of the {@link JOSEHeader} interface.
+ */
 public abstract class AbstractJOSEHeader<ALGORITHM extends JOSEAlgorithm>
 extends AbstractJOSEObject<ALGORITHM>
 implements JOSEHeader<ALGORITHM> {
@@ -133,6 +138,9 @@ implements JOSEHeader<ALGORITHM> {
 
     /* ====================================================================== */
 
+    /**
+     * An abstract builder to construct {@link JOSEHeader} instances.
+     */
     public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
                                          HEADER extends AbstractJOSEHeader<ALGORITHM>,
                                          BUILDER extends Builder<ALGORITHM, HEADER, BUILDER>>

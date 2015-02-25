@@ -21,8 +21,8 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.usrz.jose.AbstractJOSEObject;
 import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.impl.AbstractJOSEObject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

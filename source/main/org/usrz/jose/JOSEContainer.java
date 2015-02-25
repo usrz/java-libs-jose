@@ -15,8 +15,24 @@
  * ========================================================================== */
 package org.usrz.jose;
 
+import org.usrz.jose.jwe.JWE;
+import org.usrz.jose.jwe.JWEHeader;
+import org.usrz.jose.jws.JWS;
+import org.usrz.jose.jws.JWSHeader;
+
+/**
+ * The {@link JOSEContainer} interface defines an abstract object formatted
+ * according to the <i>Javascript Object Signing and Encryption</i>, or in
+ * other words, the common aspects of {@link JWS} and {@link JWE} objects.
+ *
+ * @param <HEADER> The type of the header for this container, either a
+ *                 {@link JWSHeader} or a {@link JWEHeader}.
+ */
 public interface JOSEContainer<HEADER extends JOSEHeader<?>> {
 
+    /**
+     * Return the header associated with this container.
+     */
     public HEADER getHeader();
 
 }

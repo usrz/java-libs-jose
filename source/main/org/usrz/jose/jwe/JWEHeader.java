@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.AbstractJOSEHeader;
+import org.usrz.jose.impl.AbstractJOSEHeader;
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

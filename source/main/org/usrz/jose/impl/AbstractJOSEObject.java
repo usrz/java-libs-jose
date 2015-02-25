@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose;
+package org.usrz.jose.impl;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
+import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.JOSEObject;
 import org.usrz.jose.jackson.JOSEObjectDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+/**
+ * An abstract implementation of the {@link JOSEObject} interface.
+ */
 @JsonDeserialize(using=JOSEObjectDeserializer.class)
 public abstract class AbstractJOSEObject<ALGORITHM extends JOSEAlgorithm>
 implements JOSEObject<ALGORITHM> {
@@ -114,6 +119,9 @@ implements JOSEObject<ALGORITHM> {
 
     /* ====================================================================== */
 
+    /**
+     * An abstract builder to construct {@link JOSEObject} instances.
+     */
     public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
                                          OBJECT extends AbstractJOSEObject<ALGORITHM>,
                                          BUILDER extends Builder<ALGORITHM, OBJECT, BUILDER>> {

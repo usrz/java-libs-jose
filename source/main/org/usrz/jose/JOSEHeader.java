@@ -21,17 +21,30 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
+import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jws.JWSAlgorithm;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * An interface defining all common elements shared by all <i>JOSE</i> headers.
+ *
+ * @param <ALGORITHM> The type of the algorithm for this container, either a
+ *                    {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
+ */
 public interface JOSEHeader<ALGORITHM extends JOSEAlgorithm> extends JOSEObject<ALGORITHM> {
 
+    /** The {@code cty} header field name. */
     public static final String CONTENT_MEDIA_TYPE = "cty";
+    /** The {@code crit} header field name. */
     public static final String CRITICAL_EXTENSIONS = "crit";
+    /** The {@code jwk} header field name. */
     public static final String JSON_WEB_KEY = "jwk";
+    /** The {@code jku} header field name. */
     public static final String JSON_WEB_KEY_SET_URL = "jku";
+    /** The {@code typ} header field name. */
     public static final String MEDIA_TYPE = "typ";
 
     /**

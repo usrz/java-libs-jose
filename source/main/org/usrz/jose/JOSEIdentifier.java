@@ -15,8 +15,15 @@
  * ========================================================================== */
 package org.usrz.jose;
 
+/**
+ * An interface defining a unique identifer as described by the <i>Javascript
+ * Object Signature and Encryption</i> set of specifications.
+ */
 public interface JOSEIdentifier {
 
+    /**
+     * Return the unique {@link String} identifier of this instance.
+     */
     public String getIdentifier();
 
 }

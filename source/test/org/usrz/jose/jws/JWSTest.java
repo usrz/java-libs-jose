@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.Test;
-import org.usrz.jose.AbstractJOSEObject;
+import org.usrz.jose.impl.AbstractJOSEObject;
 import org.usrz.jose.jackson.JOSEObjectMapper;
 import org.usrz.libs.testing.AbstractTest;
 

@@ -17,31 +17,54 @@ package org.usrz.jose;
 
 import javax.ws.rs.core.MediaType;
 
+/**
+ * A collection of {@link MediaType}s as described by the <i>Javascript
+ * Object Signature and Encryption</i> set of specifications.
+ */
 public abstract class JOSEMediaTypes {
 
+    /** The {@code application/jose} media type. */
     public static final String APPLICATION_JOSE = "application/jose";
-    public static final String APPLICATION_JWE  = "application/jwe";
-    public static final String APPLICATION_JWK  = "application/jwk";
-    public static final String APPLICATION_JWS  = "application/jws";
-    public static final String APPLICATION_JWT  = "application/jwt";
-
+    /** The {@code application/jwe} media type. */
+    public static final String APPLICATION_JWE = "application/jwe";
+    /** The {@code application/jwk} media type. */
+    public static final String APPLICATION_JWK = "application/jwk";
+    /** The {@code application/jws} media type. */
+    public static final String APPLICATION_JWS = "application/jws";
+    /** The {@code application/jwt} media type. */
+    public static final String APPLICATION_JWT = "application/jwt";
+    /** The {@code application/jose+json} media type. */
     public static final String APPLICATION_JOSE_JSON = "application/jose+json";
-    public static final String APPLICATION_JWE_JSON  = "application/jwe+json";
-    public static final String APPLICATION_JWK_JSON  = "application/jwk+json";
-    public static final String APPLICATION_JWS_JSON  = "application/jws+json";
-    public static final String APPLICATION_JWT_JSON  = "application/jwt+json";
-
+    /** The {@code application/jwe+json} media type. */
+    public static final String APPLICATION_JWE_JSON = "application/jwe+json";
+    /** The {@code application/jwk+json} media type. */
+    public static final String APPLICATION_JWK_JSON = "application/jwk+json";
+    /** The {@code application/jws+json} media type. */
+    public static final String APPLICATION_JWS_JSON = "application/jws+json";
+    /** The {@code application/jwt+json} media type. */
+    public static final String APPLICATION_JWT_JSON = "application/jwt+json";
+    /** The {@code application/jose} media type. */
     public static final MediaType APPLICATION_JOSE_TYPE = MediaType.valueOf(APPLICATION_JOSE);
-    public static final MediaType APPLICATION_JWE_TYPE  = MediaType.valueOf(APPLICATION_JWE);
-    public static final MediaType APPLICATION_JWK_TYPE  = MediaType.valueOf(APPLICATION_JWK);
-    public static final MediaType APPLICATION_JWS_TYPE  = MediaType.valueOf(APPLICATION_JWS);
-    public static final MediaType APPLICATION_JWT_TYPE  = MediaType.valueOf(APPLICATION_JWT);
-
+    /** The {@code application/jwe} media type. */
+    public static final MediaType APPLICATION_JWE_TYPE = MediaType.valueOf(APPLICATION_JWE);
+    /** The {@code application/jwk} media type. */
+    public static final MediaType APPLICATION_JWK_TYPE = MediaType.valueOf(APPLICATION_JWK);
+    /** The {@code application/jws} media type. */
+    public static final MediaType APPLICATION_JWS_TYPE = MediaType.valueOf(APPLICATION_JWS);
+    /** The {@code application/jwt} media type. */
+    public static final MediaType APPLICATION_JWT_TYPE = MediaType.valueOf(APPLICATION_JWT);
+    /** The {@code application/jose+json} media type. */
     public static final MediaType APPLICATION_JOSE_JSON_TYPE = MediaType.valueOf(APPLICATION_JOSE_JSON);
-    public static final MediaType APPLICATION_JWE_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWE_JSON);
-    public static final MediaType APPLICATION_JWK_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWK_JSON);
-    public static final MediaType APPLICATION_JWS_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWS_JSON);
-    public static final MediaType APPLICATION_JWT_JSON_TYPE  = MediaType.valueOf(APPLICATION_JWT_JSON);
+    /** The {@code application/jwe+json} media type. */
+    public static final MediaType APPLICATION_JWE_JSON_TYPE = MediaType.valueOf(APPLICATION_JWE_JSON);
+    /** The {@code application/jwk+json} media type. */
+    public static final MediaType APPLICATION_JWK_JSON_TYPE = MediaType.valueOf(APPLICATION_JWK_JSON);
+    /** The {@code application/jws+json} media type. */
+    public static final MediaType APPLICATION_JWS_JSON_TYPE = MediaType.valueOf(APPLICATION_JWS_JSON);
+    /** The {@code application/jwt+json} media type. */
+    public static final MediaType APPLICATION_JWT_JSON_TYPE = MediaType.valueOf(APPLICATION_JWT_JSON);
+
+    /* ====================================================================== */
 
     private JOSEMediaTypes() {
         throw new IllegalStateException("Do not construct");
