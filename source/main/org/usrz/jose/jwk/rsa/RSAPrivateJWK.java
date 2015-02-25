@@ -13,28 +13,32 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jwk;
+package org.usrz.jose.jwk.rsa;
 
 import java.net.URI;
-import java.security.Key;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAKey;
+import java.security.interfaces.RSAPrivateKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.jwk.JWKKeyOperation;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jwk.PrivateJWK;
 
-public abstract class RSAAbstractJWK<KEY extends Key & RSAKey>
-extends AbstractJWK<KEY> {
+public class RSAPrivateJWK
+extends RSAAbstractJWK<RSAPrivateKey>
+implements PrivateJWK<RSAPrivateKey> {
 
-    protected RSAAbstractJWK(JOSEAlgorithm algorithm,
-                             String keyID,
-                             URI x509uri,
-                             List<X509Certificate> x509CertificateChain,
-                             byte[] x509CertificateThumbprint,
-                             byte[] x509CertificateThumbprintSHA256,
-                             JWKKeyType keyType,
-                             JWKPublicKeyUse publicKeyUse,
-                             List<JWKKeyOperation> keyOperations) {
+    protected RSAPrivateJWK(JOSEAlgorithm algorithm,
+                            String keyID,
+                            URI x509uri,
+                            List<X509Certificate> x509CertificateChain,
+                            byte[] x509CertificateThumbprint,
+                            byte[] x509CertificateThumbprintSHA256,
+                            JWKKeyType keyType,
+                            JWKPublicKeyUse publicKeyUse,
+                            List<JWKKeyOperation> keyOperations) {
         super(algorithm,
               keyID,
               x509uri,
@@ -46,5 +50,4 @@ extends AbstractJWK<KEY> {
               keyOperations);
         // TODO Auto-generated constructor stub
     }
-
 }

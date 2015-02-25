@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jwk;
+package org.usrz.jose.jwk.ec;
 
 import java.math.BigInteger;
 import java.net.URI;
@@ -23,6 +23,11 @@ import java.security.interfaces.ECKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.jwk.AbstractJWK;
+import org.usrz.jose.jwk.JWKKeyOperation;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jwk.AbstractJWK.Builder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

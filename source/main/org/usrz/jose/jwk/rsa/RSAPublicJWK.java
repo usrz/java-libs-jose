@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jwk;
+package org.usrz.jose.jwk.rsa;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
@@ -21,6 +21,10 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.jwk.JWKKeyOperation;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jwk.PublicJWK;
 
 public class RSAPublicJWK
 extends RSAAbstractJWK<RSAPublicKey>
