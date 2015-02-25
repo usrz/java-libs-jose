@@ -27,7 +27,6 @@ import org.usrz.jose.jwk.AbstractJWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
-import org.usrz.jose.jwk.AbstractJWK.Builder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
