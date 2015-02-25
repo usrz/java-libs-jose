@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk.rsa;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
@@ -38,7 +39,9 @@ implements PublicJWK<RSAPublicKey> {
                            byte[] x509CertificateThumbprintSHA256,
                            JWKKeyType keyType,
                            JWKPublicKeyUse publicKeyUse,
-                           List<JWKKeyOperation> keyOperations) {
+                           List<JWKKeyOperation> keyOperations,
+                           BigInteger n,
+                           BigInteger e) {
         super(algorithm,
               keyID,
               x509uri,
@@ -47,7 +50,27 @@ implements PublicJWK<RSAPublicKey> {
               x509CertificateThumbprintSHA256,
               keyType,
               publicKeyUse,
-              keyOperations);
-        // TODO Auto-generated constructor stub
+              keyOperations,
+              n,
+              e);
+    }
+
+    public static class Builder
+    extends RSAAbstractJWK.Builder<RSAPublicKey, RSAPublicJWK, RSAPublicJWK.Builder> {
+
+        @Override
+        public RSAPublicJWK build() {
+            return new RSAPublicJWK(algorithm,
+                                    keyId,
+                                    x509Url,
+                                    x509CertificateChain,
+                                    x509CertificateThumbprint,
+                                    x509CertificateThumbprintSHA256,
+                                    keyType,
+                                    publicKeyUse,
+                                    keyOperations,
+                                    n,
+                                    e);
+        }
     }
 }
