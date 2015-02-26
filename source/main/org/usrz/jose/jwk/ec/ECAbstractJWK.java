@@ -24,17 +24,24 @@ import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.jwk.AbstractJWK;
+import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * An abstract implementation of the {@link JWK} interface for Elliptic Curves.
+ */
 public abstract class ECAbstractJWK<KEY extends Key & ECKey>
 extends AbstractJWK<KEY> {
 
+    /** The {@code crv} field name. */
     public static final String CURVE = "crv";
+    /** The {@code x} field name. */
     public static final String X_COORDINATE = "x";
+    /** The {@code y} field name. */
     public static final String Y_COORDINATE = "y";
 
     private final ECCurve curve;
@@ -93,6 +100,9 @@ extends AbstractJWK<KEY> {
         return y;
     }
 
+    /**
+     * An abstract builder to construct {@link ECAbstractJWK} instances.
+     */
     public static abstract class Builder<KEY extends Key & ECKey,
                                          JWKTYPE extends ECAbstractJWK<KEY>,
                                          BUILDER extends Builder<KEY, JWKTYPE, BUILDER>>

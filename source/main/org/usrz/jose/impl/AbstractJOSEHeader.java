@@ -73,63 +73,36 @@ implements JOSEHeader<ALGORITHM> {
         this.additionalHeaders = additionalHeaders;
     }
 
-    /**
-     * The "jku" (JWK Set URL) Header Parameter is a URI that
-     * refers to a resource for a set of JSON-encoded public keys, one of
-     * which corresponds to the key used to digitally sign the JWS, or
-     * the public key to which the JWE was encrypted
-     */
     @Override
     @JsonProperty(JSON_WEB_KEY_SET_URL)
     public URI getJsonWebKeySetUrl() {
         return this.jsonWebKeySetUrl;
     }
 
-    /**
-     * The "jwk" (JSON Web Key) Header Parameter is the public key that
-     * corresponds to the key used to digitally sign the JWS, or the public
-     * key to which the JWE was encrypted
-     */
     @Override
     @JsonProperty(JSON_WEB_KEY)
     public JWK<?> getJsonWebKey() {
         return this.jsonWebKey;
     }
 
-    /**
-     * The "typ" (type) Header Parameter is used to declare the MIME Media
-     * Type of this complete JWS or JWE.
-     */
     @Override
     @JsonProperty(MEDIA_TYPE)
     public MediaType getMediaType() {
         return this.mediaType;
     }
 
-    /**
-     * The "cty" (content type) Header Parameter is used to declare the MIME
-     * Media Type of the secured content (the payload).
-     */
     @Override
     @JsonProperty(CONTENT_MEDIA_TYPE)
     public MediaType getContentMediaType() {
         return this.contentMediaType;
     }
 
-    /**
-     * The "crit" (critical) Header Parameter indicates that extensions to
-     * the initial RFC versions of the JWS or JWE specification are being
-     * used that MUST be understood and processed.
-     */
     @Override
     @JsonProperty(CRITICAL_EXTENSIONS)
     public final List<String> getCriticalExtensions() {
         return this.criticalExtensions;
     }
 
-    /**
-     * Return additional headers found in this JWS or JEW header.
-     */
     @Override
     @JsonAnyGetter
     public Map<String, Object> getAdditionalHeaders() {

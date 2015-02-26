@@ -17,10 +17,14 @@ package org.usrz.jose.jwk;
 
 import java.util.List;
 
+/**
+ * A JSON Web Key Set (JWK Set) is a JSON object that represents a set
+ * of JWKs.
+ */
 public interface JWKSet {
 
     /**
-     * The value of the "keys" member is an array of JWK values.
+     * The value of the "keys" member is an array of {@link JWK} values.
      */
     public List<JWK<?>> getKeys();
 

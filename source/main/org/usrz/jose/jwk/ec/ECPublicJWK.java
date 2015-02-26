@@ -22,11 +22,15 @@ import java.security.interfaces.ECPublicKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 import org.usrz.jose.jwk.PublicJWK;
 
+/**
+ * Implementation of the {@link JWK} interface for Elliptic Curve Public Keys.
+ */
 public class ECPublicJWK
 extends ECAbstractJWK<ECPublicKey>
 implements PublicJWK<ECPublicKey> {
@@ -57,6 +61,9 @@ implements PublicJWK<ECPublicKey> {
               y);
     }
 
+    /**
+     * A builder to construct {@link ECPublicJWK} instances.
+     */
     public static class Builder
     extends ECAbstractJWK.Builder<ECPublicKey, ECPublicJWK, ECPublicJWK.Builder> {
 

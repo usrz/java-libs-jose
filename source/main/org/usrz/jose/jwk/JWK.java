@@ -23,10 +23,19 @@ import org.usrz.jose.JOSEObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data
+ * structure that represents a cryptographic key.
+ *
+ * @param <KEY> The Java {@link Key} type represented by this {@link JWK}
+ */
 public interface JWK<KEY extends Key> extends JOSEObject<JOSEAlgorithm> {
 
+    /** The {@code key_ops} header field name. */
     public static final String KEY_OPERATIONS = "key_ops";
+    /** The {@code kty} header field name. */
     public static final String KEY_TYPE = "kty";
+    /** The {@code use} header field name. */
     public static final String PUBLIC_KEY_USE = "use";
 
     /**

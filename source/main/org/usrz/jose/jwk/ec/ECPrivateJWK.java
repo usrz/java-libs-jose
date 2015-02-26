@@ -22,6 +22,7 @@ import java.security.interfaces.ECPrivateKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
+import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
@@ -29,10 +30,14 @@ import org.usrz.jose.jwk.PrivateJWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Implementation of the {@link JWK} interface for Elliptic Curve Private Keys.
+ */
 public class ECPrivateJWK
 extends ECAbstractJWK<ECPrivateKey>
 implements PrivateJWK<ECPrivateKey> {
 
+    /** The {@code d} field name. */
     public static final String ECC_PRIVATE_KEY = "d";
 
     private final BigInteger d;
@@ -74,7 +79,9 @@ implements PrivateJWK<ECPrivateKey> {
         return d;
     }
 
-
+    /**
+     * A builder to construct {@link ECPrivateJWK} instances.
+     */
     public static class Builder
     extends ECAbstractJWK.Builder<ECPrivateKey, ECPrivateJWK, ECPrivateJWK.Builder> {
 

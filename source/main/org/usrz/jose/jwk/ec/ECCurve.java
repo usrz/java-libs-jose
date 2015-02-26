@@ -31,15 +31,15 @@ import org.usrz.jose.JOSEIdentifier;
  */
 public enum ECCurve implements JOSEIdentifier {
 
-    /** NIST P-192 <i>(not specified in JOSE)</i> */
+    /** The NIST P-192 Elliptic Curve <i>(not specified in JOSE)</i> */
     P_192("P-192", "secp192r1"),
-    /** NIST P-224 <i>(not specified in JOSE)</i> */
+    /** The NIST P-224 Elliptic Curve <i>(not specified in JOSE)</i> */
     P_224("P-224", "secp224r1"),
-    /** NIST P-256 */
+    /** The NIST P-256 Elliptic Curve */
     P_256("P-256", "secp256r1"),
-    /** NIST P-384 */
+    /** The NIST P-384 Elliptic Curve */
     P_384("P-384", "secp384r1"),
-    /** NIST P-521 <i>(not 512)</i> */
+    /** The NIST P-521 Elliptic Curve <i>(not 512)</i> */
     P_521("P-521", "secp521r1");
 
     /* ====================================================================== */
@@ -58,6 +58,12 @@ public enum ECCurve implements JOSEIdentifier {
         return identifier;
     }
 
+    /**
+     * Return the Java EC parameters specification of this curve.
+     *
+     * @throws NoSuchAlgorithmException If elliptic curves were not supported.
+     * @throws InvalidParameterSpecException If the curve is unsupported.
+     */
     public ECParameterSpec getECParameterSpec()
     throws NoSuchAlgorithmException, InvalidParameterSpecException {
         if (parameterSpec != null) return parameterSpec;

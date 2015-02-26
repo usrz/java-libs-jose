@@ -27,6 +27,9 @@ import org.usrz.jose.impl.AbstractJOSEObject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * An abstract implementation of the {@link JWK} interface.
+ */
 public abstract class AbstractJWK<KEY extends Key>
 extends AbstractJOSEObject<JOSEAlgorithm>
 implements JWK<KEY> {
@@ -55,36 +58,29 @@ implements JWK<KEY> {
         this.keyOperations = keyOperations;
     }
 
-    /**
-     * The "kty" (key type) member identifies the cryptographic algorithm
-     * family used with the key.
-     */
     @Override
     @JsonProperty(KEY_TYPE)
     public JWKKeyType getKeyType() {
         return keyType;
     }
 
-    /**
-     * The "use" (public key use) member identifies the intended use of the
-     * public key.
-     */
     @Override
     @JsonProperty(PUBLIC_KEY_USE)
     public JWKPublicKeyUse getPublicKeyUse() {
         return publicKeyUse;
     }
 
-    /**
-     * The "key_ops" (key operations) member identifies the operation(s)
-     * that the key is intended to be used for.
-     */
     @Override
     @JsonProperty(KEY_OPERATIONS)
     public List<JWKKeyOperation> getKeyOperations() {
         return keyOperations;
     }
 
+    /* ====================================================================== */
+
+    /**
+     * An abstract builder to construct {@link JWK} instances.
+     */
     public static abstract class Builder<KEY extends Key,
                                          JWKTYPE extends AbstractJWK<KEY>,
                                          BUILDER extends Builder<KEY, JWKTYPE, BUILDER>>

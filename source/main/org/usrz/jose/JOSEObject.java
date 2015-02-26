@@ -19,29 +19,35 @@ import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
-import org.usrz.jose.jwe.JWE;
 import org.usrz.jose.jwe.JWEAlgorithm;
+import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jwk.JWK;
-import org.usrz.jose.jws.JWS;
 import org.usrz.jose.jws.JWSAlgorithm;
+import org.usrz.jose.jws.JWSHeader;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The {@link JOSEObject} interface defines an abstract object defining all
- * the properties common to <i>JOSE</i> objects, such as {@link JWS}s,
- * {@link JWE}s and {@link JWK}s.
+ * the properties common to <i>JOSE</i> objects, such as {@link JWSHeader}s,
+ * {@link JWEHeader}s and {@link JWK}s.
  *
  * @param <ALGORITHM> The type of the algorithm for this object, either a
  *                    {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
  */
 public interface JOSEObject<ALGORITHM extends JOSEAlgorithm> {
 
+    /** The {@code alg} header field name. */
     public static final String ALGORITHM = "alg";
+    /** The {@code kid} header field name. */
     public static final String KEY_ID = "kid";
+    /** The {@code x5c} header field name. */
     public static final String X509_CERTIFICATE_CHAIN = "x5c";
+    /** The {@code x5t} header field name. */
     public static final String X509_CERTIFICATE_THUMBPRINT = "x5t";
+    /** The {@code x5t#S256} header field name. */
     public static final String X509_CERTIFICATE_THUMBPRINT_SHA256 = "x5t#S256";
+    /** The {@code x5u} header field name. */
     public static final String X509_URL = "x5u";
 
     /**

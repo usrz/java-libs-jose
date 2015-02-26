@@ -17,6 +17,14 @@ package org.usrz.jose.jwk;
 
 import java.security.PrivateKey;
 
+/**
+ * A specialization of the {@link JWK} interface representing private
+ * asymmetric keys
+ *
+ * @param <KEY> The Java {@link PrivateKey} type represented by this {@link JWK}
+ */
 public interface PrivateJWK<KEY extends PrivateKey> extends JWK<KEY> {
+
+    // Marker interface
 
 }
