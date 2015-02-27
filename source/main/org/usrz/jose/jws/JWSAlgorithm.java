@@ -27,32 +27,32 @@ import org.usrz.jose.jwk.JWKPublicKeyUse;
 public enum JWSAlgorithm implements JOSEAlgorithm {
 
     /** HMAC using SHA-256 */
-    HS256("HS256", OCT),
+    HS256("HS256", OCT),  // key="HmacSHA256", HmacSHA256, ... engine unsupported?
     /** HMAC using SHA-384 */
-    HS384("HS384", OCT),
+    HS384("HS384", OCT),  // key="HmacSHA384", HmacSHA384, ... engine unsupported?
     /** HMAC using SHA-512 */
-    HS512("HS512", OCT),
+    HS512("HS512", OCT),  // key="HmacSHA512", HmacSHA512, ... engine unsupported?
 
     /** RSASSA-PKCS-v1_5 using SHA-256 */
-    RS256("RS256", RSA),
+    RS256("RS256", RSA),  // key="RSA", SHA256withRSA
     /** RSASSA-PKCS-v1_5 using SHA-384 */
-    RS384("RS384", RSA),
+    RS384("RS384", RSA),  // key="RSA", SHA384withRSA
     /** RSASSA-PKCS-v1_5 using SHA-512 */
-    RS512("RS512", RSA),
+    RS512("RS512", RSA),  // key="RSA", SHA512withRSA
 
     /** ECDSA using P-256 and SHA-256 */
-    ES256("ES256", EC),
+    ES256("ES256", EC),   // key="EC", SHA256withECDSA
     /** ECDSA using P-384 and SHA-2384 */
-    ES384("ES384", EC),
+    ES384("ES384", EC),   // key="EC", SHA384withECDSA
     /** ECDSA using P-512 <i><small>(not 512)</small></i> and SHA-512 */
-    ES512("ES512", EC),
+    ES512("ES512", EC),   // key="EC", SHA512withECDSA
 
     /** RSASSA-PSS using SHA-256 and MGF1 with SHA-256 */
-    PS256("PS256", RSA),
+    PS256("PS256", RSA),  // key="RSA", SHA256withRSA, PSSParameterSpec, ... engine unsupported?
     /** RSASSA-PSS using SHA-384 and MGF1 with SHA-384 */
-    PS384("PS384", RSA),
+    PS384("PS384", RSA),  // key="RSA", SHA384withRSA, PSSParameterSpec, ... engine unsupported?
     /** RSASSA-PSS using SHA-512 and MGF1 with SHA-512 */
-    PS512("PS512", RSA),
+    PS512("PS512", RSA),  // key="RSA", SHA512withRSA, PSSParameterSpec, ... engine unsupported?
 
     /** No digital signature or MAC performed */
     NONE ("none", null);
