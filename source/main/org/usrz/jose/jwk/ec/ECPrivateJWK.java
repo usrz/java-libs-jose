@@ -37,7 +37,7 @@ public class ECPrivateJWK
 extends ECAbstractJWK<ECPrivateKey>
 implements PrivateJWK<ECPrivateKey> {
 
-    /** The {@code d} field name. */
+    /** The {@code d} JWK <i>("{@code EC}")</i> field name. */
     public static final String ECC_PRIVATE_KEY = "d";
 
     private final BigInteger d;

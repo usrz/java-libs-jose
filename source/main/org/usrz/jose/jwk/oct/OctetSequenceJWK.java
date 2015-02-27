@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jwk;
+package org.usrz.jose.jwk.oct;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
@@ -28,6 +28,11 @@ import lombok.experimental.Accessors;
 import org.usrz.jose.core.BeanBuilder;
 import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jwe.JWEAlgorithm;
+import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jwk.JWKKeyOperation;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jwk.JWK.Builder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

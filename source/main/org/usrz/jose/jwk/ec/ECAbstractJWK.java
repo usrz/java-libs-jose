@@ -23,7 +23,6 @@ import java.security.interfaces.ECKey;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.jwk.AbstractJWK;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
@@ -37,11 +36,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class ECAbstractJWK<KEY extends Key & ECKey>
 extends AbstractJWK<KEY> {
 
-    /** The {@code crv} field name. */
+    /** The {@code crv} JWK <i>("{@code EC}")</i> field name. */
     public static final String CURVE = "crv";
-    /** The {@code x} field name. */
+    /** The {@code x} JWK <i>("{@code EC}")</i> field name. */
     public static final String X_COORDINATE = "x";
-    /** The {@code y} field name. */
+    /** The {@code y} JWK <i>("{@code EC}")</i> field name. */
     public static final String Y_COORDINATE = "y";
 
     private final ECCurve curve;
