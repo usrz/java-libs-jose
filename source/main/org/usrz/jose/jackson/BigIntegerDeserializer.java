@@ -16,7 +16,7 @@
 package org.usrz.jose.jackson;
 
 import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
-import static org.usrz.jose.jackson.ByteArrayDeserializer.deserializeBytes;
+import static org.usrz.jose.jackson.BytesDeserializer.deserializeBytes;
 
 import java.io.IOException;
 import java.math.BigInteger;

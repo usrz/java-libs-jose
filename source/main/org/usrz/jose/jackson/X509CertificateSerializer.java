@@ -16,7 +16,7 @@
 package org.usrz.jose.jackson;
 
 import static com.fasterxml.jackson.core.Base64Variants.MIME_NO_LINEFEEDS;
-import static org.usrz.jose.jackson.ByteArraySerializer.serializeBytes;
+import static org.usrz.jose.jackson.BytesSerializer.serializeBytes;
 
 import java.io.IOException;
 import java.security.cert.CertificateEncodingException;

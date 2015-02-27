@@ -16,7 +16,7 @@
 package org.usrz.jose.jackson;
 
 import static com.fasterxml.jackson.core.Base64Variants.MIME_NO_LINEFEEDS;
-import static org.usrz.jose.jackson.ByteArrayDeserializer.deserializeBytes;
+import static org.usrz.jose.jackson.BytesDeserializer.deserializeBytes;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

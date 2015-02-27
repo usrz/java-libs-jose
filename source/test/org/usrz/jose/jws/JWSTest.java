@@ -165,8 +165,8 @@ public class JWSTest extends AbstractTest {
         assertEquals(header.getJsonWebKey(),                      null,                                           "Wrong jwk");
         assertEquals(header.getJsonWebKeySetUrl(),                URI.create("https://example.org/a-simple.jku"), "Wrong jwkSetURL");
         assertEquals(header.getX509CertificateChain().size(),                   3,                                "Wrong x509CertificateChain");
-        assertEquals(header.getX509CertificateThumbprint().length,              20,                               "Wrong x509CertificateThumbprint");
-        assertEquals(header.getX509CertificateThumbprintSHA256().length,        32,                               "Wrong x509CertificateThumbprintSHA256");
+        assertEquals(header.getX509CertificateThumbprint().length(),            20,                               "Wrong x509CertificateThumbprint");
+        assertEquals(header.getX509CertificateThumbprintSHA256().length(),      32,                               "Wrong x509CertificateThumbprintSHA256");
         assertEquals(header.getX509Url(),                         URI.create("https://example.org/a-simple.pem"), "Wrong x509URI");
         assertEquals(header.getCriticalExtensions(),              criticalExtensions,                             "Wrong criticalExtensions");
         assertEquals(header.getAdditionalHeaders(),               additionalHeaders,                              "Wrong additionalHeaders");

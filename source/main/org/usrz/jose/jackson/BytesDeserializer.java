@@ -19,21 +19,20 @@ import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.Base64Variant;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import org.usrz.jose.core.Bytes;
 
-public class ByteArraySerializer
-extends JsonSerializer<byte[]> {
+import com.fasterxml.jackson.core.Base64Variant;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+
+public class BytesDeserializer extends JsonDeserializer<Bytes> {
 
     @Override
-    public void serialize(byte[] value,
-                          JsonGenerator generator,
-                          SerializerProvider provider)
+    public Bytes deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
-        serializeBytes(value, generator, MODIFIED_FOR_URL);
+        return new Bytes(deserializeBytes(parser, MODIFIED_FOR_URL));
     }
 
     @Override
@@ -43,14 +42,11 @@ extends JsonSerializer<byte[]> {
 
     /*
      * Jackson does not seem to honor the call below, somehow...
-     * generator.writeBinary(Base64Variants.MIME_NO_LINEFEEDS, encoded, 0, encoded.length);
-     * Manually encode base64 and write as string!
+     * final byte[] data = parser.getBinaryValue(Base64Variants.MIME_NO_LINEFEEDS);
+     * Manually read a string and dencode base64
      */
-    protected static final void serializeBytes(byte[] value,
-                                               JsonGenerator generator,
-                                               Base64Variant variant)
+    protected static final byte[] deserializeBytes(JsonParser parser, Base64Variant variant)
     throws IOException {
-        generator.writeString(variant.encode(value));
+        return variant.decode(parser.getText());
     }
-
 }

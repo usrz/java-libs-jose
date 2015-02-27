@@ -19,32 +19,40 @@ import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.Base64Variant;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.usrz.jose.core.Bytes;
 
-public class ByteArrayDeserializer extends JsonDeserializer<byte[]> {
+import com.fasterxml.jackson.core.Base64Variant;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+public class BytesSerializer
+extends JsonSerializer<Bytes> {
 
     @Override
-    public byte[] deserialize(JsonParser parser, DeserializationContext context)
+    public void serialize(Bytes value,
+                          JsonGenerator generator,
+                          SerializerProvider provider)
     throws IOException, JsonProcessingException {
-        return deserializeBytes(parser, MODIFIED_FOR_URL);
+        serializeBytes(value.getBytes(), generator, MODIFIED_FOR_URL);
     }
 
     @Override
-    public Class<byte[]> handledType() {
-        return byte[].class;
+    public Class<Bytes> handledType() {
+        return Bytes.class;
     }
 
     /*
      * Jackson does not seem to honor the call below, somehow...
-     * final byte[] data = parser.getBinaryValue(Base64Variants.MIME_NO_LINEFEEDS);
-     * Manually read a string and dencode base64
+     * generator.writeBinary(Base64Variants.MIME_NO_LINEFEEDS, encoded, 0, encoded.length);
+     * Manually encode base64 and write as string!
      */
-    protected static final byte[] deserializeBytes(JsonParser parser, Base64Variant variant)
+    protected static final void serializeBytes(byte[] value,
+                                               JsonGenerator generator,
+                                               Base64Variant variant)
     throws IOException {
-        return variant.decode(parser.getText());
+        generator.writeString(variant.encode(value));
     }
+
 }

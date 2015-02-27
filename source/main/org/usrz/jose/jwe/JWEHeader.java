@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
+import org.usrz.jose.core.Bytes;
 import org.usrz.jose.impl.AbstractJOSEHeader;
 import org.usrz.jose.jwk.JWK;
 
@@ -36,8 +37,8 @@ public class JWEHeader extends AbstractJOSEHeader<JWEAlgorithm> {
                         final String keyID,
                         final URI x509URI,
                         final List<X509Certificate> x509CertificateChain,
-                        final byte[] x509CertificateThumbprint,
-                        final byte[] x509CertificateThumbprintSHA256,
+                        final Bytes x509CertificateThumbprint,
+                        final Bytes x509CertificateThumbprintSHA256,
                         final URI jwkSetURL,
                         final JWK<?> jwk,
                         final MediaType type,

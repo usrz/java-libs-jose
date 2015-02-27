@@ -7,11 +7,11 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import org.usrz.jose.core.BeanBuilder;
+import org.usrz.jose.core.Bytes;
 import org.usrz.jose.core.Header;
 import org.usrz.jose.jwk.JWK;
 
@@ -34,14 +34,13 @@ public interface JWSHeader extends Header<JWSAlgorithm> {
         }
 
         @Data
-        @AllArgsConstructor
         private static final class Impl implements JWSHeader {
             private final JWSAlgorithm algorithm;
             private final String keyId;
             private final URI x509Url;
             private final List<X509Certificate> x509CertificateChain;
-            private final byte[] x509CertificateThumbprint;
-            private final byte[] x509CertificateThumbprintSHA256;
+            private final Bytes x509CertificateThumbprint;
+            private final Bytes x509CertificateThumbprintSHA256;
             private final URI jsonWebKeySetUrl;
             private final JWK<?> jsonWebKey;
             private final MediaType mediaType;

@@ -21,15 +21,14 @@ import java.security.cert.X509Certificate;
 import javax.ws.rs.core.MediaType;
 
 import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Bytes;
 
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
 public class JOSESerializers extends SimpleSerializers {
 
     public JOSESerializers() {
-        /* Jackson seems to have problems with BASE64 variants */
-        addSerializer(byte[].class, new ByteArraySerializer());
-
+        addSerializer(Bytes.class, new BytesSerializer());
         addSerializer(BigInteger.class, new BigIntegerSerializer());
         addSerializer(JOSEIdentifier.class, new JOSEIdentifierSerializer());
         addSerializer(MediaType.class, new MediaTypeSerializer());

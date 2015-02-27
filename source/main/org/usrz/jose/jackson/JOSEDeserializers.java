@@ -20,6 +20,7 @@ import java.security.cert.X509Certificate;
 
 import javax.ws.rs.core.MediaType;
 
+import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jws.JWSAlgorithm;
 
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -27,9 +28,7 @@ import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 public class JOSEDeserializers extends SimpleDeserializers {
 
     public JOSEDeserializers() {
-        /* Jackson seems to have problems with BASE64 variants */
-        addDeserializer(byte[].class, new ByteArrayDeserializer());
-
+        addDeserializer(Bytes.class, new BytesDeserializer());
         addDeserializer(BigInteger.class, new BigIntegerDeserializer());
         addDeserializer(MediaType.class, new MediaTypeDeserializer());
         addDeserializer(X509Certificate.class, new X509CertificateDeserializer());

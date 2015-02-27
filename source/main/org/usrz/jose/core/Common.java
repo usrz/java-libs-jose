@@ -92,7 +92,7 @@ public interface Common<A extends JOSEAlgorithm> {
      * thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate.
      */
     @JsonProperty(X509_CERTIFICATE_THUMBPRINT)
-    public byte[] getX509CertificateThumbprint();
+    public Bytes getX509CertificateThumbprint();
 
     /**
      * The "x5t#S256" (X.509 Certificate SHA-256 Thumbprint) member is the
@@ -100,7 +100,7 @@ public interface Common<A extends JOSEAlgorithm> {
      * certificate.
      */
     @JsonProperty(X509_CERTIFICATE_THUMBPRINT_SHA256)
-    public byte[] getX509CertificateThumbprintSHA256();
+    public Bytes getX509CertificateThumbprintSHA256();
 
 
 
@@ -150,7 +150,7 @@ public interface Common<A extends JOSEAlgorithm> {
          * thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate.
          */
         @Setter(onMethod=@__({@JsonProperty(X509_CERTIFICATE_THUMBPRINT)}))
-        private byte[] x509CertificateThumbprint;
+        private Bytes x509CertificateThumbprint;
 
         /**
          * The "x5t#S256" (X.509 Certificate SHA-256 Thumbprint) member is the
@@ -158,7 +158,7 @@ public interface Common<A extends JOSEAlgorithm> {
          * certificate.
          */
         @Setter(onMethod=@__({@JsonProperty(X509_CERTIFICATE_THUMBPRINT_SHA256)}))
-        private byte[] x509CertificateThumbprintSHA256;
+        private Bytes x509CertificateThumbprintSHA256;
 
         /* ================================================================== */
 
