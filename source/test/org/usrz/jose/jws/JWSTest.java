@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.Test;
-import org.usrz.jose.impl.AbstractJOSEObject;
 import org.usrz.jose.jackson.JOSEObjectMapper;
 import org.usrz.libs.testing.AbstractTest;
 
@@ -74,19 +73,17 @@ public class JWSTest extends AbstractTest {
     public void testSection3_1_example_1()
     throws Exception {
         final URL url = getResource("jws-section-3.1-example1.json");
-        final AbstractJOSEObject<?> object = mapper.readValue(url, AbstractJOSEObject.class);
-        validateObject(url, object);
-
-        assertTrue(object instanceof JWSHeader);
-        JWSHeader header = (JWSHeader) object;
+        // TODO: generic!!!
+        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
+        validateObject(url, header);
 
         assertEquals(header.getAlgorithm(),                       HS256,                "Wrong algorithm");
-        assertEquals(header.getMediaType(),                            APPLICATION_JWT_TYPE, "Wrong type");
-        assertEquals(header.getContentMediaType(),                     null,                 "Wrong contentType");
+        assertEquals(header.getMediaType(),                       APPLICATION_JWT_TYPE, "Wrong type");
+        assertEquals(header.getContentMediaType(),                null,                 "Wrong contentType");
         assertEquals(header.getKeyId(),                           null,                 "Wrong keyID");
-        assertEquals(header.getJsonWebKey(),                             null,                 "Wrong jwk");
-        assertEquals(header.getJsonWebKeySetUrl(),                       null,                 "Wrong jwkSetURL");
-        assertEquals(header.getX509CertificateChain(),            null,                 "Wrong x509CertificateChain");
+        assertEquals(header.getJsonWebKey(),                      null,                 "Wrong jwk");
+        assertEquals(header.getJsonWebKeySetUrl(),                null,                 "Wrong jwkSetURL");
+        assertEquals(header.getX509CertificateChain(),            emptyList(),          "Wrong x509CertificateChain");
         assertEquals(header.getX509CertificateThumbprint(),       null,                 "Wrong x509CertificateThumbprint");
         assertEquals(header.getX509CertificateThumbprintSHA256(), null,                 "Wrong x509CertificateThumbprintSHA256");
         assertEquals(header.getX509Url(),                         null,                 "Wrong x509URI");
@@ -98,19 +95,17 @@ public class JWSTest extends AbstractTest {
     public void testSection3_1_example_2()
     throws Exception {
         final URL url = getResource("jws-section-3.1-example2.json");
-        final AbstractJOSEObject<?> object = mapper.readValue(url, AbstractJOSEObject.class);
-        validateObject(url, object);
-
-        assertTrue(object instanceof JWSHeader);
-        JWSHeader header = (JWSHeader) object;
+        // TODO: generic!!!
+        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
+        validateObject(url, header);
 
         assertEquals(header.getAlgorithm(),                       NONE,                 "Wrong algorithm");
-        assertEquals(header.getMediaType(),                            null,                 "Wrong type");
-        assertEquals(header.getContentMediaType(),                     null,                 "Wrong contentType");
+        assertEquals(header.getMediaType(),                       null,                 "Wrong type");
+        assertEquals(header.getContentMediaType(),                null,                 "Wrong contentType");
         assertEquals(header.getKeyId(),                           null,                 "Wrong keyID");
-        assertEquals(header.getJsonWebKey(),                             null,                 "Wrong jwk");
-        assertEquals(header.getJsonWebKeySetUrl(),                       null,                 "Wrong jwkSetURL");
-        assertEquals(header.getX509CertificateChain(),            null,                 "Wrong x509CertificateChain");
+        assertEquals(header.getJsonWebKey(),                      null,                 "Wrong jwk");
+        assertEquals(header.getJsonWebKeySetUrl(),                null,                 "Wrong jwkSetURL");
+        assertEquals(header.getX509CertificateChain(),            emptyList(),          "Wrong x509CertificateChain");
         assertEquals(header.getX509CertificateThumbprint(),       null,                 "Wrong x509CertificateThumbprint");
         assertEquals(header.getX509CertificateThumbprintSHA256(), null,                 "Wrong x509CertificateThumbprintSHA256");
         assertEquals(header.getX509Url(),                         null,                 "Wrong x509URI");
@@ -122,19 +117,17 @@ public class JWSTest extends AbstractTest {
     public void testSection4_1_11_critical_header()
     throws Exception {
         final URL url = getResource("jws-section-4.1.11-critical-header.json");
-        final AbstractJOSEObject<?> object = mapper.readValue(url, AbstractJOSEObject.class);
-        validateObject(url, object);
-
-        assertTrue(object instanceof JWSHeader);
-        JWSHeader header = (JWSHeader) object;
+        // TODO: generic!!!
+        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
+        validateObject(url, header);
 
         assertEquals(header.getAlgorithm(),                       ES256,                "Wrong algorithm");
-        assertEquals(header.getMediaType(),                            null,                 "Wrong type");
-        assertEquals(header.getContentMediaType(),                     null,                 "Wrong contentType");
+        assertEquals(header.getMediaType(),                       null,                 "Wrong type");
+        assertEquals(header.getContentMediaType(),                null,                 "Wrong contentType");
         assertEquals(header.getKeyId(),                           null,                 "Wrong keyID");
-        assertEquals(header.getJsonWebKey(),                             null,                 "Wrong jwk");
-        assertEquals(header.getJsonWebKeySetUrl(),                       null,                 "Wrong jwkSetURL");
-        assertEquals(header.getX509CertificateChain(),            null,                 "Wrong x509CertificateChain");
+        assertEquals(header.getJsonWebKey(),                      null,                 "Wrong jwk");
+        assertEquals(header.getJsonWebKeySetUrl(),                null,                 "Wrong jwkSetURL");
+        assertEquals(header.getX509CertificateChain(),            emptyList(),          "Wrong x509CertificateChain");
         assertEquals(header.getX509CertificateThumbprint(),       null,                 "Wrong x509CertificateThumbprint");
         assertEquals(header.getX509CertificateThumbprintSHA256(), null,                 "Wrong x509CertificateThumbprintSHA256");
         assertEquals(header.getX509Url(),                         null,                 "Wrong x509URI");
@@ -147,10 +140,8 @@ public class JWSTest extends AbstractTest {
     public void testFull()
     throws Exception {
         final URL url = getResource("full.json");
-        final AbstractJOSEObject<?> object = mapper.readValue(url, AbstractJOSEObject.class);
-
-        assertTrue(object instanceof JWSHeader);
-        JWSHeader header = (JWSHeader) object;
+        // TODO: generic!!!
+        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
 
         final List<String> criticalExtensions = new ArrayList<String>(){{
             this.add("first");
@@ -163,16 +154,16 @@ public class JWSTest extends AbstractTest {
             put("third", "The third header is not critical");
         }};
 
-        mapper.writeValue(System.out, object);
+        mapper.writeValue(System.out, header);
 
         // TODO: JWK and test!!!
 
         assertEquals(header.getAlgorithm(),                       PS512,                                          "Wrong algorithm");
-        assertEquals(header.getMediaType(),                            APPLICATION_JWS_TYPE,                           "Wrong type");
-        assertEquals(header.getContentMediaType(),                     TEXT_HTML_TYPE,                                 "Wrong contentType");
+        assertEquals(header.getMediaType(),                       APPLICATION_JWS_TYPE,                           "Wrong type");
+        assertEquals(header.getContentMediaType(),                TEXT_HTML_TYPE,                                 "Wrong contentType");
         assertEquals(header.getKeyId(),                           "the quick brown fox jumped over the lazy dog", "Wrong keyID");
-        assertEquals(header.getJsonWebKey(),                             null,                                           "Wrong jwk");
-        assertEquals(header.getJsonWebKeySetUrl(),                       URI.create("https://example.org/a-simple.jku"), "Wrong jwkSetURL");
+        assertEquals(header.getJsonWebKey(),                      null,                                           "Wrong jwk");
+        assertEquals(header.getJsonWebKeySetUrl(),                URI.create("https://example.org/a-simple.jku"), "Wrong jwkSetURL");
         assertEquals(header.getX509CertificateChain().size(),                   3,                                "Wrong x509CertificateChain");
         assertEquals(header.getX509CertificateThumbprint().length,              20,                               "Wrong x509CertificateThumbprint");
         assertEquals(header.getX509CertificateThumbprintSHA256().length,        32,                               "Wrong x509CertificateThumbprintSHA256");
@@ -190,6 +181,6 @@ public class JWSTest extends AbstractTest {
                      "EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 2 Policy Validation Authority, O=\"ValiCert, Inc.\", L=ValiCert Validation Network",
                      "Wrong subject for X509 certificate [2]");
 
-        validateObject(url, object);
+        validateObject(url, header);
     }
 }

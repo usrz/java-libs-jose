@@ -17,7 +17,7 @@ package org.usrz.jose.jackson;
 
 import java.io.IOException;
 
-import org.usrz.jose.JOSEObject;
+import org.usrz.jose.core.Common;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jws.JWSHeader;
 
@@ -28,15 +28,15 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-public class JOSEObjectDeserializer extends JsonDeserializer<JOSEObject<?>> {
+public class JOSEObjectDeserializer extends JsonDeserializer<Common<?>> {
 
     @Override
-    public JOSEObject<?> deserialize(JsonParser parser, DeserializationContext context)
+    public Common<?> deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
 
         final JsonToken token = parser.getCurrentToken();
         if (token != JsonToken.START_OBJECT) {
-            throw context.mappingException(JOSEObject.class, token);
+            throw context.mappingException(Common.class, token);
         }
 
         final TreeNode node = parser.readValueAsTree();

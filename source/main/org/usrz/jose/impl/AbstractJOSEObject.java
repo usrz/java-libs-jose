@@ -20,18 +20,18 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.JOSEObject;
+import org.usrz.jose.core.Common;
 import org.usrz.jose.jackson.JOSEObjectDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * An abstract implementation of the {@link JOSEObject} interface.
+ * An abstract implementation of the {@link Common} interface.
  */
 @JsonDeserialize(using=JOSEObjectDeserializer.class)
 public abstract class AbstractJOSEObject<ALGORITHM extends JOSEAlgorithm>
-implements JOSEObject<ALGORITHM> {
+implements Common<ALGORITHM> {
 
     private final ALGORITHM algorithm;
     private final String keyId;
@@ -93,7 +93,7 @@ implements JOSEObject<ALGORITHM> {
     /* ====================================================================== */
 
     /**
-     * An abstract builder to construct {@link JOSEObject} instances.
+     * An abstract builder to construct {@link Common} instances.
      */
     public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
                                          OBJECT extends AbstractJOSEObject<ALGORITHM>,

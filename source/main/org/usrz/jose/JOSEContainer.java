@@ -15,10 +15,10 @@
  * ========================================================================== */
 package org.usrz.jose;
 
+import org.usrz.jose.core.Header;
 import org.usrz.jose.jwe.JWE;
 import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jws.JWS;
-import org.usrz.jose.jws.JWSHeader;
 
 /**
  * The {@link JOSEContainer} interface defines an abstract object formatted
@@ -28,7 +28,7 @@ import org.usrz.jose.jws.JWSHeader;
  * @param <HEADER> The type of the header for this container, either a
  *                 {@link JWSHeader} or a {@link JWEHeader}.
  */
-public interface JOSEContainer<HEADER extends JOSEHeader<?>> {
+public interface JOSEContainer<HEADER extends Header<?>> {
 
     /**
      * Return the header associated with this container.

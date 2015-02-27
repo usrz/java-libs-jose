@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.ws.rs.core.MediaType;
 
 import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.JOSEHeader;
+import org.usrz.jose.core.Header;
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -34,11 +34,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * An abstract implementation of the {@link JOSEHeader} interface.
+ * An abstract implementation of the {@link Header} interface.
  */
 public abstract class AbstractJOSEHeader<ALGORITHM extends JOSEAlgorithm>
 extends AbstractJOSEObject<ALGORITHM>
-implements JOSEHeader<ALGORITHM> {
+implements Header<ALGORITHM> {
 
     private final URI jsonWebKeySetUrl;
     private final JWK<?> jsonWebKey;
@@ -112,7 +112,7 @@ implements JOSEHeader<ALGORITHM> {
     /* ====================================================================== */
 
     /**
-     * An abstract builder to construct {@link JOSEHeader} instances.
+     * An abstract builder to construct {@link Header} instances.
      */
     public static abstract class Builder<ALGORITHM extends JOSEAlgorithm,
                                          HEADER extends AbstractJOSEHeader<ALGORITHM>,

@@ -19,7 +19,7 @@ import java.security.Key;
 import java.util.List;
 
 import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.JOSEObject;
+import org.usrz.jose.core.Common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @param <KEY> The Java {@link Key} type represented by this {@link JWK}
  */
-public interface JWK<KEY extends Key> extends JOSEObject<JOSEAlgorithm> {
+public interface JWK<KEY extends Key> extends Common<JOSEAlgorithm> {
 
     /** The {@code key_ops} header field name. */
     public static final String KEY_OPERATIONS = "key_ops";
