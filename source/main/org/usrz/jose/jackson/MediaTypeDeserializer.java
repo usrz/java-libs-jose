@@ -20,7 +20,7 @@ import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JOSE_TYPE;
 import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWE_JSON_TYPE;
 import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWE_TYPE;
 import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWK_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWK_TYPE;
+import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWK_SET_JSON_TYPE;
 import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWS_JSON_TYPE;
 import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWS_TYPE;
 import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWT_JSON_TYPE;
@@ -44,16 +44,16 @@ public class MediaTypeDeserializer extends JsonDeserializer<MediaType> {
         final String string = parser.getValueAsString();
         try {
             switch (string.toUpperCase()) {
-                case "JOSE":      return APPLICATION_JOSE_TYPE;
-                case "JOSE+JSON": return APPLICATION_JOSE_JSON_TYPE;
-                case "JWE":       return APPLICATION_JWE_TYPE;
-                case "JWE+JSON":  return APPLICATION_JWE_JSON_TYPE;
-                case "JWK":       return APPLICATION_JWK_TYPE;
-                case "JWK+JSON":  return APPLICATION_JWK_JSON_TYPE;
-                case "JWS":       return APPLICATION_JWS_TYPE;
-                case "JWS+JSON":  return APPLICATION_JWS_JSON_TYPE;
-                case "JWT":       return APPLICATION_JWT_TYPE;
-                case "JWT+JSON":  return APPLICATION_JWT_JSON_TYPE;
+                case "JOSE":         return APPLICATION_JOSE_TYPE;
+                case "JOSE+JSON":    return APPLICATION_JOSE_JSON_TYPE;
+                case "JWE":          return APPLICATION_JWE_TYPE;
+                case "JWE+JSON":     return APPLICATION_JWE_JSON_TYPE;
+                case "JWK+JSON":     return APPLICATION_JWK_JSON_TYPE;
+                case "JWK-SET+JSON": return APPLICATION_JWK_SET_JSON_TYPE;
+                case "JWS":          return APPLICATION_JWS_TYPE;
+                case "JWS+JSON":     return APPLICATION_JWS_JSON_TYPE;
+                case "JWT":          return APPLICATION_JWT_TYPE;
+                case "JWT+JSON":     return APPLICATION_JWT_JSON_TYPE;
             }
             if (string.indexOf('/') < 0) {
                 return MediaType.valueOf("application/" + string);
