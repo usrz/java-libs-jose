@@ -29,6 +29,7 @@ import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jws.JWSAlgorithm;
+import org.usrz.jose.jws.JWSHeader;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

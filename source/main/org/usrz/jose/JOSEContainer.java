@@ -19,6 +19,7 @@ import org.usrz.jose.core.Header;
 import org.usrz.jose.jwe.JWE;
 import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jws.JWS;
+import org.usrz.jose.jws.JWSHeader;
 
 /**
  * The {@link JOSEContainer} interface defines an abstract object formatted
