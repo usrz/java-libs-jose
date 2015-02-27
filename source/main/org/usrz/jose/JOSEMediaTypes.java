@@ -27,8 +27,6 @@ public abstract class JOSEMediaTypes {
     public static final String APPLICATION_JOSE = "application/jose";
     /** The {@code application/jwe} media type. */
     public static final String APPLICATION_JWE = "application/jwe";
-    /** The {@code application/jwk} media type. */
-    public static final String APPLICATION_JWK = "application/jwk";
     /** The {@code application/jws} media type. */
     public static final String APPLICATION_JWS = "application/jws";
     /** The {@code application/jwt} media type. */
@@ -39,6 +37,8 @@ public abstract class JOSEMediaTypes {
     public static final String APPLICATION_JWE_JSON = "application/jwe+json";
     /** The {@code application/jwk+json} media type. */
     public static final String APPLICATION_JWK_JSON = "application/jwk+json";
+    /** The {@code application/jwk-set+json} media type. */
+    public static final String APPLICATION_JWK_SET_JSON = "application/jwk-set+json";
     /** The {@code application/jws+json} media type. */
     public static final String APPLICATION_JWS_JSON = "application/jws+json";
     /** The {@code application/jwt+json} media type. */
@@ -47,8 +47,6 @@ public abstract class JOSEMediaTypes {
     public static final MediaType APPLICATION_JOSE_TYPE = MediaType.valueOf(APPLICATION_JOSE);
     /** The {@code application/jwe} media type. */
     public static final MediaType APPLICATION_JWE_TYPE = MediaType.valueOf(APPLICATION_JWE);
-    /** The {@code application/jwk} media type. */
-    public static final MediaType APPLICATION_JWK_TYPE = MediaType.valueOf(APPLICATION_JWK);
     /** The {@code application/jws} media type. */
     public static final MediaType APPLICATION_JWS_TYPE = MediaType.valueOf(APPLICATION_JWS);
     /** The {@code application/jwt} media type. */
@@ -59,6 +57,8 @@ public abstract class JOSEMediaTypes {
     public static final MediaType APPLICATION_JWE_JSON_TYPE = MediaType.valueOf(APPLICATION_JWE_JSON);
     /** The {@code application/jwk+json} media type. */
     public static final MediaType APPLICATION_JWK_JSON_TYPE = MediaType.valueOf(APPLICATION_JWK_JSON);
+    /** The {@code application/jwk-set+json} media type. */
+    public static final MediaType APPLICATION_JWK_SET_JSON_TYPE = MediaType.valueOf(APPLICATION_JWK_SET_JSON);
     /** The {@code application/jws+json} media type. */
     public static final MediaType APPLICATION_JWS_JSON_TYPE = MediaType.valueOf(APPLICATION_JWS_JSON);
     /** The {@code application/jwt+json} media type. */
