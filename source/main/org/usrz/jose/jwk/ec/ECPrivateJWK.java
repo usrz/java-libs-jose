@@ -19,6 +19,7 @@ import java.math.BigInteger;
 import java.security.interfaces.ECPrivateKey;
 
 import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jwk.PrivateJWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Implementation of the {@link JWK} interface for Elliptic Curve Private Keys.
  */
 public interface ECPrivateJWK
-extends ECJWK<ECPrivateKey> {
+extends ECJWK<ECPrivateKey>, PrivateJWK<ECPrivateKey> {
 
     /** The {@code d} JWK <i>("{@code EC}")</i> field name. */
     public static final String ECC_PRIVATE_KEY = "d";

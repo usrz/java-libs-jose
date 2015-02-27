@@ -18,13 +18,14 @@ package org.usrz.jose.jwk.ec;
 import java.security.interfaces.ECPublicKey;
 
 import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jwk.PublicJWK;
 
 /**
  * Implementation of the {@link JWK} interface for Elliptic Curve Public Keys.
  */
 public interface ECPublicJWK
-extends ECJWK<ECPublicKey> {
+extends ECJWK<ECPublicKey>, PublicJWK<ECPublicKey> {
 
-    /* JWSHeader is a simple marker interface */
+    /* ECPublicJWK is a simple marker interface */
 
 }
