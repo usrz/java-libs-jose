@@ -15,13 +15,34 @@
  * ========================================================================== */
 package org.usrz.jose.jwk.rsa;
 
-import java.security.interfaces.RSAPublicKey;
+import java.math.BigInteger;
+import java.security.Key;
+import java.security.interfaces.RSAKey;
 
-import org.usrz.jose.jwk.PublicJWK;
+import org.usrz.jose.jwk.JWK;
 
-public interface RSAPublicJWK
-extends RSAJWK<RSAPublicKey>, PublicJWK<RSAPublicKey> {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    /* RSAPublicJWK is a simple marker interface */
+public interface RSAJWK<KEY extends Key & RSAKey>
+extends JWK<KEY> {
+
+    /** The {@code n} JWK <i>("{@code RSA}")</i> field name. */
+    public static final String MODULUS = "n";
+    /** The {@code e} JWK <i>("{@code RSA}")</i> field name. */
+    public static final String PUBLIC_EXPONENT = "e";
+
+    /**
+     * The "n" (modulus) member contains the modulus value for the RSA
+     * public key.
+     */
+    @JsonProperty(MODULUS)
+    public BigInteger getModulus();
+
+    /**
+     * The "e" (exponent) member contains the public exponent value for
+     * the RSA key.
+     */
+    @JsonProperty(PUBLIC_EXPONENT)
+    public BigInteger getPublicExponent();
 
 }
