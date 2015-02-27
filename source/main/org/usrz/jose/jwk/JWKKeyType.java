@@ -15,7 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
 /**
  * The "kty" (key type) member identifies the cryptographic algorithm
@@ -23,7 +23,7 @@ import org.usrz.jose.JOSEIdentifier;
  *
  * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
  */
-public enum JWKKeyType implements JOSEIdentifier {
+public enum JWKKeyType implements Identifier {
 
     /** Elliptic Curve */
     EC("EC"),
@@ -41,7 +41,7 @@ public enum JWKKeyType implements JOSEIdentifier {
     }
 
     @Override
-    public String getIdentifier() {
+    public String joseId() {
         return identifier;
     }
 }

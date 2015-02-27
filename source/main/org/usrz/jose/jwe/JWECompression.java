@@ -15,9 +15,9 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
-public enum JWECompression implements JOSEIdentifier {
+public enum JWECompression implements Identifier {
 
     /** Deflate */
     DEF("DEF");
@@ -31,7 +31,7 @@ public enum JWECompression implements JOSEIdentifier {
     }
 
     @Override
-    public String getIdentifier() {
+    public String joseId() {
         return identifier;
     }
 }

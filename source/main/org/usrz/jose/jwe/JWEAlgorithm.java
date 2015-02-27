@@ -70,7 +70,7 @@ public enum JWEAlgorithm implements JOSEAlgorithm {
     }
 
     @Override
-    public String getIdentifier() {
+    public String joseId() {
         return identifier;
     }
 

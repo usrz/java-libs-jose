@@ -21,7 +21,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class JOSEIdentifierDeserializer<I extends Enum<I> & JOSEIdentifier>
+public class JOSEIdentifierDeserializer<I extends Enum<I> & Identifier>
 extends JsonDeserializer<I> {
 
     private final Map<String, I> mappings;
@@ -38,7 +38,7 @@ extends JsonDeserializer<I> {
     protected JOSEIdentifierDeserializer(Class<I> type) {
         final Map<String, I> mappings = new HashMap<>();
         EnumSet.allOf(type).forEach((entry) -> {
-            mappings.put(entry.getIdentifier(), entry);
+            mappings.put(entry.joseId(), entry);
         });
         this.mappings = Collections.unmodifiableMap(mappings);
         this.type = type;

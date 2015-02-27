@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose;
+package org.usrz.jose.core;
 
 /**
  * An interface defining a unique identifer as described by the <i>Javascript
  * Object Signature and Encryption</i> set of specifications.
  */
-public interface JOSEIdentifier {
+public interface Identifier {
 
     /**
      * Return the unique {@link String} identifier of this instance.
      */
-    public String getIdentifier();
+    public String joseId();
 
 }

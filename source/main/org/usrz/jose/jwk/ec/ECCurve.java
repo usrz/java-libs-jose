@@ -21,7 +21,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.InvalidParameterSpecException;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
 /**
  * The "kty" (key type) member identifies the cryptographic algorithm
@@ -29,7 +29,7 @@ import org.usrz.jose.JOSEIdentifier;
  *
  * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
  */
-public enum ECCurve implements JOSEIdentifier {
+public enum ECCurve implements Identifier {
 
     /** The NIST P-192 Elliptic Curve <i>(not specified in JOSE)</i> */
     P_192("P-192", "secp192r1"),
@@ -54,7 +54,7 @@ public enum ECCurve implements JOSEIdentifier {
     }
 
     @Override
-    public String getIdentifier() {
+    public String joseId() {
         return identifier;
     }
 

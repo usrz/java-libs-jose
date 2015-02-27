@@ -15,9 +15,9 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
-public enum JWEEncryption implements JOSEIdentifier {
+public enum JWEEncryption implements Identifier {
 
     A128CBC_HS256("A128CBC-HS256"),
     A192CBC_HS384("A192CBC-HS384"),
@@ -35,7 +35,7 @@ public enum JWEEncryption implements JOSEIdentifier {
     }
 
     @Override
-    public String getIdentifier() {
+    public String joseId() {
         return identifier;
     }
 }

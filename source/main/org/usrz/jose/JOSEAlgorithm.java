@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose;
 
+import org.usrz.jose.core.Identifier;
 import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
@@ -24,7 +25,7 @@ import org.usrz.jose.jws.JWSHeader;
  * An interface abstracting a <i>JOSE</i> algorithm, normally used in
  * {@link JWSHeader} or {@link JWEHeader} structures.
  */
-public interface JOSEAlgorithm extends JOSEIdentifier {
+public interface JOSEAlgorithm extends Identifier {
 
     /**
      * The key type ({@linkplain JWKKeyType#EC Elliptic Curve},

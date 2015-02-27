@@ -15,7 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
 /**
  * The "use" (public key use) member identifies the intended use of the
@@ -23,7 +23,7 @@ import org.usrz.jose.JOSEIdentifier;
  *
  * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
  */
-public enum JWKPublicKeyUse implements JOSEIdentifier {
+public enum JWKPublicKeyUse implements Identifier {
 
     /** Signature */
     SIG("sig"),
@@ -37,7 +37,7 @@ public enum JWKPublicKeyUse implements JOSEIdentifier {
     }
 
     @Override
-    public String getIdentifier() {
+    public String joseId() {
         return identifier;
     }
 

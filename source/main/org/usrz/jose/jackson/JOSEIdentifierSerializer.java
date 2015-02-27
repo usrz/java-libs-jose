@@ -17,7 +17,7 @@ package org.usrz.jose.jackson;
 
 import java.io.IOException;
 
-import org.usrz.jose.JOSEIdentifier;
+import org.usrz.jose.core.Identifier;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,18 +25,18 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class JOSEIdentifierSerializer
-extends JsonSerializer<JOSEIdentifier> {
+extends JsonSerializer<Identifier> {
 
     @Override
-    public void serialize(JOSEIdentifier value,
+    public void serialize(Identifier value,
                           JsonGenerator generator,
                           SerializerProvider provider)
     throws IOException, JsonProcessingException {
-        generator.writeString(value.getIdentifier());
+        generator.writeString(value.joseId());
     }
 
     @Override
-    public Class<JOSEIdentifier> handledType() {
-        return JOSEIdentifier.class;
+    public Class<Identifier> handledType() {
+        return Identifier.class;
     }
 }

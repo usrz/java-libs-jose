@@ -20,8 +20,8 @@ import java.security.cert.X509Certificate;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.JOSEIdentifier;
 import org.usrz.jose.core.Bytes;
+import org.usrz.jose.core.Identifier;
 
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
@@ -30,7 +30,7 @@ public class JOSESerializers extends SimpleSerializers {
     public JOSESerializers() {
         addSerializer(Bytes.class, new BytesSerializer());
         addSerializer(BigInteger.class, new BigIntegerSerializer());
-        addSerializer(JOSEIdentifier.class, new JOSEIdentifierSerializer());
+        addSerializer(Identifier.class, new JOSEIdentifierSerializer());
         addSerializer(MediaType.class, new MediaTypeSerializer());
         addSerializer(X509Certificate.class, new X509CertificateSerializer());
 
