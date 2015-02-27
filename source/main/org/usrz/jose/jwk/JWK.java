@@ -18,6 +18,9 @@ package org.usrz.jose.jwk;
 import java.security.Key;
 import java.util.List;
 
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.core.Common;
 
@@ -31,11 +34,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public interface JWK<KEY extends Key> extends Common<JOSEAlgorithm> {
 
-    /** The {@code key_ops} header field name. */
+    /** The {@code key_ops} JWK field name. */
     public static final String KEY_OPERATIONS = "key_ops";
-    /** The {@code kty} header field name. */
+    /** The {@code kty} JWK field name. */
     public static final String KEY_TYPE = "kty";
-    /** The {@code use} header field name. */
+    /** The {@code use} JWK field name. */
     public static final String PUBLIC_KEY_USE = "use";
 
     /**
@@ -59,4 +62,32 @@ public interface JWK<KEY extends Key> extends Common<JOSEAlgorithm> {
     @JsonProperty(KEY_OPERATIONS)
     public List<JWKKeyOperation> getKeyOperations();
 
+    @Accessors(chain=true)
+    public abstract static class Builder<K extends Key,
+                                         J extends JWK<K>,
+                                         B extends Builder<K, J, B>>
+    extends Common.Builder<JOSEAlgorithm, JWK<K>, Builder<K, J, B>> {
+
+        /**
+         * The "kty" (key type) member identifies the cryptographic algorithm
+         * family used with the key.
+         */
+        @Setter(onMethod=@__({@JsonProperty(KEY_TYPE)}))
+        private JWKKeyType keyType;
+
+        /**
+         * The "use" (public key use) member identifies the intended use of the
+         * public key.
+         */
+        @Setter(onMethod=@__({@JsonProperty(PUBLIC_KEY_USE)}))
+        private JWKPublicKeyUse publicKeyUse;
+
+        /**
+         * The "key_ops" (key operations) member identifies the operation(s)
+         * that the key is intended to be used for.
+         */
+        @Setter(onMethod=@__({@JsonProperty(KEY_OPERATIONS)}))
+        private List<JWKKeyOperation> keyOperations;
+
+    }
 }

@@ -21,28 +21,69 @@ import java.util.List;
 
 import javax.crypto.SecretKey;
 
-import org.usrz.jose.JOSEAlgorithm;
+import lombok.Data;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
-public class OctetSequenceJWK extends AbstractJWK<SecretKey> {
+import org.usrz.jose.core.BeanBuilder;
+import org.usrz.jose.core.Bytes;
+import org.usrz.jose.jwe.JWEAlgorithm;
 
-    protected OctetSequenceJWK(JOSEAlgorithm algorithm,
-                               String keyID,
-                               URI x509uri,
-                               List<X509Certificate> x509CertificateChain,
-                               byte[] x509CertificateThumbprint,
-                               byte[] x509CertificateThumbprintSHA256,
-                               JWKKeyType keyType,
-                               JWKPublicKeyUse publicKeyUse,
-                               List<JWKKeyOperation> keyOperations) {
-        super(algorithm,
-              keyID,
-              x509uri,
-              x509CertificateChain,
-              x509CertificateThumbprint,
-              x509CertificateThumbprintSHA256,
-              keyType,
-              publicKeyUse,
-              keyOperations);
-        // TODO Auto-generated constructor stub
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+public interface OctetSequenceJWK extends JWK<SecretKey> {
+
+    /** The {@code k} JWK <i>("{@code oct}")</i> field name. */
+    public static final String KEY_VALUE = "k";
+
+    /**
+     * The "k" (key value) member contains the value of the symmetric (or
+     * other single-valued) key.
+     */
+    @JsonProperty(KEY_VALUE)
+    public Bytes getKeyValue();
+
+    /* ====================================================================== */
+
+    @Accessors(chain=true)
+    @JsonPOJOBuilder(withPrefix="set")
+
+    public static final class Builder
+    extends JWK.Builder<SecretKey, OctetSequenceJWK, Builder> {
+
+        private static final BeanBuilder<Builder, Impl> BUILDER = new BeanBuilder<>(Builder.class, Impl.class);
+
+        /**
+         * The "k" (key value) member contains the value of the symmetric (or
+         * other single-valued) key.
+         */
+        @Setter(onMethod=@__({@JsonProperty(KEY_VALUE)}))
+        private Builder keyValue;
+
+        @Override
+        public OctetSequenceJWK build() {
+            return BUILDER.build(this);
+        }
+
+        @Data
+        private static final class Impl implements OctetSequenceJWK {
+
+            /* Common */
+            private final JWEAlgorithm algorithm;
+            private final String keyId;
+            private final URI x509Url;
+            private final List<X509Certificate> x509CertificateChain;
+            private final Bytes x509CertificateThumbprint;
+            private final Bytes x509CertificateThumbprintSHA256;
+
+            /* JWK */
+            private final JWKKeyType keyType;
+            private final JWKPublicKeyUse publicKeyUse;
+            private final List<JWKKeyOperation> keyOperations;
+
+            /* JWK "oct" */
+            private final Bytes keyValue;
+        }
     }
 }

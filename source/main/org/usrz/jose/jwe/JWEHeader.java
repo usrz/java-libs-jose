@@ -38,9 +38,9 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder=JWEHeader.Builder.class)
 public interface JWEHeader extends Header<JWEAlgorithm> {
 
-    /** The {@code enc} header field name. */
+    /** The {@code enc} JWE header field name. */
     public static final String ENCRYPTION = "enc";
-    /** The {@code zip} header field name. */
+    /** The {@code zip} JWE header field name. */
     public static final String COMPRESSION = "zip";
 
     /**
@@ -57,6 +57,8 @@ public interface JWEHeader extends Header<JWEAlgorithm> {
      */
     @JsonProperty(ENCRYPTION)
     public JWECompression getCompression();
+
+    /* ====================================================================== */
 
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
@@ -87,18 +89,24 @@ public interface JWEHeader extends Header<JWEAlgorithm> {
 
         @Data
         private static final class Impl implements JWEHeader {
+
+            /* Common */
             private final JWEAlgorithm algorithm;
             private final String keyId;
             private final URI x509Url;
             private final List<X509Certificate> x509CertificateChain;
             private final Bytes x509CertificateThumbprint;
             private final Bytes x509CertificateThumbprintSHA256;
+
+            /* Header */
             private final URI jsonWebKeySetUrl;
             private final JWK<?> jsonWebKey;
             private final MediaType mediaType;
             private final MediaType contentMediaType;
             private final List<String> criticalExtensions;
             private final Map<String, Object> additionalHeaders;
+
+            /* JWE */
             private final JWEEncryption encryption;
             private final JWECompression compression;
         }

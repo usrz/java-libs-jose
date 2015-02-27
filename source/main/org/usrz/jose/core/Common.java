@@ -44,17 +44,17 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
  */
 public interface Common<A extends JOSEAlgorithm> {
 
-    /** The {@code alg} header field name. */
+    /** The {@code alg} field name. */
     public static final String ALGORITHM = "alg";
-    /** The {@code kid} header field name. */
+    /** The {@code kid} field name. */
     public static final String KEY_ID = "kid";
-    /** The {@code x5c} header field name. */
+    /** The {@code x5c} field name. */
     public static final String X509_CERTIFICATE_CHAIN = "x5c";
-    /** The {@code x5t} header field name. */
+    /** The {@code x5t} field name. */
     public static final String X509_CERTIFICATE_THUMBPRINT = "x5t";
-    /** The {@code x5t#S256} header field name. */
+    /** The {@code x5t#S256} field name. */
     public static final String X509_CERTIFICATE_THUMBPRINT_SHA256 = "x5t#S256";
-    /** The {@code x5u} header field name. */
+    /** The {@code x5u} field name. */
     public static final String X509_URL = "x5u";
 
     /**
@@ -102,7 +102,7 @@ public interface Common<A extends JOSEAlgorithm> {
     @JsonProperty(X509_CERTIFICATE_THUMBPRINT_SHA256)
     public Bytes getX509CertificateThumbprintSHA256();
 
-
+    /* ====================================================================== */
 
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")

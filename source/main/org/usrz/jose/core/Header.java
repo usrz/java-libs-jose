@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.ws.rs.core.MediaType;
 
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.jwe.JWEAlgorithm;
@@ -35,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * An interface defining all common elements shared by all <i>JOSE</i> headers.
@@ -44,6 +46,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public interface Header<ALGORITHM extends JOSEAlgorithm> extends Common<ALGORITHM> {
 
+    /** The {@code typ} header field name. */
+    public static final String MEDIA_TYPE = "typ";
     /** The {@code cty} header field name. */
     public static final String CONTENT_MEDIA_TYPE = "cty";
     /** The {@code crit} header field name. */
@@ -52,8 +56,6 @@ public interface Header<ALGORITHM extends JOSEAlgorithm> extends Common<ALGORITH
     public static final String JSON_WEB_KEY = "jwk";
     /** The {@code jku} header field name. */
     public static final String JSON_WEB_KEY_SET_URL = "jku";
-    /** The {@code typ} header field name. */
-    public static final String MEDIA_TYPE = "typ";
 
     /**
      * The "jku" (JWK Set URL) Header Parameter is a URI that
@@ -100,6 +102,10 @@ public interface Header<ALGORITHM extends JOSEAlgorithm> extends Common<ALGORITH
     @JsonAnyGetter
     public Map<String, Object> getAdditionalHeaders();
 
+    /* ====================================================================== */
+
+    @Accessors(chain=true)
+    @JsonPOJOBuilder(withPrefix="set")
     public abstract class Builder<A extends JOSEAlgorithm,
                                   H extends Header<A>,
                                   B extends Builder<A, H, B>>

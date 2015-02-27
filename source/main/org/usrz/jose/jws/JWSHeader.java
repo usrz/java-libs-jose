@@ -21,6 +21,10 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder=JWSHeader.Builder.class)
 public interface JWSHeader extends Header<JWSAlgorithm> {
 
+    /* JWSHeader is a simple marker interface */
+
+    /* ====================================================================== */
+
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public static final class Builder
@@ -35,12 +39,16 @@ public interface JWSHeader extends Header<JWSAlgorithm> {
 
         @Data
         private static final class Impl implements JWSHeader {
+
+            /* Common */
             private final JWSAlgorithm algorithm;
             private final String keyId;
             private final URI x509Url;
             private final List<X509Certificate> x509CertificateChain;
             private final Bytes x509CertificateThumbprint;
             private final Bytes x509CertificateThumbprintSHA256;
+
+            /* Header */
             private final URI jsonWebKeySetUrl;
             private final JWK<?> jsonWebKey;
             private final MediaType mediaType;
