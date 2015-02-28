@@ -183,7 +183,7 @@ public interface Common<A extends JOSEAlgorithm> {
          */
         @JsonIgnore
         @SuppressWarnings("unchecked")
-        public B addX509CertificateChain(X509Certificate x509Certificate) {
+        public B addX509CertificateToChain(X509Certificate x509Certificate) {
             x509CertificateChainList.add(x509Certificate);
             return (B) this;
         }

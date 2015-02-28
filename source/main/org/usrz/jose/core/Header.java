@@ -184,7 +184,7 @@ public interface Header<A extends JOSEAlgorithm> extends Common<A> {
          */
         @JsonIgnore
         @SuppressWarnings("unchecked")
-        public B addCriticalExtensions(String criticalExtension) {
+        public B addCriticalExtension(String criticalExtension) {
             criticalExtensionsList.add(criticalExtension);
             return (B) this;
         }
