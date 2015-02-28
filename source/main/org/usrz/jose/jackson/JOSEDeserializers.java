@@ -20,7 +20,16 @@ import java.security.cert.X509Certificate;
 
 import javax.ws.rs.core.MediaType;
 
+import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.core.Bytes;
+import org.usrz.jose.jwe.JWEAlgorithm;
+import org.usrz.jose.jwe.JWECompression;
+import org.usrz.jose.jwe.JWEEncryption;
+import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.jwk.JWKKeyOperation;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jwk.ec.ECCurve;
 import org.usrz.jose.jws.JWSAlgorithm;
 
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -33,7 +42,17 @@ public class JOSEDeserializers extends SimpleDeserializers {
         addDeserializer(MediaType.class, new MediaTypeDeserializer());
         addDeserializer(X509Certificate.class, new X509CertificateDeserializer());
 
-        addDeserializer(JWSAlgorithm.class, new JOSEIdentifierDeserializer<JWSAlgorithm>(JWSAlgorithm.class));
+        addDeserializer(JOSEAlgorithm.class,   new JOSEAlgorithmDeserializer());
+        addDeserializer(JWK.class,             new JWKDeserializer());
+
+        addDeserializer(ECCurve.class,         new JOSEIdentifierDeserializer<ECCurve        >(ECCurve.class));
+        addDeserializer(JWECompression.class,  new JOSEIdentifierDeserializer<JWECompression >(JWECompression.class));
+        addDeserializer(JWEEncryption.class,   new JOSEIdentifierDeserializer<JWEEncryption  >(JWEEncryption.class));
+        addDeserializer(JWKKeyOperation.class, new JOSEIdentifierDeserializer<JWKKeyOperation>(JWKKeyOperation.class));
+        addDeserializer(JWKKeyType.class,      new JOSEIdentifierDeserializer<JWKKeyType     >(JWKKeyType.class));
+        addDeserializer(JWKPublicKeyUse.class, new JOSEIdentifierDeserializer<JWKPublicKeyUse>(JWKPublicKeyUse.class));
+        addDeserializer(JWEAlgorithm.class,    new JOSEIdentifierDeserializer<JWEAlgorithm   >(JWEAlgorithm.class));
+        addDeserializer(JWSAlgorithm.class,    new JOSEIdentifierDeserializer<JWSAlgorithm   >(JWSAlgorithm.class));
     }
 
 }

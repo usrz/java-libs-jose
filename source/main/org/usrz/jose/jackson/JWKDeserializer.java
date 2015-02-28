@@ -19,19 +19,22 @@ import java.io.IOException;
 
 import org.usrz.jose.core.Common;
 import org.usrz.jose.jwk.JWK;
-import org.usrz.jose.jws.JWSHeader;
+import org.usrz.jose.jwk.ec.ECPrivateJWK;
+import org.usrz.jose.jwk.oct.OctetSequenceJWK;
+import org.usrz.jose.jwk.rsa.RSAPrivateJWK;
+import org.usrz.jose.jwk.rsa.RSAPublicJWK;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 
-public class JOSEObjectDeserializer extends JsonDeserializer<Common<?>> {
+public class JWKDeserializer extends JsonDeserializer<JWK<?>> {
 
     @Override
-    public Common<?> deserialize(JsonParser parser, DeserializationContext context)
+    public JWK<?> deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
 
         final JsonToken token = parser.getCurrentToken();
@@ -39,20 +42,39 @@ public class JOSEObjectDeserializer extends JsonDeserializer<Common<?>> {
             throw context.mappingException(Common.class, token);
         }
 
-        final TreeNode node = parser.readValueAsTree();
+        final JsonNode node = parser.readValueAsTree();
         final JsonParser json = node.traverse(parser.getCodec());
         json.nextToken();
 
         try {
-            if (node.get(JWK.KEY_TYPE) != null) {
-                return context.readValue(json, JWK.class);
-//            } else if (node.get("enc") != null){
-//                return context.readValue(json, JWEHeader.class);
-            } else if (node.get(JWSHeader.ALGORITHM) != null) {
-                return context.readValue(json, JWSHeader.class);
-            } else {
-                throw context.mappingException("Unknown JOSEObject (JWK/JWE/JWS) type");
+            final JsonNode typeNode = node.get(JWK.KEY_TYPE);
+            if (typeNode == null) {
+                throw context.mappingException("Missing \"" + JWK.KEY_TYPE + "\" property in JWK");
             }
+
+            // TODO enums!
+            final String type = typeNode.asText();
+            System.out.println("KEY TYPE --> " + type);
+            switch (type) {
+                case "EC":
+                    return node.get(ECPrivateJWK.ECC_PRIVATE_KEY) != null ?
+                            context.readValue(json, RSAPrivateJWK.class) :
+                            context.readValue(json, RSAPublicJWK.class);
+
+                case "RSA":
+                    return node.get(RSAPrivateJWK.PRIVATE_EXPONENT) != null ?
+                            context.readValue(json, RSAPrivateJWK.class) :
+                            context.readValue(json, RSAPublicJWK.class);
+
+                case "oct":
+                    return context.readValue(json, OctetSequenceJWK.class);
+
+                default: {
+                }
+            }
+
+            /* We don't know how to map... */
+            throw context.mappingException("Unknown JWK key type \"" + type + "\"");
         } finally {
             json.close();
         }
