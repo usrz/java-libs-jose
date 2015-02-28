@@ -32,7 +32,6 @@ import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
-import org.usrz.jose.jwk.JWK.Builder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -53,7 +52,6 @@ public interface OctetSequenceJWK extends JWK<SecretKey> {
 
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
-
     public static final class Builder
     extends JWK.Builder<SecretKey, OctetSequenceJWK, Builder> {
 
@@ -64,7 +62,7 @@ public interface OctetSequenceJWK extends JWK<SecretKey> {
          * other single-valued) key.
          */
         @Setter(onMethod=@__({@JsonProperty(KEY_VALUE)}))
-        private Builder keyValue;
+        private Bytes keyValue;
 
         @Override
         public OctetSequenceJWK build() {

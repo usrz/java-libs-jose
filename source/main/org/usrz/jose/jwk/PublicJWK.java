@@ -21,9 +21,9 @@ import java.security.PublicKey;
  * A specialization of the {@link JWK} interface representing public
  * asymmetric keys
  *
- * @param <KEY> The Java {@link PublicKey} type represented by this {@link JWK}
+ * @param <K> The Java {@link PublicKey} type represented by this {@link JWK}
  */
-public interface PublicJWK<KEY extends PublicKey> extends JWK<KEY> {
+public interface PublicJWK<K extends PublicKey> extends JWK<K> {
 
     // Marker interface
 
