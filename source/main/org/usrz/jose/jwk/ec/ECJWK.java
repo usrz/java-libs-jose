@@ -70,6 +70,12 @@ extends JWK<KEY> {
                                          B extends Builder<K, J, B>>
     extends JWK.Builder<K, J, B> {
 
+        protected Builder(Class<? extends J> type) {
+            super(type);
+        }
+
+        /* ================================================================== */
+
         /**
          * The "crv" (curve) member identifies the cryptographic curve used with
          * the key.

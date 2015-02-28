@@ -24,7 +24,6 @@ import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.BeanBuilder;
 import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.JWKKeyOperation;
@@ -50,12 +49,16 @@ extends ECJWK<ECPublicKey>, PublicJWK<ECPublicKey> {
     public static final class Builder
     extends ECJWK.Builder<ECPublicKey, ECPublicJWK, Builder> {
 
-        private static final BeanBuilder<Builder, Impl> BUILDER = new BeanBuilder<>(Builder.class, Impl.class);
+        public Builder() {
+            super(Impl.class);
+        }
 
         @Override
         public ECPublicJWK build() {
-            return BUILDER.build(this);
+            return super.build();
         }
+
+        /* ================================================================== */
 
         @Data
         private static final class Impl implements ECPublicJWK {
