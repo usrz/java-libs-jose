@@ -19,9 +19,13 @@ import java.math.BigInteger;
 import java.security.Key;
 import java.security.interfaces.ECKey;
 
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * An abstract implementation of the {@link JWK} interface for Elliptic Curves.
@@ -57,4 +61,34 @@ extends JWK<KEY> {
     @JsonProperty(Y_COORDINATE)
     public BigInteger getYCoordinate();
 
+    /* ====================================================================== */
+
+    @Accessors(chain=true)
+    @JsonPOJOBuilder(withPrefix="set")
+    public abstract static class Builder<K extends Key & ECKey,
+                                         J extends ECJWK<K>,
+                                         B extends Builder<K, J, B>>
+    extends JWK.Builder<K, J, B> {
+
+        /**
+         * The "crv" (curve) member identifies the cryptographic curve used with
+         * the key.
+         */
+        @Setter(onMethod=@__({@JsonProperty(CURVE)}))
+        private ECCurve curve;
+
+        /**
+         * The "x" (x coordinate) member contains the x coordinate for the
+         * elliptic curve point.
+         */
+        @Setter(onMethod=@__({@JsonProperty(X_COORDINATE)}))
+        private BigInteger xCoordinate;
+
+        /**
+         * The "y" (y coordinate) member contains the y coordinate for the
+         * elliptic curve point.
+         */
+        @Setter(onMethod=@__({@JsonProperty(Y_COORDINATE)}))
+        private BigInteger yCoordinate;
+    }
 }
