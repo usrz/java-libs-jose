@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.BeanBuilder;
 import org.usrz.jose.core.Bytes;
 import org.usrz.jose.core.Header;
 import org.usrz.jose.jwk.JWK;
@@ -30,12 +29,16 @@ public interface JWSHeader extends Header<JWSAlgorithm> {
     public static final class Builder
     extends Header.Builder<JWSAlgorithm, JWSHeader, Builder> {
 
-        private static final BeanBuilder<Builder, Impl> BUILDER = new BeanBuilder<>(Builder.class, Impl.class);
+        public Builder() {
+            super(Impl.class);
+        }
 
         @Override
         public JWSHeader build() {
-            return BUILDER.build(this);
+            return super.build();
         }
+
+        /* ================================================================== */
 
         @Data
         private static final class Impl implements JWSHeader {
