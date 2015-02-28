@@ -35,45 +35,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.Test;
-import org.usrz.jose.jackson.JOSEObjectMapper;
-import org.usrz.libs.testing.AbstractTest;
+import org.usrz.jose.AbstractTestParse;
 
-import com.fasterxml.jackson.core.TreeNode;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-
-
-public class JWSTest extends AbstractTest {
-
-    private final JOSEObjectMapper mapper = new JOSEObjectMapper();
-
-    protected URL getResource(String name) {
-        final URL url = this.getClass().getResource(name);
-        assertNotNull(url, "Resource " + name + " not found");
-        return url;
-    }
-
-    protected void validateObject(URL url, Object object)
-    throws Exception {
-        final TreeNode actual = mapper.valueToTree(object);
-        final TreeNode expected = mapper.readTree(url);
-
-        if (!actual.equals(expected)) {
-            final String actualString = mapper.writer(new DefaultPrettyPrinter()).writeValueAsString(actual);
-            final String expectedString = mapper.writer(new DefaultPrettyPrinter()).writeValueAsString(expected);
-            throw new AssertionError("Tree differs: " + url + "\n>>> EXPECTED >>>\n" + expectedString + "\n<<< ACTUAL <<<\n" + actualString);
-        } else {
-            System.err.println("Validated " + url);
-            System.err.println(mapper.writer(new DefaultPrettyPrinter()).writeValueAsString(actual));
-        }
-    }
-
-    /* ====================================================================== */
+public class JWSTest extends AbstractTestParse {
 
     @Test
     public void testSection3_1_example_1()
     throws Exception {
         final URL url = getResource("jws-section-3.1-example1.json");
-        // TODO: generic!!!
         final JWSHeader header = mapper.readValue(url, JWSHeader.class);
         validateObject(url, header);
 
@@ -95,7 +64,6 @@ public class JWSTest extends AbstractTest {
     public void testSection3_1_example_2()
     throws Exception {
         final URL url = getResource("jws-section-3.1-example2.json");
-        // TODO: generic!!!
         final JWSHeader header = mapper.readValue(url, JWSHeader.class);
         validateObject(url, header);
 
@@ -117,7 +85,6 @@ public class JWSTest extends AbstractTest {
     public void testSection4_1_11_critical_header()
     throws Exception {
         final URL url = getResource("jws-section-4.1.11-critical-header.json");
-        // TODO: generic!!!
         final JWSHeader header = mapper.readValue(url, JWSHeader.class);
         validateObject(url, header);
 
@@ -140,8 +107,8 @@ public class JWSTest extends AbstractTest {
     public void testFull()
     throws Exception {
         final URL url = getResource("full.json");
-        // TODO: generic!!!
         final JWSHeader header = mapper.readValue(url, JWSHeader.class);
+        validateObject(url, header);
 
         final List<String> criticalExtensions = new ArrayList<String>(){{
             this.add("first");
