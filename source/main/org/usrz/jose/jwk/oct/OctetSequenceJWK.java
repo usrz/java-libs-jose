@@ -33,8 +33,10 @@ import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+@JsonDeserialize(builder=OctetSequenceJWK.Builder.class)
 public interface OctetSequenceJWK extends JWK<SecretKey> {
 
     /** The {@code k} JWK <i>("{@code oct}")</i> field name. */

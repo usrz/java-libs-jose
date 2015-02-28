@@ -23,8 +23,10 @@ import lombok.experimental.Accessors;
 
 import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.core.Common;
+import org.usrz.jose.jackson.JWKDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data
@@ -32,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @param <K> The Java {@link Key} type represented by this {@link JWK}
  */
+@JsonDeserialize(using=JWKDeserializer.class)
 public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
 
     /** The {@code key_ops} JWK field name. */

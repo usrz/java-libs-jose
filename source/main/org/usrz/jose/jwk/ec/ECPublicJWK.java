@@ -32,11 +32,13 @@ import org.usrz.jose.jwk.JWKPublicKeyUse;
 import org.usrz.jose.jwk.PublicJWK;
 import org.usrz.jose.jws.JWSAlgorithm;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Implementation of the {@link JWK} interface for Elliptic Curve Public Keys.
  */
+@JsonDeserialize(builder=ECPublicJWK.Builder.class)
 public interface ECPublicJWK
 extends ECJWK<ECPublicKey>, PublicJWK<ECPublicKey> {
 

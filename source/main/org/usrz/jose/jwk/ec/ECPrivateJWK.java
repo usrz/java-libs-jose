@@ -34,11 +34,13 @@ import org.usrz.jose.jwk.PrivateJWK;
 import org.usrz.jose.jws.JWSAlgorithm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Implementation of the {@link JWK} interface for Elliptic Curve Private Keys.
  */
+@JsonDeserialize(builder=ECPrivateJWK.Builder.class)
 public interface ECPrivateJWK
 extends ECJWK<ECPrivateKey>, PrivateJWK<ECPrivateKey> {
 
