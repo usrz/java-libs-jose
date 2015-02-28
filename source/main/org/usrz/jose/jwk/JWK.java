@@ -68,6 +68,12 @@ public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
                                          B extends Builder<K, J, B>>
     extends Common.Builder<JOSEAlgorithm, J, B> {
 
+        protected Builder(Class<? extends J> type) {
+            super(type);
+        }
+
+        /* ================================================================== */
+
         /**
          * The "kty" (key type) member identifies the cryptographic algorithm
          * family used with the key.
