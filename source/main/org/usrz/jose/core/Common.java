@@ -107,9 +107,9 @@ public interface Common<A extends JOSEAlgorithm> {
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public abstract class Builder<A extends JOSEAlgorithm,
-                                  O extends Common<A>,
-                                  B extends Builder<A, O, B>>
-    implements org.usrz.jose.core.Builder<Common<A>> {
+                                  C extends Common<A>,
+                                  B extends Builder<A, C, B>>
+    implements org.usrz.jose.core.Builder<C> {
 
         @SuppressWarnings("unused")
         private final List<X509Certificate> x509CertificateChain;
