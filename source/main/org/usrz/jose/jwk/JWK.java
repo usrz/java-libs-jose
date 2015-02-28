@@ -66,7 +66,7 @@ public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
     public abstract static class Builder<K extends Key,
                                          J extends JWK<K>,
                                          B extends Builder<K, J, B>>
-    extends Common.Builder<JOSEAlgorithm, JWK<K>, Builder<K, J, B>> {
+    extends Common.Builder<JOSEAlgorithm, J, B> {
 
         /**
          * The "kty" (key type) member identifies the cryptographic algorithm
