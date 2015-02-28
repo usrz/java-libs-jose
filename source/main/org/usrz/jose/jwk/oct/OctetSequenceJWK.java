@@ -25,7 +25,6 @@ import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.BeanBuilder;
 import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwk.JWK;
@@ -55,7 +54,16 @@ public interface OctetSequenceJWK extends JWK<SecretKey> {
     public static final class Builder
     extends JWK.Builder<SecretKey, OctetSequenceJWK, Builder> {
 
-        private static final BeanBuilder<Builder, Impl> BUILDER = new BeanBuilder<>(Builder.class, Impl.class);
+        public Builder() {
+            super(Impl.class);
+        }
+
+        @Override
+        public OctetSequenceJWK build() {
+            return super.build();
+        }
+
+        /* ================================================================== */
 
         /**
          * The "k" (key value) member contains the value of the symmetric (or
@@ -64,10 +72,7 @@ public interface OctetSequenceJWK extends JWK<SecretKey> {
         @Setter(onMethod=@__({@JsonProperty(KEY_VALUE)}))
         private Bytes keyValue;
 
-        @Override
-        public OctetSequenceJWK build() {
-            return BUILDER.build(this);
-        }
+        /* ================================================================== */
 
         @Data
         private static final class Impl implements OctetSequenceJWK {
