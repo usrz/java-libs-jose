@@ -41,10 +41,10 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 /**
  * An interface defining all common elements shared by all <i>JOSE</i> headers.
  *
- * @param <ALGORITHM> The type of the algorithm for this container, either a
- *                    {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
+ * @param <A> The type of the algorithm for this container, either a
+ *            {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
  */
-public interface Header<ALGORITHM extends JOSEAlgorithm> extends Common<ALGORITHM> {
+public interface Header<A extends JOSEAlgorithm> extends Common<A> {
 
     /** The {@code typ} header field name. */
     public static final String MEDIA_TYPE = "typ";
