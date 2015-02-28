@@ -26,7 +26,6 @@ import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.BeanBuilder;
 import org.usrz.jose.core.Bytes;
 import org.usrz.jose.core.Header;
 import org.usrz.jose.jwk.JWK;
@@ -65,7 +64,16 @@ public interface JWEHeader extends Header<JWEAlgorithm> {
     public static final class Builder
     extends Header.Builder<JWEAlgorithm, JWEHeader, Builder> {
 
-        private static final BeanBuilder<Builder, Impl> BUILDER = new BeanBuilder<>(Builder.class, Impl.class);
+        public Builder() {
+            super(Impl.class);
+        }
+
+        @Override
+        public JWEHeader build() {
+            return super.build();
+        }
+
+        /* ================================================================== */
 
         /**
          * The "enc" (encryption algorithm) Header Parameter identifies the
@@ -81,11 +89,6 @@ public interface JWEHeader extends Header<JWEAlgorithm> {
          */
         @Setter(onMethod=@__({@JsonProperty(COMPRESSION)}))
         private JWECompression compression;
-
-        @Override
-        public JWEHeader build() {
-            return BUILDER.build(this);
-        }
 
         @Data
         private static final class Impl implements JWEHeader {
