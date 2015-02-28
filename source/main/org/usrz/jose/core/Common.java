@@ -109,13 +109,14 @@ public interface Common<A extends JOSEAlgorithm> {
     public abstract class Builder<A extends JOSEAlgorithm,
                                   C extends Common<A>,
                                   B extends Builder<A, C, B>>
-    implements org.usrz.jose.core.Builder<C> {
+    extends BeanBuilder<C> {
 
         @SuppressWarnings("unused")
         private final List<X509Certificate> x509CertificateChain;
         private final List<X509Certificate> x509CertificateChainList;
 
-        protected Builder() {
+        protected Builder(Class<? extends C> type) {
+            super(type);
             x509CertificateChainList = new ArrayList<>();
             x509CertificateChain = Collections.unmodifiableList(x509CertificateChainList);
         }
@@ -127,7 +128,7 @@ public interface Common<A extends JOSEAlgorithm> {
          * use with the JOSE object.
          */
         @Setter(onMethod=@__({@JsonProperty(ALGORITHM)}))
-        private JWSAlgorithm algorithm;
+        private A algorithm;
 
         /**
          * The "kid" (key ID) member is used to match a specific key.

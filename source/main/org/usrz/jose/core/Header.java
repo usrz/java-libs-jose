@@ -119,7 +119,9 @@ public interface Header<A extends JOSEAlgorithm> extends Common<A> {
         private final Map<String, Object> additionalHeaders;
         private final Map<String, Object> additionalHeadersMap;
 
-        protected Builder() {
+        protected Builder(Class<? extends H> type) {
+            super(type);
+
             criticalExtensionsList = new ArrayList<>();
             criticalExtensions = Collections.unmodifiableList(criticalExtensionsList);
 
