@@ -15,6 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jws;
 
+import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonList;
@@ -27,8 +28,11 @@ import static org.usrz.jose.jws.JWSAlgorithm.HS256;
 import static org.usrz.jose.jws.JWSAlgorithm.NONE;
 import static org.usrz.jose.jws.JWSAlgorithm.PS512;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +40,11 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 import org.usrz.jose.AbstractTestParse;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jwk.rsa.RSAPublicJWK;
 
-public class JWSTest extends AbstractTestParse {
+public class JWSHeaderTest extends AbstractTestParse {
 
     @Test
     public void testSection3_1_example_1()
@@ -129,7 +136,6 @@ public class JWSTest extends AbstractTestParse {
         assertEquals(header.getMediaType(),                       APPLICATION_JWS_TYPE,                           "Wrong type");
         assertEquals(header.getContentMediaType(),                TEXT_HTML_TYPE,                                 "Wrong contentType");
         assertEquals(header.getKeyId(),                           "the quick brown fox jumped over the lazy dog", "Wrong keyID");
-        assertEquals(header.getJsonWebKey(),                      null,                                           "Wrong jwk");
         assertEquals(header.getJsonWebKeySetUrl(),                URI.create("https://example.org/a-simple.jku"), "Wrong jwkSetURL");
         assertEquals(header.getX509CertificateChain().size(),                   3,                                "Wrong x509CertificateChain");
         assertEquals(header.getX509CertificateThumbprint().length(),            20,                               "Wrong x509CertificateThumbprint");
@@ -147,6 +153,32 @@ public class JWSTest extends AbstractTestParse {
         assertEquals(header.getX509CertificateChain().get(2).getSubjectDN().toString(),
                      "EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 2 Policy Validation Authority, O=\"ValiCert, Inc.\", L=ValiCert Validation Network",
                      "Wrong subject for X509 certificate [2]");
+
+        /* Copied in from JWK secition B */
+        assertNotNull(header.getJsonWebKey(), "Wrong jwk");
+        assertTrue(header.getJsonWebKey() instanceof RSAPublicJWK, "Wrong jwk class");
+
+        final RSAPublicJWK rsa = (RSAPublicJWK) header.getJsonWebKey();
+
+        assertNull  (rsa.getAlgorithm(),                                          "Wrong algorithm");
+        assertEquals(rsa.getKeyId(),                         "1b94c",             "Wrong key ID");
+        assertEquals(rsa.getKeyOperations(),                 EMPTY_LIST,          "Wrong key operations");
+        assertEquals(rsa.getKeyType(),                       JWKKeyType.RSA,      "Wrong key type");
+        assertEquals(rsa.getPublicKeyUse(),                  JWKPublicKeyUse.SIG, "Wrong public key use");
+        assertEquals(rsa.getX509CertificateChain().size(),   1,                   "Wrong certificate chain");
+        assertNull  (rsa.getX509CertificateThumbprint(),                          "Wrong certificate thumbprint");
+        assertNull  (rsa.getX509CertificateThumbprintSHA256(),                    "Wrong certificate thumbprint (sha256)");
+        assertNull  (rsa.getX509Url(),                                            "Wrong X509 URL");
+
+        final BigInteger n = parseBigInteger("vrjOfz9Ccdgx5nQudyhdoR17V-IubWMeOZCwX_jj0hgAsz2J_pqYW08PLbK_PdiVGKPrqzmDIsLI7sA25VEnHU1uCLNwBuUiCO11_-7dYbsr4iJmG0Qu2j8DsVyT1azpJC_NG84Ty5KKthuCaPod7iI7w0LK9orSMhBEwwZDCxTWq4aYWAchc8t-emd9qOvWtVMDC2BXksRngh6X5bUYLy6AyHKvj-nUy1wgzjYQDwHMTplCoLtU-o-8SNnZ1tmRoGE9uJkBLdh5gFENabWnU5m1ZqZPdwS-qo-meMvVfJb6jJVWRpl2SUtCnYG2C32qvbWbjZ_jBPD5eunqsIo1vQ");
+        final BigInteger e = parseBigInteger("AQAB");
+        assertEquals(rsa.getModulus(),                       n,                   "Wrong modulus");
+        assertEquals(rsa.getPublicExponent(),                e,                   "Wrong public exponent");
+
+        final X509Certificate cert = rsa.getX509CertificateChain().get(0);
+        assertEquals(cert.getSubjectDN().toString(), "CN=Brian Campbell, O=Ping Identity Corp., L=Denver, ST=CO, C=US", "Wrong certificate subject");
+        assertEquals(((RSAPublicKey) cert.getPublicKey()).getModulus(), n, "Wrong modulus");
+        assertEquals(((RSAPublicKey) cert.getPublicKey()).getPublicExponent(), e, "Wrong public exponent");
 
         validateObject(url, header);
     }
