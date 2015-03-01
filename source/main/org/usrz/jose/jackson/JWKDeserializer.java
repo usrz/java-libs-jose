@@ -20,6 +20,7 @@ import java.io.IOException;
 import org.usrz.jose.core.Common;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.ec.ECPrivateJWK;
+import org.usrz.jose.jwk.ec.ECPublicJWK;
 import org.usrz.jose.jwk.oct.OctetSequenceJWK;
 import org.usrz.jose.jwk.rsa.RSAPrivateJWK;
 import org.usrz.jose.jwk.rsa.RSAPublicJWK;
@@ -46,6 +47,7 @@ public class JWKDeserializer extends JsonDeserializer<JWK<?>> {
         final JsonParser json = node.traverse(parser.getCodec());
         json.nextToken();
 
+        System.err.println("PARSING ->" + node);
         try {
             final JsonNode typeNode = node.get(JWK.KEY_TYPE);
             if (typeNode == null) {
@@ -57,8 +59,8 @@ public class JWKDeserializer extends JsonDeserializer<JWK<?>> {
             switch (type) {
                 case "EC":
                     return node.get(ECPrivateJWK.ECC_PRIVATE_KEY) != null ?
-                            context.readValue(json, RSAPrivateJWK.class) :
-                            context.readValue(json, RSAPublicJWK.class);
+                            context.readValue(json, ECPrivateJWK.class) :
+                            context.readValue(json, ECPublicJWK.class);
 
                 case "RSA":
                     return node.get(RSAPrivateJWK.PRIVATE_EXPONENT) != null ?
