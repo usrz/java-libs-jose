@@ -56,10 +56,8 @@ public interface JWKSet {
         private final List<JWK<?>> keys;
         private final List<JWK<?>> keysList;
 
-        @SuppressWarnings("unchecked")
         public Builder() {
             super(Impl.class);
-
             keysList = new ArrayList<>();
             keys = Collections.unmodifiableList(keysList);
         }
