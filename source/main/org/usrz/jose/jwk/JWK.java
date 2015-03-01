@@ -16,6 +16,8 @@
 package org.usrz.jose.jwk;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Setter;
@@ -25,6 +27,7 @@ import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.core.Common;
 import org.usrz.jose.jackson.JWKDeserializer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -71,8 +74,15 @@ public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
                                          B extends Builder<K, J, B>>
     extends Common.Builder<JOSEAlgorithm, J, B> {
 
+        @SuppressWarnings("unused")
+        private final List<JWKKeyOperation> keyOperations;
+        private final List<JWKKeyOperation> keyOperationsList;
+
         protected Builder(Class<? extends J> type) {
             super(type);
+
+            keyOperationsList = new ArrayList<>();
+            keyOperations = Collections.unmodifiableList(keyOperationsList);
         }
 
         /* ================================================================== */
@@ -95,8 +105,21 @@ public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
          * The "key_ops" (key operations) member identifies the operation(s)
          * that the key is intended to be used for.
          */
-        @Setter(onMethod=@__({@JsonProperty(KEY_OPERATIONS)}))
-        private List<JWKKeyOperation> keyOperations;
+        @SuppressWarnings("unchecked")
+        @JsonProperty(KEY_OPERATIONS)
+        public B setKeyOperations(List<JWKKeyOperation> keyOperations) {
+            if (keyOperations == null) return (B) this;
+            keyOperations.forEach((keyOperation) -> {
+                this.keyOperationsList.add(keyOperation);
+            });
+            return (B) this;
+        }
 
+        @JsonIgnore
+        @SuppressWarnings("unchecked")
+        public B addKeyOperation(JWKKeyOperation keyOperation) {
+            keyOperationsList.add(keyOperation);
+            return (B) this;
+        }
     }
 }
