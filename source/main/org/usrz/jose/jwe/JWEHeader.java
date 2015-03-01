@@ -54,7 +54,7 @@ public interface JWEHeader extends Header<JWEAlgorithm> {
      * The "zip" (compression algorithm) applied to the Plaintext before
      * encryption, if any.
      */
-    @JsonProperty(ENCRYPTION)
+    @JsonProperty(COMPRESSION)
     public JWECompression getCompression();
 
     /* ====================================================================== */
