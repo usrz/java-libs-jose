@@ -172,7 +172,7 @@ public interface Header<A extends JOSEAlgorithm> extends Common<A> {
         public B setCriticalExtensions(List<String> criticalExtensions) {
             if (criticalExtensions == null) return (B) this;
             criticalExtensions.forEach((criticalExtension) -> {
-                criticalExtensionsList.add(criticalExtension);
+                this.criticalExtensionsList.add(criticalExtension);
             });
             return (B) this;
         }
