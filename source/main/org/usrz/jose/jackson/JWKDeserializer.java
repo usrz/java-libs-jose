@@ -54,7 +54,6 @@ public class JWKDeserializer extends JsonDeserializer<JWK<?>> {
 
             // TODO enums!
             final String type = typeNode.asText();
-            System.out.println("KEY TYPE --> " + type);
             switch (type) {
                 case "EC":
                     return node.get(ECPrivateJWK.ECC_PRIVATE_KEY) != null ?
