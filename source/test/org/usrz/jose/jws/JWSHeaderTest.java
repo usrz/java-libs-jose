@@ -47,11 +47,11 @@ import org.usrz.jose.jwk.rsa.RSAPublicJWK;
 public class JWSHeaderTest extends AbstractTestParse {
 
     @Test
-    public void testSection3_1_example_1()
+    public void testSection3_1_A()
     throws Exception {
-        final URL url = getResource("jws-section-3.1-example1.json");
-        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
-        validateObject(url, header);
+        final String json = "{\"typ\":\"JWT\",\"alg\":\"HS256\"}";
+        final JWSHeader header = mapper.readValue(json, JWSHeader.class);
+        validateObject(json, header);
 
         assertEquals(header.getAlgorithm(),                       HS256,                "Wrong algorithm");
         assertEquals(header.getMediaType(),                       APPLICATION_JWT_TYPE, "Wrong type");
@@ -68,11 +68,11 @@ public class JWSHeaderTest extends AbstractTestParse {
     }
 
     @Test
-    public void testSection3_1_example_2()
+    public void testSection3_1_B()
     throws Exception {
-        final URL url = getResource("jws-section-3.1-example2.json");
-        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
-        validateObject(url, header);
+        final String json = "{\"alg\":\"none\"}";
+        final JWSHeader header = mapper.readValue(json, JWSHeader.class);
+        validateObject(json, header);
 
         assertEquals(header.getAlgorithm(),                       NONE,                 "Wrong algorithm");
         assertEquals(header.getMediaType(),                       null,                 "Wrong type");
@@ -89,11 +89,11 @@ public class JWSHeaderTest extends AbstractTestParse {
     }
 
     @Test
-    public void testSection4_1_11_critical_header()
+    public void testSection4_1_11()
     throws Exception {
-        final URL url = getResource("jws-section-4.1.11-critical-header.json");
-        final JWSHeader header = mapper.readValue(url, JWSHeader.class);
-        validateObject(url, header);
+        final String json = "{\"alg\":\"ES256\",\"crit\":[\"exp\"],\"exp\":1363284000}";
+        final JWSHeader header = mapper.readValue(json, JWSHeader.class);
+        validateObject(json, header);
 
         assertEquals(header.getAlgorithm(),                       ES256,                "Wrong algorithm");
         assertEquals(header.getMediaType(),                       null,                 "Wrong type");
@@ -111,7 +111,7 @@ public class JWSHeaderTest extends AbstractTestParse {
     }
 
     @Test
-    public void testFull()
+    public void testFullJWSHeader()
     throws Exception {
         final URL url = getResource("full.json");
         final JWSHeader header = mapper.readValue(url, JWSHeader.class);
@@ -129,8 +129,6 @@ public class JWSHeaderTest extends AbstractTestParse {
         }};
 
         mapper.writeValue(System.out, header);
-
-        // TODO: JWK and test!!!
 
         assertEquals(header.getAlgorithm(),                       PS512,                                          "Wrong algorithm");
         assertEquals(header.getMediaType(),                       APPLICATION_JWS_TYPE,                           "Wrong type");
@@ -160,20 +158,20 @@ public class JWSHeaderTest extends AbstractTestParse {
 
         final RSAPublicJWK rsa = (RSAPublicJWK) header.getJsonWebKey();
 
-        assertNull  (rsa.getAlgorithm(),                                          "Wrong algorithm");
-        assertEquals(rsa.getKeyId(),                         "1b94c",             "Wrong key ID");
-        assertEquals(rsa.getKeyOperations(),                 EMPTY_LIST,          "Wrong key operations");
-        assertEquals(rsa.getKeyType(),                       JWKKeyType.RSA,      "Wrong key type");
-        assertEquals(rsa.getPublicKeyUse(),                  JWKPublicKeyUse.SIG, "Wrong public key use");
-        assertEquals(rsa.getX509CertificateChain().size(),   1,                   "Wrong certificate chain");
-        assertNull  (rsa.getX509CertificateThumbprint(),                          "Wrong certificate thumbprint");
-        assertNull  (rsa.getX509CertificateThumbprintSHA256(),                    "Wrong certificate thumbprint (sha256)");
-        assertNull  (rsa.getX509Url(),                                            "Wrong X509 URL");
+        assertEquals(rsa.getAlgorithm(),                       null,                "Wrong algorithm");
+        assertEquals(rsa.getKeyId(),                           "1b94c",             "Wrong key ID");
+        assertEquals(rsa.getKeyOperations(),                   EMPTY_LIST,          "Wrong key operations");
+        assertEquals(rsa.getKeyType(),                         JWKKeyType.RSA,      "Wrong key type");
+        assertEquals(rsa.getPublicKeyUse(),                    JWKPublicKeyUse.SIG, "Wrong public key use");
+        assertEquals(rsa.getX509CertificateChain().size(),     1,                   "Wrong certificate chain");
+        assertEquals(rsa.getX509CertificateThumbprint(),       null,                "Wrong certificate thumbprint");
+        assertEquals(rsa.getX509CertificateThumbprintSHA256(), null,                "Wrong certificate thumbprint (sha256)");
+        assertEquals(rsa.getX509Url(),                         null,                "Wrong X509 URL");
 
         final BigInteger n = parseBigInteger("vrjOfz9Ccdgx5nQudyhdoR17V-IubWMeOZCwX_jj0hgAsz2J_pqYW08PLbK_PdiVGKPrqzmDIsLI7sA25VEnHU1uCLNwBuUiCO11_-7dYbsr4iJmG0Qu2j8DsVyT1azpJC_NG84Ty5KKthuCaPod7iI7w0LK9orSMhBEwwZDCxTWq4aYWAchc8t-emd9qOvWtVMDC2BXksRngh6X5bUYLy6AyHKvj-nUy1wgzjYQDwHMTplCoLtU-o-8SNnZ1tmRoGE9uJkBLdh5gFENabWnU5m1ZqZPdwS-qo-meMvVfJb6jJVWRpl2SUtCnYG2C32qvbWbjZ_jBPD5eunqsIo1vQ");
         final BigInteger e = parseBigInteger("AQAB");
-        assertEquals(rsa.getModulus(),                       n,                   "Wrong modulus");
-        assertEquals(rsa.getPublicExponent(),                e,                   "Wrong public exponent");
+        assertEquals(rsa.getModulus(),                         n,                   "Wrong modulus");
+        assertEquals(rsa.getPublicExponent(),                  e,                   "Wrong public exponent");
 
         final X509Certificate cert = rsa.getX509CertificateChain().get(0);
         assertEquals(cert.getSubjectDN().toString(), "CN=Brian Campbell, O=Ping Identity Corp., L=Denver, ST=CO, C=US", "Wrong certificate subject");
