@@ -24,17 +24,26 @@ public class AbstractTestParse extends AbstractTest {
         return url;
     }
 
+    protected void validateObject(String json, Object object)
+    throws Exception {
+        validateObject(mapper.readTree(json), object);
+    }
+
     protected void validateObject(URL url, Object object)
     throws Exception {
+        validateObject(mapper.readTree(url), object);
+    }
+
+    protected void validateObject(TreeNode expected, Object object)
+    throws Exception {
         final TreeNode actual = mapper.valueToTree(object);
-        final TreeNode expected = mapper.readTree(url);
 
         if (!actual.equals(expected)) {
             final String actualString = mapper.writer(prettyPrinter).writeValueAsString(actual);
             final String expectedString = mapper.writer(prettyPrinter).writeValueAsString(expected);
-            throw new AssertionError("Tree differs: " + url + "\n>>> EXPECTED >>>\n" + expectedString + "\n<<< ACTUAL <<<\n" + actualString);
+            throw new AssertionError("Tree differs:\n>>> EXPECTED >>>\n" + expectedString + "\n<<< ACTUAL <<<\n" + actualString);
         } else {
-            System.err.println("Validated " + url);
+            System.err.println("Validated:");
             System.err.println(mapper.writer(prettyPrinter).writeValueAsString(actual));
         }
     }
