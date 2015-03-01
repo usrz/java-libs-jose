@@ -15,13 +15,69 @@
  * ========================================================================== */
 package org.usrz.jose.jwk.rsa;
 
+import java.math.BigInteger;
+import java.net.URI;
+import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import org.usrz.jose.core.Bytes;
+import org.usrz.jose.jwk.JWKKeyOperation;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
 import org.usrz.jose.jwk.PublicJWK;
+import org.usrz.jose.jws.JWSAlgorithm;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder=RSAPublicJWK.Builder.class)
 public interface RSAPublicJWK
 extends RSAJWK<RSAPublicKey>, PublicJWK<RSAPublicKey> {
 
     /* RSAPublicJWK is a simple marker interface */
 
+    /* ====================================================================== */
+
+    @Accessors(chain=true)
+    @JsonPOJOBuilder(withPrefix="set")
+    public static final class Builder
+    extends RSAJWK.Builder<RSAPublicKey, RSAPublicJWK, Builder> {
+
+        public Builder() {
+            super(Impl.class);
+        }
+
+        @Override
+        public RSAPublicJWK build() {
+            return super.build();
+        }
+
+        /* ================================================================== */
+
+        @Data
+        private static final class Impl implements RSAPublicJWK {
+
+            /* Common */
+            private final JWSAlgorithm algorithm;
+            private final String keyId;
+            private final URI x509Url;
+            private final List<X509Certificate> x509CertificateChain;
+            private final Bytes x509CertificateThumbprint;
+            private final Bytes x509CertificateThumbprintSHA256;
+
+            /* JWK */
+            private final JWKKeyType keyType;
+            private final JWKPublicKeyUse publicKeyUse;
+            private final List<JWKKeyOperation> keyOperations;
+
+            /* JWK "RSA" */
+            private final BigInteger modulus;
+            private final BigInteger publicExponent;
+
+        }
+    }
 }

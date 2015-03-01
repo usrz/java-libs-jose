@@ -19,9 +19,13 @@ import java.math.BigInteger;
 import java.security.Key;
 import java.security.interfaces.RSAKey;
 
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 import org.usrz.jose.jwk.JWK;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 public interface RSAJWK<KEY extends Key & RSAKey>
 extends JWK<KEY> {
@@ -45,4 +49,34 @@ extends JWK<KEY> {
     @JsonProperty(PUBLIC_EXPONENT)
     public BigInteger getPublicExponent();
 
+    /* ====================================================================== */
+
+    @Accessors(chain=true)
+    @JsonPOJOBuilder(withPrefix="set")
+    public abstract static class Builder<K extends Key & RSAKey,
+                                         J extends RSAJWK<K>,
+                                         B extends Builder<K, J, B>>
+    extends JWK.Builder<K, J, B> {
+
+        protected Builder(Class<? extends J> type) {
+            super(type);
+        }
+
+        /* ================================================================== */
+
+        /**
+         * The "n" (modulus) member contains the modulus value for the RSA
+         * public key.
+         */
+        @Setter(onMethod=@__({@JsonProperty(MODULUS)}))
+        private BigInteger modulus;
+
+        /**
+         * The "e" (exponent) member contains the public exponent value for
+         * the RSA key.
+         */
+        @Setter(onMethod=@__({@JsonProperty(PUBLIC_EXPONENT)}))
+        private BigInteger publicExponent;
+
+    }
 }
