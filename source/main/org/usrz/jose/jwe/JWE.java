@@ -15,9 +15,9 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
-import org.usrz.jose.JOSEContainer;
+import org.usrz.jose.JOSE;
 
-public interface JWE extends JOSEContainer<JWEHeader> {
+public interface JWE extends JOSE<JWEHeader> {
 
     public byte[] getEncryptedKey();
 
