@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
-import static com.fasterxml.jackson.core.Base64Variants.MIME_NO_LINEFEEDS;
-import static org.usrz.jose.jackson.BytesDeserializer.deserializeBytes;
-
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.usrz.jose.jwe.JWEAlgorithm;
+import org.usrz.jose.jws.JWSAlgorithm;
+import org.usrz.jose.shared.JOSEAlgorithm;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,32 +31,33 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class X509CertificateDeserializer extends JsonDeserializer<X509Certificate> {
+public class JOSEAlgorithmDeserializer
+extends JsonDeserializer<JOSEAlgorithm> {
 
-    private static final CertificateFactory certificateFactory;
-    static {
-        try {
-            certificateFactory = CertificateFactory.getInstance("X.509");
-        } catch (CertificateException exception) {
-            throw new IllegalStateException("Unable to access X.509 certificate factory");
-        }
+    private final Map<String, JOSEAlgorithm> mappings;
+
+    public JOSEAlgorithmDeserializer() {
+        final Map<String, JOSEAlgorithm> mappings = new HashMap<>();
+        EnumSet.allOf(JWEAlgorithm.class).forEach((entry) -> {
+            mappings.put(entry.joseName(), entry);
+        });
+        EnumSet.allOf(JWSAlgorithm.class).forEach((entry) -> {
+            mappings.put(entry.joseName(), entry);
+        });
+        this.mappings = Collections.unmodifiableMap(mappings);
     }
 
     @Override
-    public X509Certificate deserialize(JsonParser parser, DeserializationContext context)
+    public JOSEAlgorithm deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
-        final byte[] data = deserializeBytes(parser, MIME_NO_LINEFEEDS);
-        final ByteArrayInputStream input = new ByteArrayInputStream(data);
-        try {
-            return (X509Certificate) certificateFactory.generateCertificate(input);
-        } catch (CertificateException exception) {
-            throw new JsonMappingException("Unable to parse X509 certificate", exception);
-        }
+        final String text = parser.getText();
+        final JOSEAlgorithm algorithm = mappings.get(text);
+        if (algorithm != null) return algorithm;
+        throw new JsonMappingException("Invalid algorithm value: " + text);
     }
 
     @Override
-    public Class<X509Certificate> handledType() {
-        return X509Certificate.class;
+    public Class<JOSEAlgorithm> handledType() {
+        return JOSEAlgorithm.class;
     }
-
 }

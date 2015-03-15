@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.ser;
 
 import static com.fasterxml.jackson.core.Base64Variants.MIME_NO_LINEFEEDS;
-import static org.usrz.jose.jackson.BytesSerializer.serializeBytes;
+import static org.usrz.jose.jackson.ser.BytesSerializer.serializeBytes;
 
 import java.io.IOException;
 import java.security.cert.CertificateEncodingException;

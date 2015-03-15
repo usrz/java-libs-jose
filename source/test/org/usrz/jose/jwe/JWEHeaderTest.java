@@ -4,13 +4,13 @@ import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 import static javax.ws.rs.core.MediaType.TEXT_HTML_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWE_TYPE;
 import static org.usrz.jose.jwe.JWEAlgorithm.A128KW;
 import static org.usrz.jose.jwe.JWEAlgorithm.RSA1_5;
 import static org.usrz.jose.jwe.JWEAlgorithm.RSA_OAEP;
 import static org.usrz.jose.jwe.JWECompression.DEF;
 import static org.usrz.jose.jwe.JWEEncryption.A128CBC_HS256;
 import static org.usrz.jose.jwe.JWEEncryption.A256GCM;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWE_TYPE;
 
 import java.math.BigInteger;
 import java.net.URI;

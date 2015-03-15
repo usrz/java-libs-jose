@@ -22,7 +22,7 @@ import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.BeanBuilder;
+import org.usrz.jose.shared.JOSEBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -50,7 +50,7 @@ public interface JWKSet {
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public class Builder
-    extends BeanBuilder<JWKSet> {
+    extends JOSEBuilder<JWKSet> {
 
         @SuppressWarnings("unused")
         private final List<JWK<?>> keys;

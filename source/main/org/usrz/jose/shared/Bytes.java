@@ -1,4 +1,4 @@
-package org.usrz.jose.core;
+package org.usrz.jose.shared;
 
 import java.util.Arrays;
 
@@ -12,9 +12,7 @@ public final class Bytes {
     }
 
     public byte[] getBytes() {
-        final byte[] array = new byte[bytes.length];
-        System.arraycopy(bytes, 0, array, 0, bytes.length);
-        return array;
+        return Arrays.copyOf(bytes, bytes.length);
     }
 
     public int length() {

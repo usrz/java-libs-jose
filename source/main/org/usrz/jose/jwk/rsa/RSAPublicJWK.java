@@ -24,12 +24,12 @@ import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jwk.JWKKeyOperation;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 import org.usrz.jose.jwk.PublicJWK;
 import org.usrz.jose.jws.JWSAlgorithm;
+import org.usrz.jose.shared.Bytes;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.core;
+package org.usrz.jose.shared;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ import javax.ws.rs.core.MediaType;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jws.JWSAlgorithm;
@@ -44,7 +43,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
  * @param <A> The type of the algorithm for this container, either a
  *            {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
  */
-public interface Header<A extends JOSEAlgorithm> extends Common<A> {
+public interface JOSEHeader<A extends JOSEAlgorithm> extends JOSEAbstract<A> {
 
     /** The {@code typ} header field name. */
     public static final String MEDIA_TYPE = "typ";
@@ -107,9 +106,9 @@ public interface Header<A extends JOSEAlgorithm> extends Common<A> {
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public abstract class Builder<A extends JOSEAlgorithm,
-                                  H extends Header<A>,
+                                  H extends JOSEHeader<A>,
                                   B extends Builder<A, H, B>>
-    extends Common.Builder<A, H, B> {
+    extends JOSEAbstract.Builder<A, H, B> {
 
         @SuppressWarnings("unused")
         private final List<String> criticalExtensions;

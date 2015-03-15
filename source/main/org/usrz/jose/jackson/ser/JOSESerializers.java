@@ -13,29 +13,27 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose;
+package org.usrz.jose.jackson.ser;
 
-import org.usrz.jose.core.Header;
-import org.usrz.jose.jwe.JWE;
-import org.usrz.jose.jwe.JWEHeader;
-import org.usrz.jose.jws.JWS;
-import org.usrz.jose.jws.JWSHeader;
+import java.math.BigInteger;
+import java.security.cert.X509Certificate;
 
-/**
- * The {@link JOSE} interface defines an abstract object formatted
- * according to the <i>Javascript Object Signing and Encryption</i>, or in
- * other words, the common aspects of {@link JWS} and {@link JWE} objects.
- *
- * @param <HEADER> The type of the header for this container, either a
- *                 {@link JWSHeader} or a {@link JWEHeader}.
- */
-public interface JOSE<HEADER extends Header<?>> {
+import javax.ws.rs.core.MediaType;
 
+import org.usrz.jose.shared.Bytes;
+import org.usrz.jose.shared.JOSEIdentifier;
 
+import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
-    /**
-     * Return the header associated with this container.
-     */
-    public HEADER getHeader();
+public class JOSESerializers extends SimpleSerializers {
+
+    public JOSESerializers() {
+        addSerializer(Bytes.class, new BytesSerializer());
+        addSerializer(BigInteger.class, new BigIntegerSerializer());
+        addSerializer(JOSEIdentifier.class, new JOSEIdentifierSerializer());
+        addSerializer(MediaType.class, new MediaTypeSerializer());
+        addSerializer(X509Certificate.class, new X509CertificateSerializer());
+
+    }
 
 }

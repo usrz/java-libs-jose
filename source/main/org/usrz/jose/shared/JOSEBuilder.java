@@ -1,4 +1,4 @@
-package org.usrz.jose.core;
+package org.usrz.jose.shared;
 
 import java.beans.ConstructorProperties;
 import java.lang.reflect.Constructor;
@@ -13,7 +13,12 @@ import java.util.concurrent.ConcurrentMap;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-public abstract class BeanBuilder<T> implements Builder<T> {
+/**
+ * A basic implementation of the <i>builder</i> pattern.
+ *
+ * @param <T> The type of the object to build.
+ */
+public abstract class JOSEBuilder<T> {
 
     private static final TypeFactory TYPE_FACTORY = TypeFactory.defaultInstance();
     private static final ConcurrentMap<Entry<Class<?>, Class<?>>, Maker<?>> CACHE =
@@ -22,7 +27,7 @@ public abstract class BeanBuilder<T> implements Builder<T> {
     private final Maker<T> beanConstructor;
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    protected BeanBuilder(final Class<? extends T> type) {
+    protected JOSEBuilder(final Class<? extends T> type) {
         final Class thisClass = this.getClass();
 
         final Entry cacheKey = new SimpleImmutableEntry(thisClass, type);
@@ -41,7 +46,7 @@ public abstract class BeanBuilder<T> implements Builder<T> {
         private final Constructor<?> constructor;
         private final Field[] fields;
 
-        public Maker(Class<? extends Builder<T>> builder, Class<? extends T> type) {
+        public Maker(Class<? extends JOSEBuilder<T>> builder, Class<? extends T> type) {
 
             Constructor<?> constructor = null;
             Field[] fields = null;
@@ -100,7 +105,7 @@ public abstract class BeanBuilder<T> implements Builder<T> {
         }
 
         @SuppressWarnings("unchecked")
-        public T build(Builder<T> builder) {
+        public T build(JOSEBuilder<T> builder) {
             final Object[] parameters = new Object[fields.length];
             for (int x = 0; x < fields.length; x ++) try {
                 parameters[x] = fields[x].get(builder);

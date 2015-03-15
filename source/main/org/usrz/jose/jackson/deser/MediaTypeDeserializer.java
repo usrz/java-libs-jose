@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JOSE_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JOSE_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWE_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWE_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWK_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWK_SET_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWS_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWS_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWT_JSON_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWT_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JOSE_JSON_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JOSE_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWE_JSON_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWE_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWK_JSON_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWK_SET_JSON_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWS_JSON_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWS_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWT_JSON_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWT_TYPE;
 
 import java.io.IOException;
 

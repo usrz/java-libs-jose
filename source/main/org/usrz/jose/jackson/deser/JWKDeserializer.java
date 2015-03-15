@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
 import java.io.IOException;
 
-import org.usrz.jose.core.Common;
 import org.usrz.jose.jwk.JWK;
 import org.usrz.jose.jwk.ec.ECPrivateJWK;
 import org.usrz.jose.jwk.ec.ECPublicJWK;
 import org.usrz.jose.jwk.oct.OctetSequenceJWK;
 import org.usrz.jose.jwk.rsa.RSAPrivateJWK;
 import org.usrz.jose.jwk.rsa.RSAPublicJWK;
+import org.usrz.jose.shared.JOSEAbstract;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,7 +40,7 @@ public class JWKDeserializer extends JsonDeserializer<JWK<?>> {
 
         final JsonToken token = parser.getCurrentToken();
         if (token != JsonToken.START_OBJECT) {
-            throw context.mappingException(Common.class, token);
+            throw context.mappingException(JOSEAbstract.class, token);
         }
 
         final JsonNode node = parser.readValueAsTree();

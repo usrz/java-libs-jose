@@ -23,9 +23,9 @@ import java.util.List;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.core.Common;
-import org.usrz.jose.jackson.JWKDeserializer;
+import org.usrz.jose.jackson.deser.JWKDeserializer;
+import org.usrz.jose.shared.JOSEAbstract;
+import org.usrz.jose.shared.JOSEAlgorithm;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  * @param <K> The Java {@link Key} type represented by this {@link JWK}
  */
 @JsonDeserialize(using=JWKDeserializer.class)
-public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
+public interface JWK<K extends Key> extends JOSEAbstract<JOSEAlgorithm> {
 
     /** The {@code key_ops} JWK field name. */
     public static final String KEY_OPERATIONS = "key_ops";
@@ -72,7 +72,7 @@ public interface JWK<K extends Key> extends Common<JOSEAlgorithm> {
     public abstract static class Builder<K extends Key,
                                          J extends JWK<K>,
                                          B extends Builder<K, J, B>>
-    extends Common.Builder<JOSEAlgorithm, J, B> {
+    extends JOSEAbstract.Builder<JOSEAlgorithm, J, B> {
 
         @SuppressWarnings("unused")
         private final List<JWKKeyOperation> keyOperations;

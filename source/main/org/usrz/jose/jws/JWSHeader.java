@@ -10,15 +10,15 @@ import javax.ws.rs.core.MediaType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.Bytes;
-import org.usrz.jose.core.Header;
 import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.shared.Bytes;
+import org.usrz.jose.shared.JOSEHeader;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 @JsonDeserialize(builder=JWSHeader.Builder.class)
-public interface JWSHeader extends Header<JWSAlgorithm> {
+public interface JWSHeader extends JOSEHeader<JWSAlgorithm> {
 
     /* JWSHeader is a simple marker interface */
 
@@ -27,7 +27,7 @@ public interface JWSHeader extends Header<JWSAlgorithm> {
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public static final class Builder
-    extends Header.Builder<JWSAlgorithm, JWSHeader, Builder> {
+    extends JOSEHeader.Builder<JWSAlgorithm, JWSHeader, Builder> {
 
         public Builder() {
             super(Impl.class);

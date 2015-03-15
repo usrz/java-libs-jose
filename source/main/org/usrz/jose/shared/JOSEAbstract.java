@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.core;
+package org.usrz.jose.shared;
 
 import java.net.URI;
 import java.security.cert.X509Certificate;
@@ -24,7 +24,6 @@ import java.util.List;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jwk.JWK;
@@ -36,13 +35,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
- * The {@link Common} interface defines all the properties common to
+ * The {@link JOSEAbstract} interface defines all the properties common to
  * {@link JWSHeader}s, {@link JWEHeader}s and {@link JWK}s.
  *
  * @param <A> The type of the algorithm for this object, either a
  *            {@link JWSAlgorithm} or a {@link JWEAlgorithm}.
  */
-public interface Common<A extends JOSEAlgorithm> {
+public interface JOSEAbstract<A extends JOSEAlgorithm> {
 
     /** The {@code alg} field name. */
     public static final String ALGORITHM = "alg";
@@ -107,9 +106,9 @@ public interface Common<A extends JOSEAlgorithm> {
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public abstract class Builder<A extends JOSEAlgorithm,
-                                  C extends Common<A>,
+                                  C extends JOSEAbstract<A>,
                                   B extends Builder<A, C, B>>
-    extends BeanBuilder<C> {
+    extends JOSEBuilder<C> {
 
         @SuppressWarnings("unused")
         private final List<X509Certificate> x509CertificateChain;

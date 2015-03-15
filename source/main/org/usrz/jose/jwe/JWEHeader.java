@@ -26,16 +26,16 @@ import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import org.usrz.jose.core.Bytes;
-import org.usrz.jose.core.Header;
 import org.usrz.jose.jwk.JWK;
+import org.usrz.jose.shared.Bytes;
+import org.usrz.jose.shared.JOSEHeader;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 @JsonDeserialize(builder=JWEHeader.Builder.class)
-public interface JWEHeader extends Header<JWEAlgorithm> {
+public interface JWEHeader extends JOSEHeader<JWEAlgorithm> {
 
     /** The {@code enc} JWE header field name. */
     public static final String ENCRYPTION = "enc";
@@ -62,7 +62,7 @@ public interface JWEHeader extends Header<JWEAlgorithm> {
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public static final class Builder
-    extends Header.Builder<JWEAlgorithm, JWEHeader, Builder> {
+    extends JOSEHeader.Builder<JWEAlgorithm, JWEHeader, Builder> {
 
         public Builder() {
             super(Impl.class);

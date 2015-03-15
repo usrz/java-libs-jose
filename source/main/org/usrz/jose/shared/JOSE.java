@@ -13,33 +13,26 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose;
+package org.usrz.jose.shared;
 
-import org.usrz.jose.core.Identifier;
+import org.usrz.jose.jwe.JWE;
 import org.usrz.jose.jwe.JWEHeader;
-import org.usrz.jose.jwk.JWKKeyType;
-import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jws.JWS;
 import org.usrz.jose.jws.JWSHeader;
 
 /**
- * An interface abstracting a <i>JOSE</i> algorithm, normally used in
- * {@link JWSHeader} or {@link JWEHeader} structures.
+ * The {@link JOSE} interface defines an abstract object formatted
+ * according to the <i>Javascript Object Signing and Encryption</i>, or in
+ * other words, the common aspects of {@link JWS} and {@link JWE} objects.
+ *
+ * @param <H> The type of the header for this container, either a
+ *            {@link JWSHeader} or a {@link JWEHeader}.
  */
-public interface JOSEAlgorithm extends Identifier {
+public interface JOSE<H extends JOSEHeader<?>> {
 
     /**
-     * The key type ({@linkplain JWKKeyType#EC Elliptic Curve},
-     * {@linkplain JWKKeyType#RSA RSA}, &hellip;) associated with this
-     * algorithm .
+     * Return the header associated with this container.
      */
-    public JWKKeyType getKeyType();
-
-    /**
-     * The crypto operation ({@linkplain JWKPublicKeyUse#SIG signature
-     * generation and verification}, {@linkplain JWKPublicKeyUse#ENC encryption
-     * and decryption}, &hellip;) associated with this algorithm.
-     */
-    // TODO: Is this the correct value to return???
-    public JWKPublicKeyUse getPublicKeyUse();
+    public H getHeader();
 
 }

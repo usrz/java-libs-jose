@@ -15,6 +15,9 @@
  * ========================================================================== */
 package org.usrz.jose.jackson;
 
+import org.usrz.jose.jackson.deser.JOSEDeserializers;
+import org.usrz.jose.jackson.ser.JOSESerializers;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.Base64Variants;
 import com.fasterxml.jackson.databind.ObjectMapper;

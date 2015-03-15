@@ -13,30 +13,48 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.usrz.jose.core.Identifier;
+import org.usrz.jose.shared.JOSEIdentifier;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class JOSEIdentifierSerializer
-extends JsonSerializer<Identifier> {
+public class JOSEIdentifierDeserializer<I extends Enum<I> & JOSEIdentifier>
+extends JsonDeserializer<I> {
 
-    @Override
-    public void serialize(Identifier value,
-                          JsonGenerator generator,
-                          SerializerProvider provider)
-    throws IOException, JsonProcessingException {
-        generator.writeString(value.joseId());
+    private final Map<String, I> mappings;
+    private final Class<I> type;
+
+    public JOSEIdentifierDeserializer(Class<I> type) {
+        final Map<String, I> mappings = new HashMap<>();
+        EnumSet.allOf(type).forEach((entry) -> {
+            mappings.put(entry.joseName(), entry);
+        });
+        this.mappings = Collections.unmodifiableMap(mappings);
+        this.type = type;
     }
 
     @Override
-    public Class<Identifier> handledType() {
-        return Identifier.class;
+    public I deserialize(JsonParser parser, DeserializationContext context)
+    throws IOException, JsonProcessingException {
+        final String text = parser.getText();
+        final I identifier = mappings.get(text);
+        if (identifier != null) return identifier;
+        throw new JsonMappingException("Invalid " + type.getSimpleName() + " value: " + text);
+    }
+
+    @Override
+    public Class<I> handledType() {
+        return type;
     }
 }

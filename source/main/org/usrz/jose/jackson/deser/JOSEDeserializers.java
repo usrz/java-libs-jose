@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
 import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 
 import javax.ws.rs.core.MediaType;
 
-import org.usrz.jose.JOSEAlgorithm;
-import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwe.JWECompression;
 import org.usrz.jose.jwe.JWEEncryption;
@@ -31,6 +29,8 @@ import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 import org.usrz.jose.jwk.ec.ECCurve;
 import org.usrz.jose.jws.JWSAlgorithm;
+import org.usrz.jose.shared.Bytes;
+import org.usrz.jose.shared.JOSEAlgorithm;
 
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 

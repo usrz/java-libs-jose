@@ -21,12 +21,12 @@ import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonList;
 import static java.util.Collections.singletonMap;
 import static javax.ws.rs.core.MediaType.TEXT_HTML_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWS_TYPE;
-import static org.usrz.jose.JOSEMediaTypes.APPLICATION_JWT_TYPE;
 import static org.usrz.jose.jws.JWSAlgorithm.ES256;
 import static org.usrz.jose.jws.JWSAlgorithm.HS256;
 import static org.usrz.jose.jws.JWSAlgorithm.NONE;
 import static org.usrz.jose.jws.JWSAlgorithm.PS512;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWS_TYPE;
+import static org.usrz.jose.shared.JOSEMediaTypes.APPLICATION_JWT_TYPE;
 
 import java.math.BigInteger;
 import java.net.URI;

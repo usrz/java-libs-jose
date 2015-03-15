@@ -3,8 +3,8 @@ package org.usrz.jose;
 import java.math.BigInteger;
 import java.net.URL;
 
-import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jackson.JOSEObjectMapper;
+import org.usrz.jose.shared.Bytes;
 import org.usrz.libs.testing.AbstractTest;
 import org.usrz.libs.utils.codecs.Base64Codec;
 

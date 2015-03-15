@@ -20,9 +20,9 @@ import static org.usrz.jose.jwk.JWKKeyType.OCT;
 import static org.usrz.jose.jwk.JWKKeyType.RSA;
 import static org.usrz.jose.jwk.JWKPublicKeyUse.SIG;
 
-import org.usrz.jose.JOSEAlgorithm;
 import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.shared.JOSEAlgorithm;
 
 public enum JWSAlgorithm implements JOSEAlgorithm {
 
@@ -68,7 +68,7 @@ public enum JWSAlgorithm implements JOSEAlgorithm {
     }
 
     @Override
-    public String joseId() {
+    public String joseName() {
         return identifier;
     }
 

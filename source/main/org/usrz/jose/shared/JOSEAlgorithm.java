@@ -13,17 +13,32 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.core;
+package org.usrz.jose.shared;
+
+import org.usrz.jose.jwe.JWEHeader;
+import org.usrz.jose.jwk.JWKKeyType;
+import org.usrz.jose.jwk.JWKPublicKeyUse;
+import org.usrz.jose.jws.JWSHeader;
 
 /**
- * An interface defining a unique identifer as described by the <i>Javascript
- * Object Signature and Encryption</i> set of specifications.
+ * An interface abstracting a <i>JOSE</i> algorithm, normally used in
+ * {@link JWSHeader} or {@link JWEHeader} structures.
  */
-public interface Identifier {
+public interface JOSEAlgorithm extends JOSEIdentifier {
 
     /**
-     * Return the unique {@link String} identifier of this instance.
+     * The key type ({@linkplain JWKKeyType#EC Elliptic Curve},
+     * {@linkplain JWKKeyType#RSA RSA}, &hellip;) associated with this
+     * algorithm .
      */
-    public String joseId();
+    public JWKKeyType getKeyType();
+
+    /**
+     * The crypto operation ({@linkplain JWKPublicKeyUse#SIG signature
+     * generation and verification}, {@linkplain JWKPublicKeyUse#ENC encryption
+     * and decryption}, &hellip;) associated with this algorithm.
+     */
+    // TODO: Is this the correct value to return???
+    public JWKPublicKeyUse getPublicKeyUse();
 
 }

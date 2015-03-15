@@ -15,12 +15,13 @@
  * ========================================================================== */
 package org.usrz.jose.jws;
 
-import org.usrz.jose.JOSE;
+import org.usrz.jose.shared.Bytes;
+import org.usrz.jose.shared.JOSE;
 
 public interface JWS extends JOSE<JWSHeader> {
 
-    public byte[] getPayload();
+    public Bytes getPayload();
 
-    public byte[] getSignature();
+    public Bytes getSignature();
 
 }

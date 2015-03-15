@@ -15,7 +15,7 @@
  * ========================================================================== */
 package org.usrz.jose.jwk;
 
-import org.usrz.jose.core.Identifier;
+import org.usrz.jose.shared.JOSEIdentifier;
 
 
 /**
@@ -24,7 +24,7 @@ import org.usrz.jose.core.Identifier;
  *
  * @author <a href="mailto:pier@usrz.com">Pier Fumagalli</a>
  */
-public enum JWKKeyOperation implements Identifier {
+public enum JWKKeyOperation implements JOSEIdentifier {
 
     /** Compute digital signature or MAC. */
     SIGN("sign"),
@@ -50,7 +50,7 @@ public enum JWKKeyOperation implements Identifier {
     }
 
     @Override
-    public String joseId() {
+    public String joseName() {
         return identifier;
     }
 }

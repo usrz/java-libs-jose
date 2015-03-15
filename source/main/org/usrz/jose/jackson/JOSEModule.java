@@ -15,6 +15,9 @@
  * ========================================================================== */
 package org.usrz.jose.jackson;
 
+import org.usrz.jose.jackson.deser.JOSEDeserializers;
+import org.usrz.jose.jackson.ser.JOSESerializers;
+
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 

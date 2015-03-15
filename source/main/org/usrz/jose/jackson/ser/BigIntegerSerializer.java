@@ -13,46 +13,39 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.ser;
 
 import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
+import static org.usrz.jose.jackson.ser.BytesSerializer.serializeBytes;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
-import org.usrz.jose.core.Bytes;
-
-import com.fasterxml.jackson.core.Base64Variant;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class BytesSerializer
-extends JsonSerializer<Bytes> {
+public class BigIntegerSerializer extends JsonSerializer<BigInteger> {
 
     @Override
-    public void serialize(Bytes value,
+    public void serialize(BigInteger value,
                           JsonGenerator generator,
                           SerializerProvider provider)
     throws IOException, JsonProcessingException {
-        serializeBytes(value.getBytes(), generator, MODIFIED_FOR_URL);
+        final byte[] encoded = value.toByteArray();
+        if ((encoded.length > 1) && (encoded[0] == 0)) {
+            final byte[] nonnegative = new byte[encoded.length - 1];
+            System.arraycopy(encoded, 1, nonnegative, 0, nonnegative.length);
+            serializeBytes(nonnegative, generator, MODIFIED_FOR_URL);
+        } else {
+            serializeBytes(encoded, generator, MODIFIED_FOR_URL);
+        }
     }
 
     @Override
-    public Class<Bytes> handledType() {
-        return Bytes.class;
-    }
-
-    /*
-     * Jackson does not seem to honor the call below, somehow...
-     * generator.writeBinary(Base64Variants.MIME_NO_LINEFEEDS, encoded, 0, encoded.length);
-     * Manually encode base64 and write as string!
-     */
-    protected static final void serializeBytes(byte[] value,
-                                               JsonGenerator generator,
-                                               Base64Variant variant)
-    throws IOException {
-        generator.writeString(variant.encode(value));
+    public Class<BigInteger> handledType() {
+        return BigInteger.class;
     }
 
 }

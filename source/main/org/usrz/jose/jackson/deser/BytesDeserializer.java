@@ -13,39 +13,40 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
 import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
-import static org.usrz.jose.jackson.BytesSerializer.serializeBytes;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import org.usrz.jose.shared.Bytes;
+
+import com.fasterxml.jackson.core.Base64Variant;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 
-public class BigIntegerSerializer extends JsonSerializer<BigInteger> {
+public class BytesDeserializer extends JsonDeserializer<Bytes> {
 
     @Override
-    public void serialize(BigInteger value,
-                          JsonGenerator generator,
-                          SerializerProvider provider)
+    public Bytes deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
-        final byte[] encoded = value.toByteArray();
-        if ((encoded.length > 1) && (encoded[0] == 0)) {
-            final byte[] nonnegative = new byte[encoded.length - 1];
-            System.arraycopy(encoded, 1, nonnegative, 0, nonnegative.length);
-            serializeBytes(nonnegative, generator, MODIFIED_FOR_URL);
-        } else {
-            serializeBytes(encoded, generator, MODIFIED_FOR_URL);
-        }
+        return new Bytes(deserializeBytes(parser, MODIFIED_FOR_URL));
     }
 
     @Override
-    public Class<BigInteger> handledType() {
-        return BigInteger.class;
+    public Class<byte[]> handledType() {
+        return byte[].class;
     }
 
+    /*
+     * Jackson does not seem to honor the call below, somehow...
+     * final byte[] data = parser.getBinaryValue(Base64Variants.MIME_NO_LINEFEEDS);
+     * Manually read a string and dencode base64
+     */
+    protected static final byte[] deserializeBytes(JsonParser parser, Base64Variant variant)
+    throws IOException {
+        return variant.decode(parser.getText());
+    }
 }

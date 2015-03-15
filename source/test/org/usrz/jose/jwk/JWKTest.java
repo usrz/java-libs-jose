@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 import org.usrz.jose.AbstractTestParse;
-import org.usrz.jose.core.Bytes;
 import org.usrz.jose.jwe.JWEAlgorithm;
 import org.usrz.jose.jwk.ec.ECCurve;
 import org.usrz.jose.jwk.ec.ECPrivateJWK;
@@ -34,6 +33,7 @@ import org.usrz.jose.jwk.oct.OctetSequenceJWK;
 import org.usrz.jose.jwk.rsa.RSAPrivateJWK;
 import org.usrz.jose.jwk.rsa.RSAPublicJWK;
 import org.usrz.jose.jws.JWSAlgorithm;
+import org.usrz.jose.shared.Bytes;
 
 public class JWKTest extends AbstractTestParse {
 

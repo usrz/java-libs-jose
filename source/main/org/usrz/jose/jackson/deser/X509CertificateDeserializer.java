@@ -13,31 +13,49 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
-import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
-import static org.usrz.jose.jackson.BytesDeserializer.deserializeBytes;
+import static com.fasterxml.jackson.core.Base64Variants.MIME_NO_LINEFEEDS;
+import static org.usrz.jose.jackson.deser.BytesDeserializer.deserializeBytes;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.math.BigInteger;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class BigIntegerDeserializer extends JsonDeserializer<BigInteger> {
+public class X509CertificateDeserializer extends JsonDeserializer<X509Certificate> {
 
-    @Override
-    public BigInteger deserialize(JsonParser parser, DeserializationContext context)
-    throws IOException, JsonProcessingException {
-        final byte[] data = deserializeBytes(parser, MODIFIED_FOR_URL);
-        return new BigInteger(1, data);
+    private static final CertificateFactory certificateFactory;
+    static {
+        try {
+            certificateFactory = CertificateFactory.getInstance("X.509");
+        } catch (CertificateException exception) {
+            throw new IllegalStateException("Unable to access X.509 certificate factory");
+        }
     }
 
     @Override
-    public Class<BigInteger> handledType() {
-        return BigInteger.class;
+    public X509Certificate deserialize(JsonParser parser, DeserializationContext context)
+    throws IOException, JsonProcessingException {
+        final byte[] data = deserializeBytes(parser, MIME_NO_LINEFEEDS);
+        final ByteArrayInputStream input = new ByteArrayInputStream(data);
+        try {
+            return (X509Certificate) certificateFactory.generateCertificate(input);
+        } catch (CertificateException exception) {
+            throw new JsonMappingException("Unable to parse X509 certificate", exception);
+        }
+    }
+
+    @Override
+    public Class<X509Certificate> handledType() {
+        return X509Certificate.class;
     }
 
 }

@@ -13,40 +13,31 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.deser;
 
 import static com.fasterxml.jackson.core.Base64Variants.MODIFIED_FOR_URL;
+import static org.usrz.jose.jackson.deser.BytesDeserializer.deserializeBytes;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
-import org.usrz.jose.core.Bytes;
-
-import com.fasterxml.jackson.core.Base64Variant;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-public class BytesDeserializer extends JsonDeserializer<Bytes> {
+public class BigIntegerDeserializer extends JsonDeserializer<BigInteger> {
 
     @Override
-    public Bytes deserialize(JsonParser parser, DeserializationContext context)
+    public BigInteger deserialize(JsonParser parser, DeserializationContext context)
     throws IOException, JsonProcessingException {
-        return new Bytes(deserializeBytes(parser, MODIFIED_FOR_URL));
+        final byte[] data = deserializeBytes(parser, MODIFIED_FOR_URL);
+        return new BigInteger(1, data);
     }
 
     @Override
-    public Class<byte[]> handledType() {
-        return byte[].class;
+    public Class<BigInteger> handledType() {
+        return BigInteger.class;
     }
 
-    /*
-     * Jackson does not seem to honor the call below, somehow...
-     * final byte[] data = parser.getBinaryValue(Base64Variants.MIME_NO_LINEFEEDS);
-     * Manually read a string and dencode base64
-     */
-    protected static final byte[] deserializeBytes(JsonParser parser, Base64Variant variant)
-    throws IOException {
-        return variant.decode(parser.getText());
-    }
 }

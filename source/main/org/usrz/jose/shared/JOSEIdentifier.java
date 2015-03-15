@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.shared;
 
-import java.math.BigInteger;
-import java.security.cert.X509Certificate;
+/**
+ * An interface defining a unique identifier as described by the <i>Javascript
+ * Object Signature and Encryption</i> set of specifications.
+ */
+public interface JOSEIdentifier {
 
-import javax.ws.rs.core.MediaType;
-
-import org.usrz.jose.core.Bytes;
-import org.usrz.jose.core.Identifier;
-
-import com.fasterxml.jackson.databind.module.SimpleSerializers;
-
-public class JOSESerializers extends SimpleSerializers {
-
-    public JOSESerializers() {
-        addSerializer(Bytes.class, new BytesSerializer());
-        addSerializer(BigInteger.class, new BigIntegerSerializer());
-        addSerializer(Identifier.class, new JOSEIdentifierSerializer());
-        addSerializer(MediaType.class, new MediaTypeSerializer());
-        addSerializer(X509Certificate.class, new X509CertificateSerializer());
-
-    }
+    /**
+     * Return the unique {@link String} identifier of this instance, or, in
+     * other words, the unique <i>name</i> as described in the RFC.
+     */
+    public String joseName();
 
 }

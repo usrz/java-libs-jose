@@ -15,16 +15,17 @@
  * ========================================================================== */
 package org.usrz.jose.jwe;
 
-import org.usrz.jose.JOSE;
+import org.usrz.jose.shared.Bytes;
+import org.usrz.jose.shared.JOSE;
 
 public interface JWE extends JOSE<JWEHeader> {
 
-    public byte[] getEncryptedKey();
+    public Bytes getEncryptedKey();
 
-    public byte[] getInitializationVector();
+    public Bytes getInitializationVector();
 
-    public byte[] getCipherText();
+    public Bytes getCipherText();
 
-    public byte[] getAuthenticationTag();
+    public Bytes getAuthenticationTag();
 
 }

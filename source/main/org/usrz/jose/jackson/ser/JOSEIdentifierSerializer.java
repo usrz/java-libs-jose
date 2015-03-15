@@ -13,48 +13,30 @@
  * See the License for the specific language governing permissions and        *
  * limitations under the License.                                             *
  * ========================================================================== */
-package org.usrz.jose.jackson;
+package org.usrz.jose.jackson.ser;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.usrz.jose.core.Identifier;
+import org.usrz.jose.shared.JOSEIdentifier;
 
-import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class JOSEIdentifierDeserializer<I extends Enum<I> & Identifier>
-extends JsonDeserializer<I> {
-
-    private final Map<String, I> mappings;
-    private final Class<I> type;
-
-    protected JOSEIdentifierDeserializer(Class<I> type) {
-        final Map<String, I> mappings = new HashMap<>();
-        EnumSet.allOf(type).forEach((entry) -> {
-            mappings.put(entry.joseId(), entry);
-        });
-        this.mappings = Collections.unmodifiableMap(mappings);
-        this.type = type;
-    }
+public class JOSEIdentifierSerializer
+extends JsonSerializer<JOSEIdentifier> {
 
     @Override
-    public I deserialize(JsonParser parser, DeserializationContext context)
+    public void serialize(JOSEIdentifier value,
+                          JsonGenerator generator,
+                          SerializerProvider provider)
     throws IOException, JsonProcessingException {
-        final String text = parser.getText();
-        final I identifier = mappings.get(text);
-        if (identifier != null) return identifier;
-        throw new JsonMappingException("Invalid " + type.getSimpleName() + " value: " + text);
+        generator.writeString(value.joseName());
     }
 
     @Override
-    public Class<I> handledType() {
-        return type;
+    public Class<JOSEIdentifier> handledType() {
+        return JOSEIdentifier.class;
     }
 }
