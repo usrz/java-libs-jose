@@ -17,15 +17,24 @@ package org.usrz.jose.jackson;
 
 import org.usrz.jose.jackson.deser.JOSEDeserializers;
 import org.usrz.jose.jackson.ser.JOSESerializers;
+import org.usrz.jose.shared.JOSE;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.Base64Variants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * A <i>Jackson</i> {@link ObjectMapper} fully configured to properly read and
+ * serialize {@link JOSE} objects and related.
+ */
 public class JOSEObjectMapper extends ObjectMapper {
 
+    /** A shared static {@link JOSEObjectMapper} instance. */
     public static final JOSEObjectMapper MAPPER = new JOSEObjectMapper();
 
+    /**
+     * Create a new {@link JOSEObjectMapper} instance.
+     */
     public JOSEObjectMapper() {
         setBase64Variant(Base64Variants.MODIFIED_FOR_URL);
         setSerializationInclusion(Include.NON_EMPTY);
@@ -45,5 +54,4 @@ public class JOSEObjectMapper extends ObjectMapper {
                 .with(_deserializationContext.getFactory()
                             .withAdditionalDeserializers(new JOSEDeserializers()));
     }
-
 }

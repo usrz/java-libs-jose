@@ -20,6 +20,8 @@ import org.usrz.jose.jwe.JWEHeader;
 import org.usrz.jose.jws.JWS;
 import org.usrz.jose.jws.JWSHeader;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The {@link JOSE} interface defines an abstract object formatted
  * according to the <i>Javascript Object Signing and Encryption</i>, or in
@@ -30,9 +32,13 @@ import org.usrz.jose.jws.JWSHeader;
  */
 public interface JOSE<H extends JOSEHeader<?>> {
 
+    /** The {@code protected} field name. */
+    public static final String PROTECTED_HEADER = "protected";
+
     /**
-     * Return the header associated with this container.
+     * Return the <i>protected</i> header associated with this container.
      */
+    @JsonProperty(PROTECTED_HEADER)
     public H getHeader();
 
 }

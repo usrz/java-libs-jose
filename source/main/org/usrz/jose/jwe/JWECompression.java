@@ -17,6 +17,9 @@ package org.usrz.jose.jwe;
 
 import org.usrz.jose.shared.JOSEIdentifier;
 
+/**
+ * An enumeration of all known {@link JWE} compression algorithms.
+ */
 public enum JWECompression implements JOSEIdentifier {
 
     /** Deflate */

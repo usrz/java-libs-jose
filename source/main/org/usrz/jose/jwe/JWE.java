@@ -18,6 +18,10 @@ package org.usrz.jose.jwe;
 import org.usrz.jose.shared.Bytes;
 import org.usrz.jose.shared.JOSE;
 
+/**
+ * A JSON Web Encryption ({@link JWE}) represents encrypted content using
+ * JavaScript Object Notation (JSON) based data structures.
+ */
 public interface JWE extends JOSE<JWEHeader> {
 
     public Bytes getEncryptedKey();

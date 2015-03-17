@@ -23,6 +23,9 @@ import org.usrz.jose.jwk.JWKKeyType;
 import org.usrz.jose.jwk.JWKPublicKeyUse;
 import org.usrz.jose.shared.JOSEAlgorithm;
 
+/**
+ * An enumeration of all known {@link JWE} algorithms.
+ */
 public enum JWEAlgorithm implements JOSEAlgorithm {
 
     DIR                   ("dir", null),

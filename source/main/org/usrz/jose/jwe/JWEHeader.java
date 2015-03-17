@@ -34,6 +34,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+/**
+ * A {@link JWE} {@linkplain JOSEHeader header}.
+ */
 @JsonDeserialize(builder=JWEHeader.Builder.class)
 public interface JWEHeader extends JOSEHeader<JWEAlgorithm> {
 

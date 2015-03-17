@@ -24,6 +24,7 @@ public interface JWSHeader extends JOSEHeader<JWSAlgorithm> {
 
     /* ====================================================================== */
 
+    /** A builder of immutable {@link JWSHeader} instances. */
     @Accessors(chain=true)
     @JsonPOJOBuilder(withPrefix="set")
     public static final class Builder

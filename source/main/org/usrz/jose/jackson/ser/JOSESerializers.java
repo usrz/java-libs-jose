@@ -33,7 +33,6 @@ public class JOSESerializers extends SimpleSerializers {
         addSerializer(JOSEIdentifier.class, new JOSEIdentifierSerializer());
         addSerializer(MediaType.class, new MediaTypeSerializer());
         addSerializer(X509Certificate.class, new X509CertificateSerializer());
-
     }
 
 }
